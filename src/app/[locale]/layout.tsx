@@ -5,6 +5,7 @@ import { getMessages } from "next-intl/server";
 import { Toaster } from "react-hot-toast";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { PWAInstallPrompt } from "@/components/layout/PWAInstallPrompt";
 import "@/app/globals.css";
 
 // B1 FIX: The variable was previously named --font-inter even though DM Sans
@@ -93,6 +94,7 @@ export default async function LocaleLayout({
     >
       <body className={isRTL ? "font-arabic" : ""} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
+          <PWAInstallPrompt />
           {children}
           <Toaster
             position={isRTL ? "bottom-left" : "bottom-right"}

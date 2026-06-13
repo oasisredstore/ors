@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ProductCard } from "@/components/marketplace/ProductCard";
 import { MapPin, Package, Star, Mail, MessageCircle } from "lucide-react";
 import Image from "next/image";
+import { QRCodeShare } from "@/components/shared/QRCodeShare";
 
 interface ArtisanProfilePageProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -142,7 +143,8 @@ export default async function ArtisanProfilePage({ params }: ArtisanProfilePageP
               </div>
 
               {/* Contact buttons */}
-              <div className={`flex gap-2 shrink-0 ${isAr ? "mr-auto" : "ml-auto"}`}>
+              <div className={`flex flex-wrap gap-2 shrink-0 ${isAr ? "mr-auto" : "ml-auto"}`}>
+                <QRCodeShare url={`/${locale}/artisans/${artisan.slug}`} title={artisan.shopName} />
                 {artisan.whatsapp && (
                   <a
                     href={`https://wa.me/${artisan.whatsapp.replace(/\D/g, "")}`}
