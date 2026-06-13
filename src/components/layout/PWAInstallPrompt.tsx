@@ -38,10 +38,25 @@ export function PWAInstallPrompt() {
       setDeferredPrompt(null);
     });
 
+    const triggerInstall = () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+          setDeferredPrompt(null);
+          setShowPrompt(false);
+        });
+      } else if (!isStandalone) {
+        alert("لتثبيت التطبيق على الآيفون (iOS): اضغط على زر 'المشاركة' (Share) ثم اختر 'إضافة إلى الشاشة الرئيسية' (Add to Home Screen).");
+      }
+    };
+
+    window.addEventListener("trigger-pwa-install", triggerInstall);
+
     return () => {
       window.removeEventListener("beforeinstallprompt", handler);
+      window.removeEventListener("trigger-pwa-install", triggerInstall);
     };
-  }, []);
+  }, [deferredPrompt]);
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;

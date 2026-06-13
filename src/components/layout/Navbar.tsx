@@ -15,6 +15,7 @@ import {
   Heart,
   ShoppingCart,
   Search,
+  Download,
 } from "lucide-react";
 import { useWishlistStore } from "@/store/wishlistStore";
 import { useCartStore } from "@/store/cartStore";
@@ -120,6 +121,20 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
               <Globe className="w-4 h-4" />
               {otherLocale === "ar" ? "العربية" : "English"}
             </Link>
+
+            {/* PWA Download Button */}
+            <button
+              onClick={() => window.dispatchEvent(new Event("trigger-pwa-install"))}
+              className={cn(
+                "hidden sm:flex items-center gap-1.5 text-sm font-bold px-3 py-1.5 rounded-full transition-all",
+                isSolid
+                  ? "bg-sand-500/10 text-sand-600 hover:bg-sand-500 hover:text-white"
+                  : "bg-white/20 text-white hover:bg-white/30"
+              )}
+            >
+              <Download className="w-4 h-4" />
+              <span className="hidden lg:block">{locale === "ar" ? "تنزيل التطبيق" : "App"}</span>
+            </button>
 
             {/* Wishlist */}
             <Link
@@ -290,6 +305,17 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
               <Globe className="w-4 h-4" />
               {otherLocale === "ar" ? "العربية" : "English"}
             </Link>
+
+            <button
+              onClick={() => {
+                setMobileOpen(false);
+                window.dispatchEvent(new Event("trigger-pwa-install"));
+              }}
+              className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-gradient-to-r from-sand-500 to-sand-600 text-white font-semibold rounded-xl mt-4"
+            >
+              <Download className="w-4 h-4" />
+              {locale === "ar" ? "تثبيت التطبيق على الهاتف" : "Install Mobile App"}
+            </button>
           </div>
         </div>
       )}
