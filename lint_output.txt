@@ -1,0 +1,90 @@
+
+> redoasis@0.1.0 lint
+> eslint
+
+
+E:\RedOasisArtisan\generate-pdf.js
+   1:19  error    A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+   2:21  error    A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+   3:12  error    A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+   4:14  error    A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  73:47  warning  'e' is defined but never used            @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\prisma\seed.ts
+    6:14  error    A `require()` style import is forbidden           @typescript-eslint/no-require-imports
+    7:12  error    A `require()` style import is forbidden           @typescript-eslint/no-require-imports
+  449:9   warning  'sampleOrder' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\prisma\update-images.ts
+  8:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  9:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+E:\RedOasisArtisan\scratch\check-db.ts
+  11:7  error  'missingImages' is never reassigned. Use 'const' instead  prefer-const
+  12:7  error  'wrongImages' is never reassigned. Use 'const' instead    prefer-const
+  13:7  error  'duplicates' is never reassigned. Use 'const' instead     prefer-const
+  14:7  error  'mismatched' is never reassigned. Use 'const' instead     prefer-const
+  15:7  error  'total' is never reassigned. Use 'const' instead          prefer-const
+
+E:\RedOasisArtisan\scratch\check_db.ts
+  4:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  5:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+E:\RedOasisArtisan\src\app\[locale]\account\orders\page.tsx
+  82:27  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+E:\RedOasisArtisan\src\app\[locale]\admin\orders\page.tsx
+  15:7  warning  'STATUS_LABELS' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\src\app\[locale]\admin\page.tsx
+  156:27  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+E:\RedOasisArtisan\src\app\[locale]\admin\products\page.tsx
+  78:29  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+E:\RedOasisArtisan\src\app\[locale]\admin\users\page.tsx
+  3:10  warning  'formatDate' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\src\app\[locale]\artisans\page.tsx
+  2:10  warning  'getTranslations' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\src\app\[locale]\checkout\page.tsx
+  22:10  warning  'addressId' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  22:21  warning  'setAddressId' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\src\app\[locale]\dashboard\orders\page.tsx
+  129:27  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+E:\RedOasisArtisan\src\app\[locale]\dashboard\page.tsx
+  121:23  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+E:\RedOasisArtisan\src\app\[locale]\dashboard\products\page.tsx
+  94:29  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+E:\RedOasisArtisan\src\app\[locale]\products\page.tsx
+  34:9  warning  't' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\src\components\admin\AnalyticsCharts.tsx
+  3:10  warning  'useEffect' is defined but never used  @typescript-eslint/no-unused-vars
+  3:21  warning  'useRef' is defined but never used     @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\src\components\dashboard\EditProductForm.tsx
+  229:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  256:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+E:\RedOasisArtisan\src\components\dashboard\ProductForm.tsx
+  182:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+E:\RedOasisArtisan\src\components\dashboard\ProfileForm.tsx
+   58:13  warning  Image elements must have an alt prop, either with meaningful text, or an empty string for decorative images  jsx-a11y/alt-text
+  187:15  warning  Image elements must have an alt prop, either with meaningful text, or an empty string for decorative images  jsx-a11y/alt-text
+
+E:\RedOasisArtisan\src\components\marketplace\ProductCard.tsx
+  38:9  warning  't' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\src\components\marketplace\ProductDetailClient.tsx
+  271:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+✖ 38 problems (15 errors, 23 warnings)
+  5 errors and 0 warnings potentially fixable with the `--fix` option.
+

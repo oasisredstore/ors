@@ -1,0 +1,428 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════
+   PALETTE GOURARA — Timimoun, Algérie
+   Inspirée de : Rouge toub/latérite · Sable de l'Erg · Ciel saharien
+═══════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ─── Rouge Latérite / Toub de Timimoun (Couleur Primaire) ─── */
+  --color-sand-50:  #FEF3EF;
+  --color-sand-100: #FAE0D4;
+  --color-sand-200: #F3BCA3;
+  --color-sand-300: #E8906C;
+  --color-sand-400: #D96230;
+  --color-sand-500: #C04A1A;   /* ★ TOUB ROUGE — Primaire CTA */
+  --color-sand-600: #9A3812;
+  --color-sand-700: #762C0C;
+  --color-sand-800: #541E09;
+  --color-sand-900: #371205;
+
+  /* ─── Crème du Plâtre / Fond Ivoire Chaud ─── */
+  --color-desert-50:  #FEFCF8;
+  --color-desert-100: #FBF7EE;
+  --color-desert-200: #F4EAD5;
+  --color-desert-300: #E9D9B8;
+
+  /* ─── Or Saharien / Erg Occidental (Secondaire) ─── */
+  --color-sable-50:  #FEFBF4;
+  --color-sable-100: #FBF3DF;
+  --color-sable-200: #F4E2B0;
+  --color-sable-300: #EACC78;
+  --color-sable-400: #DEB048;
+  --color-sable-500: #CC9020;   /* ★ OR SAHARIEN — Secondaire */
+  --color-sable-600: #A87218;
+  --color-sable-700: #825612;
+  --color-sable-800: #5E3D0D;
+  --color-sable-900: #3C2508;
+
+  /* ─── Bleu Ciel Saharien (Accent) ─── */
+  --color-oasis-50:  #EEF5FB;
+  --color-oasis-100: #D3E8F5;
+  --color-oasis-200: #A2CDE9;
+  --color-oasis-300: #64AEDB;
+  --color-oasis-400: #3090C8;
+  --color-oasis-500: #1972A8;   /* ★ CIEL SAHARIEN — Accent info */
+  --color-oasis-600: #125A86;
+  --color-oasis-700: #0D4364;
+  --color-oasis-800: #092D44;
+  --color-oasis-900: #051B28;
+
+  /* ─── Vert Palmier / Oasis (Succès) ─── */
+  --color-palmier-50:  #EEF8F3;
+  --color-palmier-100: #D2EEE0;
+  --color-palmier-200: #9ED9BB;
+  --color-palmier-300: #60BE90;
+  --color-palmier-400: #33A06A;
+  --color-palmier-500: #1D7F4E;   /* ★ VERT OASIS — Succès */
+  --color-palmier-600: #166340;
+  --color-palmier-700: #0F4A2D;
+  --color-palmier-800: #0A331E;
+  --color-palmier-900: #061E12;
+
+  /* ─── Argile / Terres (Texte) ─── */
+  --color-clay-50:  #FAF7F5;
+  --color-clay-100: #F2EAE4;
+  --color-clay-200: #E0D0C6;
+  --color-clay-300: #C9B3A7;
+  --color-clay-400: #AE9084;
+  --color-clay-500: #906C5E;   /* Texte secondaire */
+  --color-clay-600: #705047;
+  --color-clay-700: #523A32;
+  --color-clay-800: #362420;   /* ★ TEXTE PRINCIPAL */
+  --color-clay-900: #1E1410;
+
+  /* ─── Typographie ─── */
+  --font-display: var(--font-playfair), 'Cormorant Garamond', Georgia, serif;
+  /* B1 FIX: Variable renamed from --font-inter to --font-dm-sans in layout.tsx */
+  --font-body:    var(--font-dm-sans), 'DM Sans', system-ui, sans-serif;
+  --font-arabic:  var(--font-noto-arabic), 'Arial Unicode MS', sans-serif;
+
+  /* ─── Espacement & Rayons ─── */
+  --radius-xl:  1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BASE STYLES
+═══════════════════════════════════════════════════════════════ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-desert-50);
+  color: var(--color-clay-800);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[lang="ar"] body,
+[dir="rtl"] body {
+  font-family: var(--font-arabic);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TYPOGRAPHIE
+═══════════════════════════════════════════════════════════════ */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-arabic {
+  font-family: var(--font-arabic);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DÉGRADÉS — Inspirés des paysages du Gourara
+═══════════════════════════════════════════════════════════════ */
+
+/* Fond de section chaleureux — Crème ivoire + sable doré */
+.bg-desert-gradient {
+  background: linear-gradient(
+    135deg,
+    #FBF7EE 0%,
+    #F4EAD5 50%,
+    #FEFCF8 100%
+  );
+}
+
+/* Héro principal — Coucher de soleil sur Timimoun */
+.bg-hero-gradient {
+  background: linear-gradient(
+    160deg,
+    #1E1410 0%,    /* Nuit du désert */
+    #4F3C32 18%,   /* Terre sombre */
+    #762C0C 42%,   /* Brique ancienne */
+    #C04A1A 62%,   /* Rouge toub */
+    #CC9020 82%,   /* Or saharien */
+    #1972A8 100%   /* Ciel bleu à l'horizon */
+  );
+}
+
+/* Section artisans — Sable doré */
+.bg-sable-gradient {
+  background: linear-gradient(
+    135deg,
+    #FBF7EE 0%,
+    #F4E2B0 50%,
+    #EACC78 100%
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   OMBRES ORGANIQUES — Évoquent les murs de toub & l'argile
+═══════════════════════════════════════════════════════════════ */
+
+/* Ombre de base — mur de toub léger */
+.shadow-toub {
+  box-shadow:
+    0 1px 3px rgba(54, 36, 32, 0.10),
+    0 4px 12px rgba(54, 36, 32, 0.08),
+    0 0 0 1px rgba(233, 217, 184, 0.60);
+}
+
+/* Ombre survol — toub au soleil */
+.shadow-toub-hover {
+  box-shadow:
+    0 4px 8px rgba(54, 36, 32, 0.10),
+    0 16px 40px rgba(54, 36, 32, 0.14),
+    0 0 0 1px rgba(204, 144, 32, 0.20);
+}
+
+/* Ombre rouge — bouton primaire Gourara */
+.shadow-gourara {
+  box-shadow:
+    0 4px 14px rgba(192, 74, 26, 0.35),
+    0 1px 3px rgba(192, 74, 26, 0.20);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   GLASSMORPHISME — Adapté à la chaleur du Gourara
+═══════════════════════════════════════════════════════════════ */
+
+/* Verre ivoire chaud — navbar */
+.glass-card {
+  background: rgba(254, 252, 248, 0.88);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(233, 217, 184, 0.70);
+}
+
+/* Verre sombre — overlays sur photos */
+.glass-dark {
+  background: rgba(30, 20, 16, 0.75);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(204, 144, 32, 0.25);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOTIFS GÉOMÉTRIQUES ZÉNÈTES
+   Inspirés des tapis berbères et de l'artisanat du Gourara
+═══════════════════════════════════════════════════════════════ */
+
+/* Entrelacs losange — motif tapis berbère */
+.pattern-zenete {
+  background-color: #FEFCF8;
+  background-image:
+    linear-gradient(45deg,  rgba(192, 74, 26, 0.06) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(192, 74, 26, 0.06) 25%, transparent 25%),
+    linear-gradient(45deg,  transparent 75%, rgba(204, 144, 32, 0.04) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(204, 144, 32, 0.04) 75%);
+  background-size: 24px 24px;
+  background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+}
+
+/* Treillis moucharabieh */
+.pattern-moucharabieh {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(233, 217, 184, 0.45),
+      rgba(233, 217, 184, 0.45) 1px,
+      transparent 1px,
+      transparent 32px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(233, 217, 184, 0.45),
+      rgba(233, 217, 184, 0.45) 1px,
+      transparent 1px,
+      transparent 32px
+    );
+}
+
+/* Diagonales — tissage feuilles de palmier */
+.pattern-tissage {
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(204, 144, 32, 0.07) 0px,
+      rgba(204, 144, 32, 0.07) 2px,
+      transparent 2px,
+      transparent 16px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(192, 74, 26, 0.05) 0px,
+      rgba(192, 74, 26, 0.05) 2px,
+      transparent 2px,
+      transparent 16px
+    );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CARTES PRODUIT — Finesse organique
+═══════════════════════════════════════════════════════════════ */
+.product-card {
+  transition:
+    transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.28s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 4px 8px rgba(54, 36, 32, 0.08),
+    0 20px 48px rgba(54, 36, 32, 0.14),
+    0 0 0 1px rgba(204, 144, 32, 0.18);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════════════════════ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes pulse-gourara {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(192, 74, 26, 0.30); }
+  50%       { box-shadow: 0 0 0 8px rgba(192, 74, 26, 0.00); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.40s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SKELETON — Chargement avec chaleur sablée
+═══════════════════════════════════════════════════════════════ */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #F4EAD5 25%,
+    #FBF7EE 50%,
+    #F4EAD5 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLLBAR — Teinte argile organique
+═══════════════════════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FBF7EE;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #D96230, #C04A1A);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9A3812;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SÉLECTION DE TEXTE
+═══════════════════════════════════════════════════════════════ */
+::selection {
+  background: rgba(192, 74, 26, 0.20);
+  color: #362420;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FOCUS ACCESSIBILITY
+═══════════════════════════════════════════════════════════════ */
+:focus-visible {
+  outline: 2px solid #C04A1A;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   OVERLAY GRADIENTS — Pour les images hero avec texte
+═══════════════════════════════════════════════════════════════ */
+.overlay-toub {
+  background: linear-gradient(
+    to top,
+    rgba(30, 20, 16, 0.88) 0%,
+    rgba(30, 20, 16, 0.45) 45%,
+    transparent 100%
+  );
+}
+
+.overlay-sable {
+  background: linear-gradient(
+    to bottom,
+    rgba(254, 252, 248, 0.00) 0%,
+    rgba(254, 252, 248, 0.95) 85%,
+    rgba(254, 252, 248, 1.00) 100%
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BADGES ARTISANAT
+═══════════════════════════════════════════════════════════════ */
+.badge-artisan {
+  background: linear-gradient(135deg, #DEB048, #CC9020);
+  color: #1E1410;
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(204, 144, 32, 0.35);
+}
+
+.badge-featured {
+  background: linear-gradient(135deg, #C04A1A, #9A3812);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(192, 74, 26, 0.40);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RTL UTILITIES
+═══════════════════════════════════════════════════════════════ */
+[dir="rtl"] .rtl-flip {
+  transform: scaleX(-1);
+}
