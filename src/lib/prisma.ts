@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaLibSql } from "@prisma/adapter-libsql";
+import { createClient } from "@libsql/client/web";
 import path from "path";
 
 const globalForPrisma = globalThis as unknown as {
@@ -13,10 +14,14 @@ function createPrismaClient() {
 
   const authToken = process.env.DATABASE_AUTH_TOKEN ?? process.env.TURSO_AUTH_TOKEN;
 
-  const adapter = new PrismaLibSql({
+  // B14 FIX: Manually instantiate the web version of libsql client to bypass 
+  // Node.js undici fetch bugs ("expected non-null body source") in Next.js.
+  const libsql = createClient({
     url: dbUrl,
     ...(authToken ? { authToken } : {}),
   });
+
+  const adapter = new PrismaLibSql(libsql);
 
   return new PrismaClient({
     adapter,
