@@ -4,6 +4,7 @@ import { getSession } from "@/lib/session";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/home/HeroSection";
+import { SplashIntro } from "@/components/home/SplashIntro";
 import { ProductCard } from "@/components/marketplace/ProductCard";
 import { Leaf, Globe, Heart, Award } from "lucide-react";
 import Link from "next/link";
@@ -95,6 +96,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
   return (
     <>
+      <SplashIntro />
       <Navbar locale={locale} user={user} transparentOnTop={true} />
 
       <main>
