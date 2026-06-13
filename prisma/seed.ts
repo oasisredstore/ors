@@ -7,21 +7,28 @@ import bcrypt from "bcryptjs";
 const path = require("path");
 const fs = require("fs");
 const envFile = path.resolve(process.cwd(), ".env");
-if (fs.existsSync(envFile)) {
-  const lines = fs.readFileSync(envFile, "utf8").split(/\r?\n/);
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith("#")) continue;
-    const eqIdx = trimmed.indexOf("=");
-    if (eqIdx === -1) continue;
-    const key = trimmed.slice(0, eqIdx).trim();
-    let value = trimmed.slice(eqIdx + 1).trim();
-    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
-      value = value.slice(1, -1);
+const envLocalFile = path.resolve(process.cwd(), ".env.local");
+
+const loadEnv = (file: string) => {
+  if (fs.existsSync(file)) {
+    const lines = fs.readFileSync(file, "utf8").split(/\r?\n/);
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) continue;
+      const eqIdx = trimmed.indexOf("=");
+      if (eqIdx === -1) continue;
+      const key = trimmed.slice(0, eqIdx).trim();
+      let value = trimmed.slice(eqIdx + 1).trim();
+      if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+        value = value.slice(1, -1);
+      }
+      process.env[key] = value; // Always override with .env.local if loaded later
     }
-    if (!(key in process.env)) process.env[key] = value;
   }
-}
+};
+
+loadEnv(envFile);
+loadEnv(envLocalFile);
 
 const dbUrl =
   process.env.DATABASE_URL ??
@@ -29,7 +36,12 @@ const dbUrl =
 
 console.log("Using DB URL:", dbUrl);
 
-const adapter = new PrismaLibSql({ url: dbUrl });
+const authToken = process.env.DATABASE_AUTH_TOKEN ?? process.env.TURSO_AUTH_TOKEN;
+
+const adapter = new PrismaLibSql({
+  url: dbUrl,
+  ...(authToken ? { authToken } : {}),
+});
 const prisma = new PrismaClient({ adapter });
 
 
@@ -249,14 +261,14 @@ async function main() {
       categoryId: catTextiles.id,
       name: "Fatiss Carpet of Tinerkouk (Tegemilt)",
       nameAr: "السجادة الفاتيس من تنيركوك (تاجميلت)",
-      description: "This authentic Fatiss carpet is hand-woven by the weavers of the Gourara region, following ancient Zenete patterns. It features beautiful geometric symbols (diamonds, chevrons, and Berber crosses) representing protection and fertility. Made from 100% natural wool, it is colored using vegetable dyes extracted from local plants such as henna (orange), madder root (deep red), and indigo (deep blue). Each carpet represents weeks of meticulous hand-weaving on a traditional vertical loom.",
-      descriptionAr: "هذه السجادة الفاتيس الأصيلة منسوجة يدوياً من قبل نساجات منطقة قورارة، باتباع أنماط زناتية قديمة. تتميز برموز هندسية جميلة (معينات، شارات، وصلبان أمازيغية) تمثل الحماية والخصوبة. مصنوعة من الصوف الطبيعي 100%، وملونة باستخدام أصباغ نباتية مستخرجة من النباتات المحلية مثل الحناء (البرتقالي)، وجذور الفوة (الأحمر الداكن)، والنيلة (الأزرق الداكن). تمثل كل سجادة أسابيع من النسيج اليدوي الدقيق على نول عمودي تقليدي.",
+      description: "The Fatiss carpet is a masterpiece of Gourara's Zenete heritage. Hand-woven exclusively by the women of Tinerkouk, this thick, pure wool carpet is historically given as part of a bride's trousseau. It features intricate, ancestral geometric symbols—such as diamonds representing the evil eye's deflection, and chevrons symbolizing water and fertility in the arid Sahara. Colored strictly with natural vegetable dyes (madder root for deep red, indigo for striking blue, and local henna), this carpet is not just a floor covering, but a woven tapestry of desert survival and identity. For tourists and collectors, acquiring a genuine Fatiss supports the preservation of a dying matrilineal art form unique to the Timimoun region.",
+      descriptionAr: "سجادة الفاتيس هي تحفة فنية من التراث الزناتي لمنطقة قورارة. تُنسج يدوياً حصرياً من قبل نساء تنيركوك، وتُعد هذه السجادة المصنوعة من الصوف الخالص تاريخياً جزءاً من جهاز العروس. تتميز برموز هندسية عريقة ومعقدة - كالمعينات التي تمثل درء العين الحاسدة، والخطوط المتعرجة التي ترمز للماء والخصوبة في الصحراء القاحلة. تُصبغ بدقة باستخدام أصباغ نباتية طبيعية (جذور الفوة للحصول على الأحمر الداكن، والنيلة للأزرق اللافت، والحناء المحلية). هذه السجادة ليست مجرد غطاء للأرض، بل هي نسيج يحكي قصة البقاء والهوية الصحراوية. بالنسبة للسياح وعشاق التراث، فإن اقتناء سجادة فاتيس أصلية يدعم الحفاظ على فن متوارث عبر الأجيال تنفرد به منطقة تيميمون.",
       price: 32000,
       stockQty: 3,
       material: "100% Natural Wool, Vegetable Dyes",
       dimensions: "180cm × 120cm",
       origin: "Tinerkouk, Gourara, Algeria",
-      imageUrl: "https://images.unsplash.com/photo-1576016770956-debb63d900bb?q=80&w=600&auto=format&fit=crop",
+      imageUrl: "/images/products/fatiss_carpet.png",
       isFeatured: true,
     },
     {
@@ -264,14 +276,14 @@ async function main() {
       categoryId: catPalm.id,
       name: "Traditional Date-Palm Tadara Plate",
       nameAr: "صحن التادارة التقليدي من سعف النخيل",
-      description: "The Tadara is a traditional, conical covered container crafted from dried date palm fronds. Widely used in the Gourara oases, it serves both a functional purpose (keeping food warm and protecting it from desert sand) and an aesthetic one. The fibers are dyed with natural desert pigments and hand-braided using a tight spiral technique. It represents the age-old connection between the oasis ecosystem and local Saharan household crafts.",
-      descriptionAr: "التادارة هي حاوية مخروطية مغطاة تقليدية مصنوعة من سعف نخيل التمر المجفف. تستخدم على نطاق واسع في واحات قورارة، وتخدم غرضاً وظيفياً (حفظ الطعام دافئاً وحمايته من رمال الصحراء) وجمالياً في نفس الوقت. الألياف مصبوغة بأصباغ صحراوية طبيعية ومضفرة يدوياً باستخدام تقنية لولبية ضيقة. إنها تمثل العلاقة الأزلية بين نظام الواحات البيئي والحرف المنزلية الصحراوية المحلية.",
+      description: "The 'Tadara' is the iconic conical covered plate of the Algerian Sahara, deeply tied to the oasis ecosystem. Crafted in Timimoun using the finest sun-dried date-palm fronds, the Tadara is woven using a tight, spiral-coiling technique passed down through generations. Traditionally used to keep homemade bread warm and protect dates and couscous from the relentless desert sand, its shape mimics the dunes of the Grand Erg Occidental. The subtle ochre and brown bands are created using natural mineral dyes. It is a highly sought-after touristic souvenir, offering a sustainable, functional piece of Saharan hospitality that adds a warm, rustic aesthetic to any modern home.",
+      descriptionAr: "التادارة هي الطبق المخروطي المغطى الأيقوني للصحراء الجزائرية، والمرتبط ارتباطاً وثيقاً بنظام الواحات البيئي. تُصنع في تيميمون باستخدام أجود سعف نخيل التمر المجفف بالشمس، وتُنسج التادارة باستخدام تقنية اللف الحلزوني المحكم المتوارثة عبر الأجيال. تُستخدم تقليدياً للحفاظ على دفء الخبز المنزلي وحماية التمر والكسكس من رمال الصحراء المتطايرة، ويحاكي شكلها كثبان العرق الغربي الكبير. يتم تشكيل الأشرطة الدقيقة ذات اللون المغري والبني باستخدام أصباغ معدنية طبيعية. تُعد تذكاراً سياحياً مطلوباً بشدة، حيث تقدم قطعة مستدامة وعملية من كرم الضيافة الصحراوية تضفي لمسة ريفية دافئة على أي منزل عصري.",
       price: 4200,
       stockQty: 15,
       material: "Date-palm fronds, natural desert dyes",
       dimensions: "45cm diameter, 30cm height",
       origin: "Timimoun, Algeria",
-      imageUrl: "https://images.unsplash.com/photo-1590736969955-71cb54857544?q=80&w=600&auto=format&fit=crop",
+      imageUrl: "/images/products/tadara_plate.png",
       isFeatured: true,
     },
     {
@@ -279,14 +291,14 @@ async function main() {
       categoryId: catJewelry.id,
       name: "Traditional Engraved Silver Bracelet (Dara)",
       nameAr: "سوار فضي منقوش تقليدي (دارة)",
-      description: "This heavy silver cuff bracelet, known locally as Dara, is hand-engraved with geometric Berber motifs. Crafted in pure sterling silver by the metalworkers of the Tin Habib Collective, it features traditional Saharan patterns of protection and heritage. Each piece is shaped, hammered, and meticulously carved by hand, embodying the timeless spirit of Saharan silversmithing.",
-      descriptionAr: "هذا السوار الفضي العريض الثقيل، المعروف محلياً باسم دارة، منقوش يدوياً بزخارف هندسية أمازيغية. تمت صناعته من الفضة الخالصة بواسطة حرفيي مجموعة تين حبيب، ويتميز بالأنماط الصحراوية التقليدية للحماية والتراث. يتم تشكيل كل قطعة ومطرقتها ونحتها بدقة يدوياً، مما يجسد الروح الأبدية لصياغة الفضة الصحراوية.",
+      description: "The 'Dara' is a heavy, robust silver cuff bracelet that carries immense cultural weight in Saharan societies. Historically worn by noble Tuareg and Zenete women, it serves as both a form of portable wealth and a protective talisman. Handcrafted from pure melted sterling silver in the ancient Ksar of Timimoun, it is meticulously chiseled with geometric motifs representing the four cardinal directions, desert dunes, and camel tracks. For visitors, the Dara is not merely a piece of jewelry; it is a wearable piece of history and a statement of the resilient, majestic spirit of the desert nomads.",
+      descriptionAr: "السوار الفضي العريض 'الدارة' هو سوار ثقيل وصلب يحمل وزناً ثقافياً هائلاً في المجتمعات الصحراوية. كان يُلبس تاريخياً من قبل نساء الطوارق وزناتة النبيلات، ويُعتبر شكلاً من أشكال الثروة المحمولة وتميمة واقية في نفس الوقت. يُصنع يدوياً من الفضة الخالصة المذابة في قصر تيميمون العتيق، ويُحفر بدقة فائقة بزخارف هندسية تمثل الاتجاهات الأربعة الأصلية، والكثبان الرملية، ومسارات الجمال. بالنسبة للزوار، لا تُعد 'الدارة' مجرد قطعة مجوهرات؛ بل هي قطعة تاريخية يمكن ارتداؤها وتعبيراً عن الروح الصامدة والمهيبة لبدو الصحراء.",
       price: 18500,
       stockQty: 5,
       material: "925 Sterling Silver",
       dimensions: "6.5cm diameter, 4cm width",
       origin: "Timimoun, Algeria",
-      imageUrl: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=80&w=600&auto=format&fit=crop",
+      imageUrl: "/images/products/dara_bracelet.png",
       isFeatured: true,
     },
     {
@@ -294,14 +306,14 @@ async function main() {
       categoryId: catPottery.id,
       name: "Traditional Red Clay Water Jar (Barrad)",
       nameAr: "جرة الماء التقليدية من الطين الأحمر (براد)",
-      description: "A traditional water container made of porous red Gourara clay. The natural properties of the clay allow water to evaporate slightly through the walls, cooling the water inside naturally — a vital technology for desert survival. It is hand-built using the coil technique without a potter's wheel, sun-dried, and wood-fired. Zohra Moulay Lakhdar hand-paints it with organic black pigments representing desert symbols and ancient rock carvings.",
-      descriptionAr: "وعاء ماء تقليدي مصنوع من طين قورارة الأحمر المسامي. تسمح الخصائص الطبيعية للطين بتبخر الماء قليلاً عبر الجدران، مما يبرد الماء بداخله بشكل طبيعي - وهي تقنية حيوية للبقاء في الصحراء. يتم بناؤه يدوياً باستخدام تقنية الحبال بدون عجلة فخار، ويجفف في الشمس ويخبز بالخشب. تقوم زهرة مولاي لخضر برسمه يدوياً بأصباغ سوداء عضوية تمثل الرموز الصحراوية والنقوش الصخرية القديمة.",
+      description: "The 'Barrad' is an ancestral Saharan refrigeration technology. Hand-coiled from the distinctive porous red clay found exclusively in the Gourara basin, it allows water to slowly seep through its walls and evaporate, cooling the contents within naturally—a critical survival tool against the extreme Timimoun heat. This authentic piece is fired in traditional wood kilns and hand-painted with black organic pigments derived from crushed date pits and local minerals. The geometric motifs tell stories of ancient tribal lineages. It stands as a profound symbol of the oasis dwellers' deep connection with earth and water.",
+      descriptionAr: "البراد هو تقنية تبريد صحراوية من أسلافنا. يُشكل يدوياً من الطين الأحمر المسامي المميز الذي يتواجد حصرياً في حوض قورارة، مما يسمح للماء بالتسرب ببطء عبر جدرانه والتبخر، مبرداً بذلك محتوياته بشكل طبيعي - وهو أداة بقاء حيوية ضد حرارة تيميمون الشديدة. تُحرق هذه القطعة الأصيلة في أفران خشبية تقليدية وتُطلى يدوياً بأصباغ عضوية سوداء مستخرجة من نوى التمر المسحوق والمعادن المحلية. تروي الزخارف الهندسية قصص الأنساب القبلية القديمة. ويقف البراد كرمز عميق لارتباط سكان الواحات الوثيق بالأرض والماء.",
       price: 6800,
       stockQty: 8,
       material: "Porous Gourara Clay, natural black mineral pigment",
       dimensions: "35cm height, 22cm diameter",
       origin: "Timimoun, Algeria",
-      imageUrl: "https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?q=80&w=600&auto=format&fit=crop",
+      imageUrl: "/images/products/barrad_jar.png",
       isFeatured: true,
     },
     {
@@ -309,14 +321,14 @@ async function main() {
       categoryId: catLeather.id,
       name: "Hand-Stitched Saharan Leather Babouches",
       nameAr: "بلغة جلدية صحراوية مخيطة يدوياً",
-      description: "Traditional Saharan babouches (slippers) handcrafted from locally tanned goat and camel leather. The leather is treated using natural pomegranate rind and acacia bark, yielding a soft and durable finish. Hand-stitched with waxed linen thread and decorated with subtle Saharan geometric patterns, these slippers combine comfort, durability, and traditional desert style.",
-      descriptionAr: "بلغة صحراوية تقليدية (خف) مصنوعة يدوياً من جلد الماعز والجمال المدبوغ محلياً. يتم معالجة الجلد باستخدام قشر الرمان الطبيعي ولحاء الأكاسيا، مما يعطي ملمساً ناعماً ومتيناً. مخيطة يدوياً بخيط الكتان المشمع ومزينة بأنماط هندسية صحراوية خفيفة، تجمع هذه الأخفاف بين الراحة والمتانة والأسلوب الصحراوي التقليدي.",
+      description: "These Saharan babouches are the traditional footwear of the Gourara region, designed for supreme comfort and endurance in the harsh desert environment. Crafted from locally sourced camel and goat leather, the hide is naturally tanned using pomegranate rinds and acacia bark in Timimoun's historic tanneries, granting it a warm reddish-brown hue. Each pair is meticulously hand-stitched with waxed linen threads and subtly embroidered with Zenete motifs. Lightweight and breathable, they offer tourists an authentic, highly practical piece of traditional Algerian clothing.",
+      descriptionAr: "هذه البلغة الصحراوية هي الحذاء التقليدي لمنطقة قورارة، صُممت لتوفير أقصى درجات الراحة والتحمل في بيئة الصحراء القاسية. تُصنع من جلد الإبل والماعز المحلي، حيث يُدبغ الجلد طبيعياً باستخدام قشور الرمان ولحاء الأكاسيا في مدابغ تيميمون التاريخية، مما يمنحها لوناً بنياً محمراً دافئاً. يُخاط كل زوج يدوياً بعناية فائقة باستخدام خيوط الكتان المشمعة ويُطرز ببراعة بزخارف زناتية. خفيفة الوزن وتسمح بمرور الهواء، لتقدم للسياح قطعة أصيلة وعملية للغاية من اللباس التقليدي الجزائري.",
       price: 4900,
       stockQty: 20,
       material: "Locally tanned goat leather, camel leather sole",
       dimensions: "Standard sizes (38-44)",
       origin: "Timimoun, Algeria",
-      imageUrl: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=600&auto=format&fit=crop",
+      imageUrl: "/images/products/leather_babouches.png",
       isFeatured: false,
     },
     {
@@ -324,14 +336,14 @@ async function main() {
       categoryId: catClothing.id,
       name: "Hand-Woven Natural Wool Chech (Turban)",
       nameAr: "شاش من الصوف الطبيعي المنسوج يدوياً",
-      description: "This traditional Saharan chech (turban/shawl) is hand-woven by the artisans of Atelier Tigurarin. Made from ultra-fine, hand-spun sheep wool, it offers excellent insulation against both desert heat and winter cold. The textile is dyed using natural henna and wild indigo, producing unique earth-tone gradients. It is an essential item for desert travelers and a symbol of Saharan identity.",
-      descriptionAr: "هذا الشاش الصحراوي التقليدي (عمامة / شال) منسوج يدوياً من قبل حرفيات ورشة تيغورارين. مصنوع من صوف الغنم الناعم للغاية والمغزول يدوياً، ويوفر عزلًا ممتازاً ضد حرارة الصحراء وبرد الشتاء. النسيج مصبوغ بالحناء الطبيعية والنيلة البرية، مما ينتج تدرجات ألوان ترابية فريدة. إنه عنصر أساسي لرحالة الصحراء ورمز للهوية الصحراوية.",
+      description: "The 'Chech' is the unmistakable emblem of the Saharan man. Woven in Timimoun from ultra-fine, hand-spun sheep's wool, this long fabric serves as critical protection against the scorching sun, blinding sandstorms, and freezing desert nights. This specific Chech features a gradient of natural earthy dyes—indigo blue fading into henna orange—reflecting the colors of the Timimoun sunset over the dunes. For a traveler, wearing an authentic, handmade wool Chech is a rite of passage into the majestic silence of the Grand Erg Occidental.",
+      descriptionAr: "الشاش هو الرمز المميز للرجل الصحراوي لا تخطئه العين. يُنسج في تيميمون من صوف الغنم الناعم جداً والمغزول يدوياً، ويعمل هذا القماش الطويل كحماية أساسية ضد الشمس الحارقة، والعواصف الرملية المسببة للعمى، وليالي الصحراء المتجمدة. يتميز هذا الشاش تحديداً بتدرج من الأصباغ الترابية الطبيعية - الأزرق النيلي الذي يتلاشى إلى برتقالي الحناء - مما يعكس ألوان غروب الشمس في تيميمون فوق الكثبان الرملية. بالنسبة للمسافر، فإن ارتداء شاش من الصوف الأصلي المصنوع يدوياً هو طقس عبور نحو الصمت المهيب للعرق الغربي الكبير.",
       price: 8500,
       stockQty: 12,
       material: "100% Hand-spun sheep wool, natural vegetable dyes",
       dimensions: "250cm × 60cm",
       origin: "Timimoun, Algeria",
-      imageUrl: "https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?q=80&w=600&auto=format&fit=crop",
+      imageUrl: "/images/products/saharan_chech.png",
       isFeatured: false,
     },
     {
@@ -339,14 +351,14 @@ async function main() {
       categoryId: catWood.id,
       name: "Carved Date-Palm Wood Bowl",
       nameAr: "وعاء منحوت من خشب نخيل التمر",
-      description: "This rustic decorative bowl is hand-carved from the heartwood of dry date palm trees. Mohamed Bahidi meticulously cures and shapes the fibrous palm wood to reveal its beautiful, contrasting dark and light grain patterns. The exterior features hand-chiselled geometric patterns inspired by the traditional layout of the Gourara ksours. Finished with natural beeswax to protect the wood and highlight its texture.",
-      descriptionAr: "هذا الوعاء الزخرفي الريفي منحوت يدوياً من خشب قلب أشجار نخيل التمر الجافة. يقوم محمد باهيدي بمعالجة وتشكيل خشب النخيل الليفي بدقة للكشف عن أنماط حبيباته الخشبية الداكنة والفاتحة المتباينة الجميلة. يتميز الجزء الخارجي بأنماط هندسية منحوتة يدوياً مستوحاة من التخطيط التقليدي لقصور قورارة. مدهون بشمع النحل الطبيعي لحماية الخشب وإبراز ملمسه.",
+      description: "An extraordinary example of resourcefulness, this rustic bowl is hand-carved from the solid heartwood of a deceased date-palm tree. Palm wood is incredibly dense, fibrous, and notoriously difficult to work with. Artisans in Adrar and Timimoun cure the wood for months before chiseling it into functional art. The exterior is detailed with triangular carvings inspired by the jagged architecture of local 'Ksour' (fortified villages). Polished entirely with natural beeswax, it brings the rugged, resilient beauty of the oasis directly into the modern dining room.",
+      descriptionAr: "مثال استثنائي على حسن استغلال الموارد، هذا الوعاء الريفي منحوت يدوياً من خشب القلب الصلب لشجرة نخيل تمر ميتة. خشب النخيل كثيف جداً وليفي، ومعروف بصعوبة العمل به. يقوم الحرفيون في أدرار وتيميمون بمعالجة الخشب لعدة أشهر قبل نحته لتحويله إلى فن عملي. يتميز الجزء الخارجي بنقوش مثلثة مستوحاة من العمارة المسننة لـ 'القصور' المحلية (القرى المحصنة). مصقول بالكامل باستخدام شمع النحل الطبيعي، ليجلب الجمال القاسي والمرن للواحة مباشرة إلى غرفة الطعام العصرية.",
       price: 5800,
       stockQty: 6,
       material: "Dry date-palm heartwood, natural beeswax finish",
       dimensions: "30cm diameter, 12cm height",
       origin: "Adrar, Algeria",
-      imageUrl: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=600&auto=format&fit=crop",
+      imageUrl: "/images/products/palm_wood_bowl.png",
       isFeatured: false,
     },
     {
@@ -354,14 +366,14 @@ async function main() {
       categoryId: catDecor.id,
       name: "Foggara Irrigation System Sand Collage",
       nameAr: "لوحة رملية لنظام ري الفقارة",
-      description: "An authentic sand collage painting created by master artist Abdelati Achar. The artwork depicts the ingenious traditional foggara irrigation system of the Timimoun oasis. It is made entirely with natural, untreated sands of various colors (beige, gold, red, dark brown) collected from different desert dunes of the Gourara. The sand is fixed on a wooden panel, creating a textured relief that captures the warmth of the Sahara.",
-      descriptionAr: "لوحة رملية أصيلة أبدعها الفنان الماهر عبد العاطي عشار. يصور العمل الفني نظام ري الفقارة التقليدي البارع لواحة تيميمون. وهي مصنوعة بالكامل من الرمال الطبيعية غير المعالجة بألوان مختلفة (البيج، الذهبي، الأحمر، البني الداكن) التي تم جمعها من كثبان رملية مختلفة في قورارة. يتم تثبيت الرمل على لوح خشبي، مما يخلق تضاريس ملموسة تلتقط دفء الصحراء.",
+      description: "Sand collage is an art form entirely unique to the Algerian Sahara. This highly textured piece depicts the 'Foggara'—the ancient, ingenious underground water channels that sustain life in the Timimoun oasis. The artist uses absolutely no paint; every color you see is a different shade of natural, un-dyed sand meticulously collected from various dunes across the Gourara region (ochre, red clay, pale beige, and dark mineral brown). It is a mesmerizing, tactile souvenir that captures the literal soil and soul of the Sahara.",
+      descriptionAr: "الرسم بالرمل هو شكل فني فريد تماماً في الصحراء الجزائرية. تصور هذه القطعة ذات الملمس البارز 'الفقارة' - وهي قنوات المياه الجوفية القديمة والبارعة التي تدعم الحياة في واحة تيميمون. لا يستخدم الفنان أي طلاء على الإطلاق؛ فكل لون تراه هو ظل مختلف من الرمل الطبيعي غير المصبوغ الذي تم جمعه بعناية من كثبان مختلفة عبر منطقة قورارة (المغرة، الطين الأحمر، البيج الباهت، والبني المعدني الداكن). إنها تذكار ساحر وملموس يجسد حرفياً تراب وروح الصحراء.",
       price: 12500,
       stockQty: 4,
       material: "Natural Saharan sand, adhesive, wood panel",
       dimensions: "50cm × 40cm",
       origin: "Timimoun, Algeria",
-      imageUrl: "https://images.unsplash.com/photo-1509316975850-ff9c5edd0cd9?q=80&w=600&auto=format&fit=crop",
+      imageUrl: "/images/products/sand_collage.png",
       isFeatured: true,
     },
     {
@@ -369,14 +381,14 @@ async function main() {
       categoryId: catDecor.id,
       name: "Red Oasis Sunset Canvas Painting",
       nameAr: "لوحة قماشية لغروب الواحة الحمراء",
-      description: "An oil painting on canvas by Timimoun artist Abderrahmane Zahar. This piece captures the sunset glowing over the red clay architecture of the Timimoun ksar, reflecting the famous 'Oasis Rouge' aesthetics. The painting blends traditional Saharan hues with a modern expressionist touch, highlighting the dramatic shadows and warm light of the desert dusk.",
-      descriptionAr: "لوحة زيتية على قماش بريشة فنان تيميمون عبد الرحمن زهار. تلتقط هذه القطعة توهج غروب الشمس فوق العمارة الطينية الحمراء لقصر تيميمون، مما يعكس جماليات 'الواحة الحمراء' الشهيرة. تمزج اللوحة بين التدرجات الصحراوية التقليدية ولمسة تعبيرية حديثة، مما يبرز الظلال الدرامية والضوء الدافئ لغسق الصحراء.",
+      description: "Timimoun is universally celebrated as the 'Oasis Rouge' (The Red Oasis) due to its striking Sudanese-style red mud-brick architecture. This exquisite oil painting captures the exact moment the descending Saharan sun hits the Ksar, setting the ancient walls ablaze in hues of crimson, orange, and gold, contrasted against the deep green silhouettes of the sprawling palm grove. Painted by local Timimoun artists, it is a premium piece of fine art that allows tourists to carry the magical warmth and architectural splendor of Gourara back home.",
+      descriptionAr: "تُعرف تيميمون عالمياً باسم 'الواحة الحمراء' بفضل هندستها المعمارية المذهلة المبنية من الطوب اللبن الأحمر على الطراز السوداني. تلتقط هذه اللوحة الزيتية الرائعة اللحظة الدقيقة التي تضرب فيها شمس الصحراء الغاربة جدران القصر، لتشعل الجدران القديمة بظلال من اللون القرمزي والبرتقالي والذهبي، في تباين مذهل مع الصور الظلية الخضراء الداكنة لغابة النخيل الممتدة. هذه اللوحة التي رسمها فنانون محليون من تيميمون، هي قطعة فنية راقية تسمح للسياح بحمل الدفء الساحر والروعة المعمارية لقورارة معهم إلى أوطانهم.",
       price: 24000,
       stockQty: 2,
       material: "Oil paint, cotton canvas, wooden frame",
       dimensions: "60cm × 80cm",
       origin: "Timimoun, Algeria",
-      imageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=600&auto=format&fit=crop",
+      imageUrl: "/images/products/sunset_painting.png",
       isFeatured: true,
     },
     {
@@ -384,14 +396,14 @@ async function main() {
       categoryId: catPalm.id,
       name: "Handwoven Palm Leaf Fan (Marwaha)",
       nameAr: "مروحة سعف النخيل المنسوجة يدوياً (مروحة)",
-      description: "A traditional desert hand fan woven from young, flexible date-palm leaves. Crafted by the women of the Tin Habib Collective, it is used for cooling and as a decorative wall hanging. It features natural ochre borders and intricate braiding, making it both a highly functional hot-season utility and a beautiful example of Saharan folk art.",
-      descriptionAr: "مروحة يدوية صحراوية تقليدية منسوجة من سعف نخيل التمر الفتي والمرن. صنعتها نساء مجموعة تين حبيب، وتستخدم للتبريد وكتعليق حائط زخرفي. تتميز بحواف طبيعية ذات لون مغرة وضفائر معقدة، مما يجعلها أداة عملية لموسم الحر ومثالاً جميلاً للفن الشعبي الصحراوي.",
+      description: "The 'Marwaha' is an indispensable tool during the blistering Saharan summers. Skilfully woven from fresh green and dried yellow date-palm leaves, it produces a sturdy yet flexible fan that provides a strong, cooling breeze. The edges are beautifully bound with natural ochre-dyed fibers to prevent fraying. Beyond its daily utility in Timimoun, it serves as a beautiful, rustic wall decoration for tourists, representing the deep symbiosis between the oasis inhabitants and the life-giving date palm tree.",
+      descriptionAr: "تُعد 'المروحة' أداة لا غنى عنها خلال فصول الصيف الصحراوية الحارقة. تُنسج بمهارة من سعف نخيل التمر الأخضر الفتي والأصفر المجفف، لتنتج مروحة قوية ومرنة في نفس الوقت توفر نسيماً قوياً ومنعشاً. الحواف مجلدة بشكل جميل بألياف مصبوغة بالمغرة الطبيعية لمنع التآكل. وبعيداً عن فائدتها اليومية في تيميمون، فهي تُعد زينة حائط ريفية جميلة للسياح، تمثل التكافل العميق بين سكان الواحات وشجرة نخيل التمر واهبة الحياة.",
       price: 1500,
       stockQty: 40,
       material: "Date-palm leaves, natural organic dyes",
       dimensions: "40cm length (with handle)",
       origin: "Timimoun, Algeria",
-      imageUrl: "https://images.unsplash.com/photo-1595475207225-428b62bda831?q=80&w=600&auto=format&fit=crop",
+      imageUrl: "/images/products/palm_leaf_fan.png",
       isFeatured: false,
     },
   ];
