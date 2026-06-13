@@ -9,7 +9,7 @@ import { Search, SlidersHorizontal, X } from "lucide-react";
 interface ProductsPageProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   params: Promise<any>;
-  searchParams: Promise<{ category?: string; search?: string; sort?: string }>;
+  searchParams: Promise<{ category?: string; search?: string; sort?: string; region?: string }>;
 }
 
 export async function generateMetadata({ params }: ProductsPageProps) {
@@ -30,7 +30,7 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
   // from being reflected in the page and causing memory/rendering issues.
   const rawSearch = (await searchParams).search;
   const search = rawSearch?.slice(0, 200);
-  const { category, sort } = await searchParams;
+  const { category, sort, region } = await searchParams;
   const t = await getTranslations("product");
   const session = await getSession();
 
@@ -61,6 +61,12 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
           { name: { contains: search } },
           { nameAr: { contains: search } },
           { description: { contains: search } },
+        ],
+      }),
+      ...(region && {
+        OR: [
+          { origin: { contains: region } },
+          { artisan: { location: { contains: region } } },
         ],
       }),
     },
@@ -147,7 +153,7 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
                   ].map((opt) => (
                     <a
                       key={opt.value}
-                      href={`/${locale}/products?${category ? `category=${category}&` : ""}${opt.value ? `sort=${opt.value}` : ""}`}
+                      href={`/${locale}/products?${category ? `category=${category}&` : ""}${opt.value ? `sort=${opt.value}&` : ""}${region ? `region=${region}` : ""}`}
                       className={`block px-3 py-2 rounded-xl text-sm transition-colors ${
                         (sort || "") === opt.value
                           ? "bg-sand-100 text-sand-700 font-semibold"
@@ -158,6 +164,43 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
                     </a>
                   ))}
                 </div>
+
+                <hr className="my-4 border-desert-200" />
+
+                <h3 className="font-semibold text-clay-800 mb-3 text-sm">
+                  {locale === "ar" ? "البلدية / القصر" : "Municipality"}
+                </h3>
+                <form method="GET" className="space-y-2">
+                  {category && <input type="hidden" name="category" value={category} />}
+                  {sort && <input type="hidden" name="sort" value={sort} />}
+                  {search && <input type="hidden" name="search" value={search} />}
+                  <select 
+                    name="region" 
+                    className="w-full bg-white border border-desert-200 rounded-xl px-3 py-2.5 text-sm text-clay-700 focus:outline-none focus:ring-2 focus:ring-sand-100 focus:border-sand-400"
+                    defaultValue={region || ""}
+                  >
+                    <option value="">{locale === "ar" ? "كل بلديات تيميمون" : "All Municipalities"}</option>
+                    {[
+                      { value: "Timimoun", labelAr: "تيميمون", labelEn: "Timimoun" },
+                      { value: "Ouled Said", labelAr: "أولاد سعيد", labelEn: "Ouled Said" },
+                      { value: "Aougrout", labelAr: "أوقروت", labelEn: "Aougrout" },
+                      { value: "Deldoul", labelAr: "دلدول", labelEn: "Deldoul" },
+                      { value: "Metarfa", labelAr: "المطارفة", labelEn: "Metarfa" },
+                      { value: "Tinerkouk", labelAr: "تينركوك", labelEn: "Tinerkouk" },
+                      { value: "Ksar Kaddour", labelAr: "قصر قدور", labelEn: "Ksar Kaddour" },
+                      { value: "Charouine", labelAr: "شروين", labelEn: "Charouine" },
+                      { value: "Talmine", labelAr: "طالمين", labelEn: "Talmine" },
+                      { value: "Ouled Aissa", labelAr: "أولاد عيسى", labelEn: "Ouled Aissa" },
+                    ].map(m => (
+                      <option key={m.value} value={m.value}>
+                        {locale === "ar" ? m.labelAr : m.labelEn}
+                      </option>
+                    ))}
+                  </select>
+                  <button type="submit" className="w-full bg-sand-100 hover:bg-sand-200 text-sand-700 text-xs font-semibold py-2.5 rounded-xl transition-colors">
+                    {locale === "ar" ? "تطبيق الفلتر" : "Apply Filter"}
+                  </button>
+                </form>
               </div>
             </aside>
 
@@ -165,8 +208,10 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
             <div className="flex-1">
               {/* Search Bar */}
               <form className="mb-6" method="GET">
-                {/* Preserve category filter */}
+                {/* Preserve category/region filter */}
                 {category && <input type="hidden" name="category" value={category} />}
+                {region && <input type="hidden" name="region" value={region} />}
+                {sort && <input type="hidden" name="sort" value={sort} />}
                 <div className="relative">
                   <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-clay-400 pointer-events-none" />
                   <input
@@ -177,7 +222,7 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
                   />
                   {search && (
                     <a
-                      href={`/${locale}/products${category ? `?category=${encodeURIComponent(category)}` : ""}`}
+                      href={`/${locale}/products?${category ? `category=${encodeURIComponent(category)}&` : ""}${region ? `region=${encodeURIComponent(region)}` : ""}`}
                       className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-clay-400 hover:text-clay-600 transition-colors"
                       aria-label="Clear search"
                     >
