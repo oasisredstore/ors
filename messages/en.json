@@ -1,0 +1,214 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "artisans": "Artisans",
+    "categories": "Categories",
+    "about": "About",
+    "login": "Sign In",
+    "register": "Register",
+    "dashboard": "Dashboard",
+    "admin": "Admin",
+    "account": "My Account",
+    "logout": "Sign Out"
+  },
+  "home": {
+    "hero": {
+      "badge": "Authentic Saharan Craftsmanship",
+      "title": "Where Desert Art Meets the World",
+      "subtitle": "Discover handcrafted treasures from Timimoun and the Algerian Sahara. Every piece tells a story of culture, tradition, and artistry.",
+      "cta": "Explore Collection",
+      "ctaArtisan": "Join as Artisan"
+    },
+    "categories": {
+      "title": "Browse by Category",
+      "subtitle": "Explore our curated collection of traditional Saharan crafts"
+    },
+    "featured": {
+      "title": "Featured Pieces",
+      "subtitle": "Hand-selected by our curators for their exceptional quality and cultural significance"
+    },
+    "artisans": {
+      "title": "Meet Our Artisans",
+      "subtitle": "The talented creators behind every piece",
+      "viewAll": "View All Artisans"
+    },
+    "why": {
+      "title": "Why RedOasisArtisan?",
+      "authentic": {
+        "title": "100% Authentic",
+        "desc": "Every product is handmade by verified local artisans from Timimoun"
+      },
+      "heritage": {
+        "title": "Cultural Heritage",
+        "desc": "Preserving centuries of Saharan craft traditions for future generations"
+      },
+      "impact": {
+        "title": "Discover & Connect",
+        "desc": "Discover exceptional artisans and connect directly to inquire about their work"
+      },
+      "quality": {
+        "title": "Premium Quality",
+        "desc": "Curated and quality-checked by our expert team before listing"
+      }
+    },
+    "histoire": {
+      "title": "Our Story",
+      "subtitle": "From the heart of the Algerian Sahara",
+      "p1": "Timimoun, the jewel of the Algerian Sahara, has for thousands of years been home to talented artisans who weave stories of heritage into every creation.",
+      "p2": "RedOasisArtisan was born from a passion for preserving this precious legacy and presenting it to the world. We bridge authenticity and modernity to showcase the finest creations of Saharan craftspeople.",
+      "p3": "Every product in our gallery is a unique work of art, embodying the artisan's skill and the depth of Algerian Saharan culture."
+    }
+  },
+  "product": {
+    "description": "Description",
+    "details": "Product Details",
+    "material": "Material",
+    "dimensions": "Dimensions",
+    "origin": "Place of Origin",
+    "artisan": "By Artisan",
+    "category": "Category",
+    "reviews": "Reviews",
+    "noReviews": "No reviews yet. Be the first!",
+    "contactArtisan": "Contact Artisan",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "viewProfile": "View Profile",
+    "authentic": "Authentic handcraft"
+  },
+  "auth": {
+    "login": "Sign In",
+    "register": "Create Account",
+    "email": "Email Address",
+    "password": "Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone Number",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "artisanRegister": "Register as Artisan",
+    "shopName": "Shop Name",
+    "bio": "About You & Your Craft",
+    "location": "Location",
+    "specialization": "Specialization"
+  },
+  "dashboard": {
+    "title": "Artisan Dashboard",
+    "overview": "Overview",
+    "products": "My Products",
+    "addProduct": "Add New Product",
+    "totalProducts": "Total Products",
+    "publishedProducts": "Published",
+    "featuredProducts": "Featured",
+    "totalReviews": "Reviews",
+    "productName": "Product Name",
+    "material": "Material",
+    "status": "Status",
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "published": "Published",
+    "draft": "Draft",
+    "featured": "Featured",
+    "uploadImages": "Upload Images",
+    "imageHint": "Upload up to 5 images. First image will be the main product image."
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "overview": "Overview",
+    "users": "Users",
+    "artisans": "Artisans",
+    "products": "Products",
+    "analytics": "Analytics",
+    "approve": "Approve",
+    "reject": "Reject",
+    "approved": "Approved",
+    "pending": "Pending",
+    "totalUsers": "Total Visitors",
+    "totalArtisans": "Total Artisans",
+    "totalProducts": "Total Products",
+    "totalReviews": "Total Reviews",
+    "recentProducts": "Recent Products"
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "RedOasisArtisan — A home for Saharan craftsmanship",
+    "histoire": {
+      "title": "Our Story",
+      "content": "From the heart of Timimoun, deep in the great Algerian Sahara, RedOasisArtisan was born. A project that brings together the authenticity of handcraft with a passion for documentation and connection."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "content": "We believe every handmade piece carries the soul of its maker and the memory of its place. Our mission is to bring this creativity to the world and preserve this living heritage."
+    },
+    "techniques": {
+      "title": "Materials & Techniques",
+      "pottery": {
+        "name": "Pottery",
+        "desc": "Saharan clay is shaped by artisans using methods passed down through generations."
+      },
+      "weaving": {
+        "name": "Weaving",
+        "desc": "Rugs and fabrics in the colors of palm and sand, reflecting the beauty of the desert landscape."
+      },
+      "leather": {
+        "name": "Leatherwork",
+        "desc": "Leather goods tanned using traditional methods — strong, beautiful, and lasting."
+      },
+      "palm": {
+        "name": "Palm Crafts",
+        "desc": "Baskets and household items made from palm fronds by skilled hands."
+      }
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try Again",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "search": "Search products...",
+    "filter": "Filter",
+    "sortBy": "Sort by",
+    "noResults": "No results found",
+    "viewAll": "View All",
+    "seeMore": "See More",
+    "handmade": "Handmade",
+    "authentic": "Authentic"
+  },
+  "cart": {
+    "title": "My Cart",
+    "empty": "Your cart is empty",
+    "emptyDesc": "Discover our handcrafted treasures and add something special.",
+    "continueShopping": "Continue Shopping",
+    "total": "Order Total",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "shippingNote": "Calculated at checkout",
+    "checkout": "Proceed to Checkout"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "delivery": "Delivery Address",
+    "payment": "Payment Method",
+    "cod": "Cash on Delivery",
+    "codDesc": "Pay when your order arrives at your door.",
+    "bankTransfer": "Bank Transfer",
+    "bankDesc": "Transfer to our bank account. Order ships after confirmation.",
+    "notes": "Order Notes (optional)",
+    "summary": "Order Summary",
+    "placeOrder": "Place Order"
+  },
+  "artisans": {
+    "title": "Our Artisans",
+    "subtitle": "Meet the talented creators behind every piece",
+    "viewAll": "View All Artisans",
+    "products": "products"
+  }
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="false">
+        <!-- Strictly prohibit cleartext traffic to ensure security -->
+        <!-- Add exceptions here if local scripts need to hit specific HTTP APIs during dev -->
+    </domain-config>
+</network-security-config>
