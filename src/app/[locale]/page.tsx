@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/home/HeroSection";
 import { SplashIntro } from "@/components/home/SplashIntro";
+import { VirtualMuseumSection } from "@/components/home/VirtualMuseumSection";
 import { ProductCard } from "@/components/marketplace/ProductCard";
 import { Leaf, Globe, Heart, Award } from "lucide-react";
 import Link from "next/link";
@@ -145,6 +146,9 @@ export default async function HomePage({ params }: HomePageProps) {
             </div>
           </div>
         </section>
+
+        {/* Virtual Museum Section */}
+        <VirtualMuseumSection locale={locale} />
 
         {/* Featured Products */}
         <section className="py-20 bg-white">
