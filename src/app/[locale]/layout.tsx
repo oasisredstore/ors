@@ -4,8 +4,10 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Toaster } from "react-hot-toast";
 import { notFound } from "next/navigation";
+import { Providers } from "@/components/providers/Providers";
 import { routing } from "@/i18n/routing";
 import { PWAInstallPrompt } from "@/components/layout/PWAInstallPrompt";
+import { Chatbot } from "@/components/shared/Chatbot";
 import "@/app/globals.css";
 
 // B1 FIX: The variable was previously named --font-inter even though DM Sans
@@ -93,9 +95,10 @@ export default async function LocaleLayout({
       suppressHydrationWarning
     >
       <body className={isRTL ? "font-arabic" : ""} suppressHydrationWarning>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider messages={messages} locale={locale}>
+          <Providers>{children}</Providers>
           <PWAInstallPrompt />
-          {children}
+          <Chatbot locale={locale} />
           <Toaster
             position={isRTL ? "bottom-left" : "bottom-right"}
             toastOptions={{
