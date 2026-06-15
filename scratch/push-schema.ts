@@ -12,7 +12,7 @@ async function run() {
     authToken: process.env.TURSO_AUTH_TOKEN!,
   });
 
-  const sqlPath = path.join(process.cwd(), "migration.sql");
+  const sqlPath = path.join(process.cwd(), "diff.sql");
   const sql = fs.readFileSync(sqlPath, "utf-8");
 
   console.log("Executing schema...");
