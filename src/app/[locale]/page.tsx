@@ -47,7 +47,7 @@ async function getFeaturedData() {
       take: 4,
     }),
     prisma.service.findMany({
-      where: { isPublished: true, type: { in: ["ROOM", "TENT", "GUEST_HOUSE"] } },
+      where: { isPublished: true, type: { in: ["ROOM", "TENT"] } },
       include: {
         provider: true,
         images: { where: { isPrimary: true }, take: 1 }
