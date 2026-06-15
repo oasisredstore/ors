@@ -14,15 +14,23 @@ interface DashboardLayoutProps {
 export default async function DashboardLayout({ children, params }: DashboardLayoutProps) {
   const { locale } = await params;
   const session = await getSession();
-  if (!session || (session.role !== "ARTISAN" && session.role !== "ADMIN")) {
+  const allowedRoles = ["ARTISAN", "ADMIN", "HOTEL", "GUEST_HOUSE", "GUIDE", "AGENCY"];
+  if (!session || !allowedRoles.includes(session.role)) {
     redirect(`/${locale}/auth/login`);
   }
 
-  const navItems = [
+  const isArtisan = session.role === "ARTISAN";
+
+  const navItems = isArtisan ? [
     { href: `/${locale}/dashboard`, label: locale === "ar" ? "نظرة عامة" : "Overview", icon: LayoutDashboard },
     { href: `/${locale}/dashboard/profile`, label: locale === "ar" ? "ملفي الشخصي" : "My Profile", icon: UserCircle },
     { href: `/${locale}/dashboard/products`, label: locale === "ar" ? "منتجاتي" : "My Products", icon: Package },
     { href: `/${locale}/dashboard/orders`, label: locale === "ar" ? "الطلبات" : "Orders", icon: ShoppingBag },
+  ] : [
+    { href: `/${locale}/dashboard`, label: locale === "ar" ? "نظرة عامة" : "Overview", icon: LayoutDashboard },
+    { href: `/${locale}/dashboard/profile`, label: locale === "ar" ? "ملفي الشخصي" : "My Profile", icon: UserCircle },
+    { href: `/${locale}/dashboard/services`, label: locale === "ar" ? "خدماتي" : "My Services", icon: Package },
+    { href: `/${locale}/dashboard/bookings`, label: locale === "ar" ? "الحجوزات" : "Bookings", icon: ShoppingBag },
   ];
 
   return (
@@ -36,7 +44,7 @@ export default async function DashboardLayout({ children, params }: DashboardLay
               <span className="text-white font-display font-bold text-sm">R</span>
             </div>
             <span className="font-display font-bold text-clay-800 text-sm">
-              Artisan <span className="text-sand-500">Dashboard</span>
+              {isArtisan ? "Artisan" : "Provider"} <span className="text-sand-500">Dashboard</span>
             </span>
           </Link>
         </div>
@@ -79,7 +87,7 @@ export default async function DashboardLayout({ children, params }: DashboardLay
       </aside>
 
       {/* Mobile Bottom Tab Bar */}
-      <DashboardMobileNav locale={locale} />
+      <DashboardMobileNav locale={locale} role={session.role} />
 
       {/* Main — extra bottom padding on mobile to clear the tab bar */}
       <main className="flex-1 lg:ml-64 pt-0 pb-16 lg:pb-0">

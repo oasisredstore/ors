@@ -20,6 +20,14 @@ export const ArtisanRegisterSchema = RegisterSchema.extend({
   specialization: z.string().optional(),
 });
 
+export const ProviderRegisterSchema = RegisterSchema.extend({
+  role: z.enum(["HOTEL", "GUEST_HOUSE", "GUIDE", "AGENCY"]),
+  businessName: z.string().min(3, "Business name must be at least 3 characters"),
+  description: z.string().optional(),
+  location: z.string().optional(),
+});
+
 export type LoginInput = z.infer<typeof LoginSchema>;
 export type RegisterInput = z.infer<typeof RegisterSchema>;
 export type ArtisanRegisterInput = z.infer<typeof ArtisanRegisterSchema>;
+export type ProviderRegisterInput = z.infer<typeof ProviderRegisterSchema>;

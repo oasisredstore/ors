@@ -7,17 +7,25 @@ import { cn } from "@/lib/utils";
 
 interface DashboardMobileNavProps {
   locale: string;
+  role: string;
 }
 
-export function DashboardMobileNav({ locale }: DashboardMobileNavProps) {
+export function DashboardMobileNav({ locale, role }: DashboardMobileNavProps) {
   const pathname = usePathname();
   const isAr = locale === "ar";
 
-  const navItems = [
+  const isArtisan = role === "ARTISAN";
+
+  const navItems = isArtisan ? [
     { href: `/${locale}/dashboard`, label: isAr ? "الرئيسية" : "Overview", icon: LayoutDashboard, exact: true },
     { href: `/${locale}/dashboard/profile`, label: isAr ? "ملفي" : "Profile", icon: UserCircle, exact: false },
     { href: `/${locale}/dashboard/products`, label: isAr ? "منتجاتي" : "Products", icon: Package, exact: false },
     { href: `/${locale}/dashboard/orders`, label: isAr ? "الطلبات" : "Orders", icon: ShoppingBag, exact: false },
+  ] : [
+    { href: `/${locale}/dashboard`, label: isAr ? "الرئيسية" : "Overview", icon: LayoutDashboard, exact: true },
+    { href: `/${locale}/dashboard/profile`, label: isAr ? "ملفي" : "Profile", icon: UserCircle, exact: false },
+    { href: `/${locale}/dashboard/services`, label: isAr ? "خدماتي" : "Services", icon: Package, exact: false },
+    { href: `/${locale}/dashboard/bookings`, label: isAr ? "الحجوزات" : "Bookings", icon: ShoppingBag, exact: false },
   ];
 
   return (
