@@ -59,6 +59,27 @@ export default async function ServicesListingPage({
             </p>
           </div>
 
+          <div className="flex flex-wrap justify-center gap-3 mb-10">
+            <Link 
+              href={`/${locale}/services`} 
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${!type ? 'bg-clay-900 text-white shadow-md' : 'bg-white text-clay-600 border border-clay-200 hover:bg-clay-50'}`}
+            >
+              {isAr ? "الكل" : "All"}
+            </Link>
+            <Link 
+              href={`/${locale}/services?type=accommodation`} 
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${type === 'accommodation' ? 'bg-clay-900 text-white shadow-md' : 'bg-white text-clay-600 border border-clay-200 hover:bg-clay-50'}`}
+            >
+              {isAr ? "أماكن إقامة" : "Accommodations"}
+            </Link>
+            <Link 
+              href={`/${locale}/services?type=tour`} 
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-colors ${type === 'tour' ? 'bg-clay-900 text-white shadow-md' : 'bg-white text-clay-600 border border-clay-200 hover:bg-clay-50'}`}
+            >
+              {isAr ? "جولات وتجارب" : "Tours"}
+            </Link>
+          </div>
+
           {services.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {services.map((service: any) => (

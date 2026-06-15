@@ -136,7 +136,7 @@ export default async function ServiceDetailPage({
                     <Calendar className="w-5 h-5 text-sand-600" />
                     {isAr ? "حجز الخدمة" : "Book this service"}
                   </h3>
-                  <BookingForm serviceId={service.id} price={service.price} locale={locale} isLoggedIn={!!session} />
+                  <BookingForm serviceId={service.id} price={service.price} serviceType={service.type} locale={locale} isLoggedIn={!!session} />
                 </div>
               </div>
             </div>
