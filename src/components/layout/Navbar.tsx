@@ -54,6 +54,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
 
   const navLinks = [
     { href: `/${locale}`, label: t("home") },
+    { href: `/${locale}/services`, label: t("services") },
     { href: `/${locale}/products`, label: t("products") },
     { href: `/${locale}/artisans`, label: t("artisans") },
     { href: `/${locale}/about`, label: t("about") },
