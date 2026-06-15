@@ -14,6 +14,10 @@ enum Role {
   CUSTOMER
   ARTISAN
   ADMIN
+  HOTEL
+  GUEST_HOUSE
+  GUIDE
+  AGENCY
 }
 
 enum OrderStatus {
@@ -49,10 +53,13 @@ model User {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
-  artisan      Artisan?
-  reviews      Review[]
-  addresses    Address[]
-  orders       Order[]
+  artisan          Artisan?
+  serviceProvider  ServiceProvider?
+  reviews          Review[]
+  serviceReviews   ServiceReview[]
+  addresses        Address[]
+  orders           Order[]
+  bookings         Booking[]
 }
 
 model Artisan {
@@ -198,3 +205,143 @@ model Payment {
   status    PaymentStatus @default(PENDING)
   createdAt DateTime      @default(now())
 }
+
+// ==========================================
+// NEW TOURISM SUPER-APP MODELS
+// ==========================================
+
+enum ServiceType {
+  ROOM
+  TENT
+  TOUR
+  WORKSHOP
+  TRANSPORT
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  REJECTED
+  CANCELLED
+  COMPLETED
+}
+
+enum SubscriptionTier {
+  FREE
+  BASIC
+  PREMIUM
+}
+
+model ServiceProvider {
+  id             String    @id @default(cuid())
+  userId         String    @unique
+  user           User      @relation(fields: [userId], references: [id])
+  businessName   String
+  slug           String    @unique
+  description    String?
+  descriptionAr  String?
+  location       String?   // e.g. Timimoun, Ouled Said
+  contactEmail   String?
+  contactPhone   String?
+  avatarUrl      String?
+  coverUrl       String?
+  isApproved     Boolean   @default(false)
+  isActive       Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  services       Service[]
+  subscriptions  UserSubscription[]
+}
+
+model Service {
+  id             String          @id @default(cuid())
+  providerId     String
+  provider       ServiceProvider @relation(fields: [providerId], references: [id])
+  type           ServiceType
+  name           String
+  nameAr         String?
+  slug           String          @unique
+  description    String?
+  descriptionAr  String?
+  price          Float           @default(0) // price per night or per person
+  capacity       Int             @default(1) // e.g., room capacity or tour max people
+  isPublished    Boolean         @default(false)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  images         ServiceImage[]
+  bookings       Booking[]
+  reviews        ServiceReview[]
+}
+
+model ServiceImage {
+  id        String   @id @default(cuid())
+  serviceId String
+  service   Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  url       String
+  altText   String?
+  isPrimary Boolean  @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Booking {
+  id          String        @id @default(cuid())
+  userId      String
+  user        User          @relation(fields: [userId], references: [id])
+  serviceId   String
+  service     Service       @relation(fields: [serviceId], references: [id])
+  startDate   DateTime
+  endDate     DateTime
+  guestsCount Int           @default(1)
+  totalAmount Float
+  status      BookingStatus @default(PENDING)
+  notes       String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model ServiceReview {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  serviceId String
+  service   Service  @relation(fields: [serviceId], references: [id])
+  rating    Int
+  comment   String?
+  isVisible Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, serviceId])
+}
+
+model SubscriptionPlan {
+  id           String             @id @default(cuid())
+  tier         SubscriptionTier   @unique
+  name         String
+  nameAr       String?
+  price        Float              @default(0)
+  durationDays Int                @default(30)
+  features     String?            // JSON string of features
+  isActive     Boolean            @default(true)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  subscriptions UserSubscription[]
+}
+
+model UserSubscription {
+  id             String           @id @default(cuid())
+  providerId     String
+  provider       ServiceProvider  @relation(fields: [providerId], references: [id])
+  planId         String
+  plan           SubscriptionPlan @relation(fields: [planId], references: [id])
+  startDate      DateTime         @default(now())
+  endDate        DateTime
+  isActive       Boolean          @default(true)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+}
+

@@ -9,7 +9,9 @@ import {
   LoginSchema,
   RegisterSchema,
   ArtisanRegisterSchema,
+  ProviderRegisterSchema,
 } from "@/lib/validations/auth.schema";
+import { Role } from "@prisma/client";
 
 function slugify(text: string): string {
   return text
@@ -211,6 +213,101 @@ export async function artisanRegisterAction(formData: FormData) {
     email: user.email,
     role: user.role,
     // B4 FIX: Include firstName so the UI can greet users by name.
+    firstName: user.firstName,
+  });
+
+  const cookieStore = await cookies();
+  cookieStore.set("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 60 * 60 * 24 * 7,
+    path: "/",
+  });
+
+  return { success: true };
+}
+
+export async function providerRegisterAction(formData: FormData) {
+  const raw = {
+    firstName: formData.get("firstName") as string,
+    lastName: formData.get("lastName") as string,
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+    phone: (formData.get("phone") as string) || undefined,
+    role: formData.get("role") as string,
+    businessName: formData.get("businessName") as string,
+    description: (formData.get("description") as string) || undefined,
+    location: (formData.get("location") as string) || undefined,
+  };
+
+  const parsed = ProviderRegisterSchema.safeParse(raw);
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0].message };
+  }
+
+  const existing = await prisma.user.findUnique({
+    where: { email: parsed.data.email },
+  });
+
+  if (existing) {
+    return { error: "An account with this email already exists" };
+  }
+
+  const passwordHash = await bcrypt.hash(parsed.data.password, 12);
+
+  const baseSlug = slugify(parsed.data.businessName);
+  let slug = baseSlug;
+  let counter = 1;
+  while (await prisma.serviceProvider.findUnique({ where: { slug } })) {
+    slug = `${baseSlug}-${counter++}`;
+  }
+
+  let user;
+  let attempt = 0;
+  while (true) {
+    try {
+      user = await prisma.user.create({
+        data: {
+          firstName: parsed.data.firstName,
+          lastName: parsed.data.lastName,
+          email: parsed.data.email,
+          passwordHash,
+          phone: parsed.data.phone,
+          role: parsed.data.role as Role,
+          serviceProvider: {
+            create: {
+              businessName: parsed.data.businessName,
+              slug,
+              description: parsed.data.description,
+              location: parsed.data.location,
+              contactEmail: parsed.data.email,
+              contactPhone: parsed.data.phone,
+              isApproved: false,
+            },
+          },
+        },
+      });
+      break;
+    } catch (err: unknown) {
+      const isPrismaUniqueError =
+        typeof err === "object" &&
+        err !== null &&
+        "code" in err &&
+        (err as { code: string }).code === "P2002";
+      if (isPrismaUniqueError && attempt < 10) {
+        slug = `${baseSlug}-${++counter}`;
+        attempt++;
+        continue;
+      }
+      throw err;
+    }
+  }
+
+  const token = await signToken({
+    userId: user.id,
+    email: user.email,
+    role: user.role,
     firstName: user.firstName,
   });
 

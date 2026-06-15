@@ -17,7 +17,7 @@ interface HomePageProps {
 }
 
 async function getFeaturedData() {
-  const [products, categories, artisans] = await Promise.all([
+  const [products, categories, artisans, accommodations, tours] = await Promise.all([
     prisma.product.findMany({
       where: { isPublished: true, isFeatured: true },
       include: {
@@ -36,9 +36,6 @@ async function getFeaturedData() {
     }),
     prisma.artisan.findMany({
       where: { isApproved: true, isActive: true },
-      // B11 FIX: Replace include:{user:true} with a minimal select so that
-      // sensitive user fields (passwordHash, email, etc.) are never loaded
-      // into the server render context, even accidentally.
       select: {
         id: true,
         shopName: true,
@@ -49,9 +46,25 @@ async function getFeaturedData() {
       },
       take: 4,
     }),
+    prisma.service.findMany({
+      where: { isPublished: true, type: { in: ["ROOM", "TENT"] } },
+      include: {
+        provider: true,
+        images: { where: { isPrimary: true }, take: 1 }
+      },
+      take: 4,
+    }),
+    prisma.service.findMany({
+      where: { isPublished: true, type: "TOUR" },
+      include: {
+        provider: true,
+        images: { where: { isPrimary: true }, take: 1 }
+      },
+      take: 4,
+    }),
   ]);
 
-  return { products, categories, artisans };
+  return { products, categories, artisans, accommodations, tours };
 }
 
 export default async function HomePage({ params }: HomePageProps) {
@@ -60,7 +73,7 @@ export default async function HomePage({ params }: HomePageProps) {
   const tWhy = await getTranslations("home.why");
   const session = await getSession();
 
-  const { products, categories, artisans } = await getFeaturedData();
+  const { products, categories, artisans, accommodations, tours } = await getFeaturedData();
 
   const user = session
     ? {
@@ -204,6 +217,101 @@ export default async function HomePage({ params }: HomePageProps) {
             )}
           </div>
         </section>
+
+        {/* Accommodations Section (New) */}
+        {accommodations.length > 0 && (
+          <section className="py-20 bg-desert-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-end justify-between mb-12">
+                <div>
+                  <h2 className="font-display text-4xl font-bold text-clay-800 mb-3">
+                    {locale === "ar" ? "أماكن إقامة ساحرة" : "Charming Stays"}
+                  </h2>
+                  <p className="text-clay-500 max-w-xl">
+                    {locale === "ar" ? "احجز إقامتك في أجمل الفنادق والبيوت التقليدية في تيميمون" : "Book your stay in the most beautiful hotels and traditional houses in Timimoun"}
+                  </p>
+                </div>
+                <Link
+                  href={`/${locale}/services?type=accommodation`}
+                  className="hidden sm:inline-flex items-center gap-2 text-oasis-600 font-semibold hover:text-oasis-700 transition-colors text-sm"
+                >
+                  {locale === "ar" ? "عرض الكل ←" : "View All →"}
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {accommodations.map((stay: any) => (
+                  <Link href={`/${locale}/services/${stay.slug}`} key={stay.id} className="group bg-white rounded-2xl overflow-hidden shadow-sm border border-desert-100 hover:shadow-xl transition-all duration-300">
+                    <div className="aspect-[4/3] bg-desert-100 relative overflow-hidden">
+                      {stay.images[0] ? (
+                        <Image src={stay.images[0].url} alt={stay.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center text-4xl">🏨</div>
+                      )}
+                      <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-clay-900 shadow-sm">
+                        {stay.price} DZD / {locale === "ar" ? "ليلة" : "Night"}
+                      </div>
+                    </div>
+                    <div className="p-5">
+                      <h3 className="font-bold text-clay-900 mb-1">{locale === "ar" && stay.nameAr ? stay.nameAr : stay.name}</h3>
+                      <p className="text-sm text-clay-500 flex items-center gap-1">
+                        <span className="text-oasis-600">📍</span> {stay.provider.location || "Timimoun"}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Tours Section (New) */}
+        {tours.length > 0 && (
+          <section className="py-20 bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-end justify-between mb-12">
+                <div>
+                  <h2 className="font-display text-4xl font-bold text-clay-800 mb-3">
+                    {locale === "ar" ? "جولات وتجارب سياحية" : "Tours & Experiences"}
+                  </h2>
+                  <p className="text-clay-500 max-w-xl">
+                    {locale === "ar" ? "استكشف سحر الصحراء مع مرشدين محليين موثوقين" : "Explore the magic of the desert with trusted local guides"}
+                  </p>
+                </div>
+                <Link
+                  href={`/${locale}/services?type=tour`}
+                  className="hidden sm:inline-flex items-center gap-2 text-oasis-600 font-semibold hover:text-oasis-700 transition-colors text-sm"
+                >
+                  {locale === "ar" ? "عرض الكل ←" : "View All →"}
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {tours.map((tour: any) => (
+                  <Link href={`/${locale}/services/${tour.slug}`} key={tour.id} className="group bg-desert-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div className="aspect-square bg-desert-100 relative overflow-hidden">
+                      {tour.images[0] ? (
+                        <Image src={tour.images[0].url} alt={tour.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center text-4xl">🐪</div>
+                      )}
+                      <div className="absolute top-3 left-3 bg-oasis-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+                        {locale === "ar" ? "جولة إرشادية" : "Guided Tour"}
+                      </div>
+                    </div>
+                    <div className="p-5">
+                      <h3 className="font-bold text-clay-900 mb-1">{locale === "ar" && tour.nameAr ? tour.nameAr : tour.name}</h3>
+                      <div className="flex items-center justify-between mt-3">
+                        <span className="text-sm font-semibold text-clay-900">{tour.price} DZD</span>
+                        <span className="text-xs text-clay-500">{tour.capacity} {locale === "ar" ? "أشخاص" : "Persons"}</span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Artisans Section */}
         {artisans.length > 0 && (

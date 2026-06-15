@@ -9,6 +9,7 @@ import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
 import { formatPrice } from "@/lib/utils";
 import toast from "react-hot-toast";
+import { QRCodeShare } from "@/components/shared/QRCodeShare";
 
 interface ProductDetailClientProps {
   product: {
@@ -147,6 +148,7 @@ export function ProductDetailClient({ product, locale }: ProductDetailClientProp
           <h1 className="flex-1 font-display text-3xl lg:text-4xl font-bold text-clay-800">
             {displayName}
           </h1>
+          <QRCodeShare url={`/${locale}/products/${product.slug}`} title={displayName} />
           <button
             onClick={() => toggleItem(product.id)}
             aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
