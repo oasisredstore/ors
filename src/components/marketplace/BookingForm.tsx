@@ -15,10 +15,27 @@ export function BookingForm({
   price: number;
   locale: string;
   isLoggedIn: boolean;
+  serviceType?: string;
 }) {
   const isAr = locale === "ar";
   const [loading, setLoading] = useState(false);
   const [guests, setGuests] = useState(1);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const isAccommodation = ["ROOM", "GUEST_HOUSE", "TENT"].includes(serviceType || "");
+  
+  let nights = 1;
+  if (isAccommodation && startDate && endDate) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffTime = end.getTime() - start.getTime();
+    if (diffTime > 0) {
+      nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    }
+  }
+
+  const estimatedTotal = price * guests * (isAccommodation ? Math.max(nights, 1) : 1);
 
   async function handleBook(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -51,6 +68,8 @@ export function BookingForm({
           <input
             type="date"
             required
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
             className="w-full rounded-xl border border-desert-300 px-3 py-2 text-sm text-clay-800 focus:border-sand-500 focus:ring-2 focus:ring-sand-100 outline-none"
           />
         </div>
@@ -61,6 +80,8 @@ export function BookingForm({
           <input
             type="date"
             required
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
             className="w-full rounded-xl border border-desert-300 px-3 py-2 text-sm text-clay-800 focus:border-sand-500 focus:ring-2 focus:ring-sand-100 outline-none"
           />
         </div>
@@ -81,8 +102,15 @@ export function BookingForm({
       </div>
 
       <div className="flex items-center justify-between py-3 border-t border-desert-200 mt-2">
-        <span className="font-semibold text-clay-700">{isAr ? "الإجمالي التقريبي" : "Estimated Total"}</span>
-        <span className="font-bold text-lg text-oasis-600">{price * guests} DZD</span>
+        <span className="font-semibold text-clay-700">
+          {isAr ? "الإجمالي التقريبي" : "Estimated Total"}
+          {isAccommodation && nights > 1 && (
+            <span className="text-xs text-clay-400 font-normal block">
+              ({nights} {isAr ? "ليالي" : "nights"} × {guests} {isAr ? "أشخاص" : "guests"})
+            </span>
+          )}
+        </span>
+        <span className="font-bold text-lg text-oasis-600">{estimatedTotal} DZD</span>
       </div>
 
       <Button

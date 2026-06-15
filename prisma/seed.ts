@@ -58,6 +58,13 @@ async function main() {
   console.log("🌱 Seeding RedOasisArtisan database with Timimoun/Gourara data...\n");
 
   // ─── Clear existing data ────────────────────────────────────────────────────
+  await prisma.serviceReview.deleteMany();
+  await prisma.booking.deleteMany();
+  await prisma.serviceImage.deleteMany();
+  await prisma.service.deleteMany();
+  await prisma.userSubscription.deleteMany();
+  await prisma.subscriptionPlan.deleteMany();
+  await prisma.serviceProvider.deleteMany();
   await prisma.review.deleteMany();
   await prisma.payment.deleteMany();
   await prisma.orderItem.deleteMany();
@@ -513,6 +520,130 @@ async function main() {
 
   console.log("✅ Sample order and reviews created");
 
+  // ─── Service Providers (Hotels & Guides) ───────────────────────────────────
+  const providerHash = await bcrypt.hash("provider123", 12);
+  
+  const hotelManager = await prisma.user.create({
+    data: {
+      firstName: "Ahmed",
+      lastName: "Kassi",
+      email: "ahmed.hotel@redoasisartisan.dz",
+      passwordHash: providerHash,
+      role: "HOTEL",
+      phone: "+213 550 112 233",
+    }
+  });
+
+  const tourGuide = await prisma.user.create({
+    data: {
+      firstName: "Tarik",
+      lastName: "Sahraoui",
+      email: "tarik.guide@redoasisartisan.dz",
+      passwordHash: providerHash,
+      role: "GUIDE",
+      phone: "+213 770 445 566",
+    }
+  });
+
+  const hotelProvider = await prisma.serviceProvider.create({
+    data: {
+      userId: hotelManager.id,
+      businessName: "Timimoun Palace Hotel",
+      slug: "timimoun-palace",
+      description: "A luxury stay in the heart of Timimoun Oasis.",
+      descriptionAr: "إقامة فاخرة في قلب واحة تيميمون الساحرة.",
+      location: "Timimoun Center",
+      contactEmail: "contact@timimounpalace.dz",
+      contactPhone: "+213 550 112 233",
+      isApproved: true,
+      services: {
+        create: [
+          {
+            type: "ROOM",
+            name: "Royal Oasis Suite",
+            nameAr: "جناح الواحة الملكي",
+            slug: "royal-oasis-suite",
+            description: "Experience true desert luxury with panoramic views of the palm grove.",
+            descriptionAr: "جرب الفخامة الصحراوية الحقيقية مع إطلالات بانورامية على واحة النخيل.",
+            price: 15000,
+            capacity: 2,
+            isPublished: true,
+            images: {
+              create: [
+                { url: "https://images.unsplash.com/photo-1542314831-c6a4d140b648?q=80&w=1600", isPrimary: true }
+              ]
+            }
+          },
+          {
+            type: "ROOM",
+            name: "Traditional Kasbah Room",
+            nameAr: "غرفة قصبة تقليدية",
+            slug: "traditional-kasbah-room",
+            description: "Authentic mud-brick architecture for a genuine Gourara experience.",
+            descriptionAr: "هندسة معمارية أصيلة من الطوب اللبن لتجربة قورارة حقيقية.",
+            price: 8000,
+            capacity: 3,
+            isPublished: true,
+            images: {
+              create: [
+                { url: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1600", isPrimary: true }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  });
+
+  const guideProvider = await prisma.serviceProvider.create({
+    data: {
+      userId: tourGuide.id,
+      businessName: "Sahara Adventures",
+      slug: "sahara-adventures",
+      description: "Experience the magic of the Grand Erg Occidental.",
+      descriptionAr: "اكتشف سحر العرق الغربي الكبير مع مرشدين محليين.",
+      location: "Timimoun Desert",
+      isApproved: true,
+      services: {
+        create: [
+          {
+            type: "TOUR",
+            name: "Sunset Camel Trek",
+            nameAr: "جولة غروب الشمس على الجمال",
+            slug: "sunset-camel-trek",
+            description: "A 2-hour guided camel ride into the dunes to watch the spectacular desert sunset.",
+            descriptionAr: "جولة إرشادية لمدة ساعتين على الجمال في الكثبان الرملية لمشاهدة غروب الشمس المذهل في الصحراء.",
+            price: 3000,
+            capacity: 10,
+            isPublished: true,
+            images: {
+              create: [
+                { url: "https://images.unsplash.com/photo-1549480017-d76466a4b8e8?q=80&w=1600", isPrimary: true }
+              ]
+            }
+          },
+          {
+            type: "TOUR",
+            name: "4x4 Oasis Expedition",
+            nameAr: "رحلة سفاري بالسيارات الرباعية",
+            slug: "4x4-oasis-expedition",
+            description: "Full day 4x4 off-road adventure exploring remote oasis and ancient ruins.",
+            descriptionAr: "مغامرة ليوم كامل بسيارات الدفع الرباعي لاستكشاف الواحات النائية والآثار القديمة.",
+            price: 12000,
+            capacity: 4,
+            isPublished: true,
+            images: {
+              create: [
+                { url: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?q=80&w=1600", isPrimary: true }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  });
+  console.log("✅ Tourism Services created");
+
   console.log("\n" + "═".repeat(50));
   console.log("🎉 Seeding complete!\n");
   console.log("📋 Verified Accounts:");
@@ -525,6 +656,8 @@ async function main() {
   console.log("🏺 Artisan:  abderrahmane@redoasisartisan.dz / artisan123");
   console.log("🏺 Artisan:  fatima.b@redoasisartisan.dz / artisan123");
   console.log("🛒 Customer: customer@redoasisartisan.dz / customer123");
+  console.log("🏨 Hotel:    ahmed.hotel@redoasisartisan.dz / provider123");
+  console.log("🐪 Guide:    tarik.guide@redoasisartisan.dz / provider123");
   console.log("─".repeat(50));
   console.log(`📦 ${products.length} products, ${categories.length} categories, ${artisans.length} artisans`);
 }
