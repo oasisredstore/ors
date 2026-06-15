@@ -26,7 +26,9 @@ export function Footer({ locale }: FooterProps) {
               </span>
             </div>
             <p className="text-sm text-clay-300 leading-relaxed mb-5">
-              Preserving Saharan heritage through authentic handmade craftsmanship from Timimoun, Algeria.
+              {locale === "ar" 
+                ? "الحفاظ على التراث الصحراوي من خلال الحرف اليدوية الأصلية والخدمات السياحية في تيميمون، الجزائر."
+                : "Preserving Saharan heritage through authentic handmade craftsmanship and tourism from Timimoun, Algeria."}
             </p>
             <div className="flex items-center gap-3">
               {[Share2, Globe, MessageCircle].map((Icon, i) => (
@@ -43,7 +45,7 @@ export function Footer({ locale }: FooterProps) {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-white mb-4">Explore</h4>
+            <h4 className="font-semibold text-white mb-4">{locale === "ar" ? "استكشف" : "Explore"}</h4>
             <ul className="space-y-2.5">
               {[
                 { label: t("products"), href: `/${locale}/products`, key: "products" },
@@ -62,14 +64,14 @@ export function Footer({ locale }: FooterProps) {
             </ul>
           </div>
 
-          {/* Artisans */}
+          {/* Providers / Artisans */}
           <div>
-            <h4 className="font-semibold text-white mb-4">For Artisans</h4>
+            <h4 className="font-semibold text-white mb-4">{locale === "ar" ? "للمزودين والحرفيين" : "For Providers & Artisans"}</h4>
             <ul className="space-y-2.5">
               {[
-                { label: "Register as Artisan", href: `/${locale}/auth/artisan/register` },
-                { label: "Artisan Dashboard", href: `/${locale}/dashboard` },
-                { label: "How it Works", href: `/${locale}` },
+                { label: locale === "ar" ? "تسجيل حساب" : "Register Account", href: `/${locale}/auth/artisan/register` },
+                { label: locale === "ar" ? "لوحة التحكم" : "Dashboard", href: `/${locale}/dashboard` },
+                { label: locale === "ar" ? "كيف نعمل؟" : "How it Works", href: `/${locale}` },
               ].map((item) => (
                 <li key={item.label}>
                   <Link
@@ -85,7 +87,7 @@ export function Footer({ locale }: FooterProps) {
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold text-white mb-4">Contact</h4>
+            <h4 className="font-semibold text-white mb-4">{locale === "ar" ? "تواصل معنا" : "Contact"}</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2.5 text-sm text-clay-300">
                 <MapPin className="w-4 h-4 mt-0.5 text-sand-400 shrink-0" />
@@ -105,12 +107,12 @@ export function Footer({ locale }: FooterProps) {
 
         {/* Bottom Bar */}
         <div className="border-t border-clay-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-clay-500">
-            © {new Date().getFullYear()} RedOasisArtisan. All rights reserved.
+          <p className="text-xs text-clay-500" dir="ltr">
+            © {new Date().getFullYear()} RedOasisArtisan. {locale === "ar" ? "جميع الحقوق محفوظة." : "All rights reserved."}
           </p>
           <div className="flex items-center gap-4 text-xs text-clay-500">
-            <a href="#" className="hover:text-sand-400 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-sand-400 transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-sand-400 transition-colors">{locale === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}</a>
+            <a href="#" className="hover:text-sand-400 transition-colors">{locale === "ar" ? "شروط الخدمة" : "Terms of Service"}</a>
           </div>
         </div>
       </div>
