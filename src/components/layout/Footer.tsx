@@ -95,12 +95,18 @@ export function Footer({ locale }: FooterProps) {
                 Igasten Deldoul, Timimoun, Algeria
               </li>
               <li className="flex items-center gap-2.5 text-sm text-clay-300">
-                <Mail className="w-4 h-4 text-sand-400" />
-                hello@redoasisartisan.dz
+                <Mail className="w-4 h-4 text-sand-400 shrink-0" />
+                <a href="mailto:larbilarbi12275@gmail.com" className="hover:text-sand-400 transition-colors">larbilarbi12275@gmail.com</a>
               </li>
               <li className="flex items-center gap-2.5 text-sm text-clay-300">
-                <Phone className="w-4 h-4 text-sand-400" />
-                +213 664 664 617
+                <Phone className="w-4 h-4 text-sand-400 shrink-0" />
+                <a href="tel:0660945221" className="hover:text-sand-400 transition-colors" dir="ltr">066 09 45 221</a>
+              </li>
+              <li className="flex items-center gap-2.5 text-sm text-clay-300">
+                <MessageCircle className="w-4 h-4 text-green-500 shrink-0" />
+                <a href="https://wa.me/213660945221" target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors" dir="ltr">
+                  WhatsApp (0660945221)
+                </a>
               </li>
             </ul>
           </div>
