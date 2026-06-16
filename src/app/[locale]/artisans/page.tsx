@@ -66,13 +66,13 @@ export default async function ArtisansPage({ params, searchParams }: ArtisansPag
         if (p.user.role === "GUEST_HOUSE") typeLabel = "دار ضيافة";
         if (p.user.role === "GUIDE") typeLabel = "مرشد سياحي";
         if (p.user.role === "AGENCY") typeLabel = "وكالة سياحية";
-        if (p.user.role === "TRANSPORT") typeLabel = "نقل";
+        if ((p.user.role as string) === "TRANSPORT") typeLabel = "نقل";
       } else {
         if (p.user.role === "HOTEL") typeLabel = "Hotel";
         if (p.user.role === "GUEST_HOUSE") typeLabel = "Guest House";
         if (p.user.role === "GUIDE") typeLabel = "Tour Guide";
         if (p.user.role === "AGENCY") typeLabel = "Tourism Agency";
-        if (p.user.role === "TRANSPORT") typeLabel = "Transport";
+        if ((p.user.role as string) === "TRANSPORT") typeLabel = "Transport";
       }
       return {
         id: p.id,
