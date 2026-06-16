@@ -49,8 +49,9 @@ export function Footer({ locale }: FooterProps) {
             <ul className="space-y-2.5">
               {[
                 { label: t("products"), href: `/${locale}/products`, key: "products" },
-                { label: t("artisans"), href: `/${locale}/artisans`, key: "artisans" },
-                { label: locale === "ar" ? "التصنيفات" : "Categories", href: `/${locale}/products?sort=newest`, key: "categories" },
+                { label: t("services"), href: `/${locale}/services`, key: "services" },
+                { label: locale === "ar" ? "دليل الشركاء والحرفيين" : "Partners & Artisans", href: `/${locale}/artisans`, key: "artisans" },
+                { label: locale === "ar" ? "المتحف والتراث" : "Heritage & Museum", href: `/${locale}/heritage`, key: "heritage" },
               ].map((item) => (
                 <li key={item.key}>
                   <Link
