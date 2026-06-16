@@ -16,6 +16,8 @@ import {
   ShoppingCart,
   Search,
   Download,
+  Landmark,
+  MessageCircle,
 } from "lucide-react";
 import { useWishlistStore } from "@/store/wishlistStore";
 import { useCartStore } from "@/store/cartStore";
@@ -57,6 +59,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
     { href: `/${locale}/services`, label: t("services") },
     { href: `/${locale}/products`, label: t("products") },
     { href: `/${locale}/artisans`, label: t("artisans") },
+    { href: `/${locale}/heritage`, label: locale === "ar" ? "التراث" : "Heritage" },
     { href: `/${locale}/about`, label: t("about") },
   ];
 
@@ -202,7 +205,14 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
                     >
                       <User className="w-4 h-4" /> {t("account")}
                     </Link>
-                    {user.role === "ARTISAN" && (
+                    <Link
+                      href={`/${locale}/messages`}
+                      className="flex items-center gap-2 px-4 py-2.5 text-sm text-clay-700 hover:bg-desert-50"
+                      onClick={() => setUserMenuOpen(false)}
+                    >
+                      <MessageCircle className="w-4 h-4" /> {locale === "ar" ? "رسائلي" : "Messages"}
+                    </Link>
+                    {["ARTISAN", "HOTEL", "GUEST_HOUSE", "GUIDE", "AGENCY"].includes(user.role) && (
                       <Link
                         href={`/${locale}/dashboard`}
                         className="flex items-center gap-2 px-4 py-2.5 text-sm text-clay-700 hover:bg-desert-50"

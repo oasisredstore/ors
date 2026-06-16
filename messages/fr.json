@@ -1,0 +1,284 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "services": "Services Touristiques",
+    "products": "Artisanat",
+    "artisans": "Artisans",
+    "heritage": "Patrimoine",
+    "categories": "Catégories",
+    "about": "À propos",
+    "login": "Se connecter",
+    "register": "S'inscrire",
+    "dashboard": "Tableau de bord",
+    "admin": "Admin",
+    "account": "Mon Compte",
+    "messages": "Messages",
+    "logout": "Déconnexion"
+  },
+  "home": {
+    "hero": {
+      "badge": "Artisanat Saharien Authentique",
+      "title": "Là où l'art du désert rencontre le monde",
+      "subtitle": "Découvrez des trésors artisanaux de Timimoun et du Sahara algérien. Chaque pièce raconte une histoire de culture, de tradition et d'art.",
+      "cta": "Explorer la Collection",
+      "ctaArtisan": "Rejoindre comme Artisan"
+    },
+    "categories": {
+      "title": "Parcourir par Catégorie",
+      "subtitle": "Explorez notre collection soigneusement sélectionnée d'artisanat saharien traditionnel"
+    },
+    "featured": {
+      "title": "Pièces en vedette",
+      "subtitle": "Sélectionnées à la main par nos curateurs pour leur qualité exceptionnelle"
+    },
+    "artisans": {
+      "title": "Rencontrez nos Artisans",
+      "subtitle": "Les créateurs talentueux derrière chaque pièce",
+      "viewAll": "Voir tous les artisans"
+    },
+    "why": {
+      "title": "Pourquoi RedOasisArtisan ?",
+      "authentic": {
+        "title": "100% Authentique",
+        "desc": "Chaque produit est fait main par des artisans locaux vérifiés de Timimoun"
+      },
+      "heritage": {
+        "title": "Patrimoine Culturel",
+        "desc": "Préserver des siècles de traditions artisanales sahariennes pour les générations futures"
+      },
+      "impact": {
+        "title": "Découvrir & Connecter",
+        "desc": "Découvrez des artisans exceptionnels et connectez-vous directement"
+      },
+      "quality": {
+        "title": "Qualité Premium",
+        "desc": "Sélectionné et contrôlé par notre équipe d'experts"
+      }
+    },
+    "histoire": {
+      "title": "Notre Histoire",
+      "subtitle": "Du cœur du Sahara algérien",
+      "p1": "Timimoun, le joyau du Sahara algérien, abrite depuis des millénaires des artisans talentueux.",
+      "p2": "RedOasisArtisan est né de la passion de préserver ce précieux héritage et de le présenter au monde.",
+      "p3": "Chaque produit dans notre galerie est une œuvre d'art unique."
+    }
+  },
+  "product": {
+    "description": "Description",
+    "details": "Détails du Produit",
+    "material": "Matériau",
+    "dimensions": "Dimensions",
+    "origin": "Lieu d'origine",
+    "artisan": "Par l'Artisan",
+    "category": "Catégorie",
+    "reviews": "Avis",
+    "noReviews": "Pas encore d'avis. Soyez le premier !",
+    "contactArtisan": "Contacter l'Artisan",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "viewProfile": "Voir le profil",
+    "authentic": "Fait main authentique"
+  },
+  "auth": {
+    "login": "Se connecter",
+    "register": "Créer un compte",
+    "email": "Adresse Email",
+    "password": "Mot de passe",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "phone": "Numéro de téléphone",
+    "forgotPassword": "Mot de passe oublié ?",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "hasAccount": "Vous avez déjà un compte ?",
+    "artisanRegister": "S'inscrire comme Artisan",
+    "shopName": "Nom de la boutique",
+    "bio": "À propos de vous",
+    "location": "Emplacement",
+    "specialization": "Spécialisation"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "overview": "Aperçu",
+    "products": "Mes Produits",
+    "addProduct": "Ajouter un produit",
+    "totalProducts": "Total Produits",
+    "publishedProducts": "Publiés",
+    "featuredProducts": "En vedette",
+    "totalReviews": "Avis",
+    "productName": "Nom du produit",
+    "material": "Matériau",
+    "status": "Statut",
+    "actions": "Actions",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "publish": "Publier",
+    "unpublish": "Dépublier",
+    "published": "Publié",
+    "draft": "Brouillon",
+    "featured": "En vedette",
+    "uploadImages": "Télécharger des images",
+    "imageHint": "Téléchargez jusqu'à 5 images."
+  },
+  "admin": {
+    "title": "Tableau de bord Admin",
+    "overview": "Aperçu",
+    "users": "Utilisateurs",
+    "artisans": "Artisans",
+    "products": "Produits",
+    "analytics": "Analytiques",
+    "advertisements": "Publicités",
+    "approve": "Approuver",
+    "reject": "Rejeter",
+    "approved": "Approuvé",
+    "pending": "En attente",
+    "totalUsers": "Visiteurs totaux",
+    "totalArtisans": "Artisans totaux",
+    "totalProducts": "Produits totaux",
+    "totalReviews": "Avis totaux",
+    "recentProducts": "Produits récents"
+  },
+  "about": {
+    "title": "À propos de nous",
+    "subtitle": "RedOasisArtisan — Une maison pour l'artisanat saharien",
+    "histoire": {
+      "title": "Notre Histoire",
+      "content": "Depuis le cœur de Timimoun, au fond du grand Sahara algérien..."
+    },
+    "mission": {
+      "title": "Notre Mission",
+      "content": "Nous croyons que chaque pièce faite main porte l'âme de son créateur."
+    },
+    "techniques": {
+      "title": "Matériaux & Techniques",
+      "pottery": {
+        "name": "Poterie",
+        "desc": "L'argile saharienne façonnée par des artisans."
+      },
+      "weaving": {
+        "name": "Tissage",
+        "desc": "Tapis et tissus aux couleurs du palmier et du sable."
+      },
+      "leather": {
+        "name": "Travail du cuir",
+        "desc": "Articles en cuir tannés selon des méthodes traditionnelles."
+      },
+      "palm": {
+        "name": "Artisanat du palmier",
+        "desc": "Paniers et articles ménagers faits de feuilles de palmier."
+      }
+    }
+  },
+  "heritage": {
+    "title": "Patrimoine Culturel",
+    "subtitle": "Un voyage à travers des millénaires de civilisation",
+    "gallery": "Galerie du Patrimoine",
+    "crafts": "Encyclopédie des Arts Traditionnels",
+    "timeline": "Chronologie Historique",
+    "workshops": "Ateliers Éducatifs Artisanaux",
+    "bookWorkshop": "Réserver un atelier"
+  },
+  "messages": {
+    "title": "Messages",
+    "inbox": "Boîte de réception",
+    "noMessages": "Pas de messages pour le moment",
+    "send": "Envoyer un message",
+    "reply": "Répondre",
+    "subject": "Sujet",
+    "body": "Message",
+    "sendMessage": "Envoyer un Message",
+    "contactProvider": "Contacter le Prestataire",
+    "contactArtisan": "Contacter l'Artisan",
+    "sent": "Message envoyé"
+  },
+  "booking": {
+    "title": "Réserver ce service",
+    "checkIn": "Date d'arrivée",
+    "checkOut": "Date de départ",
+    "guests": "Nombre de personnes",
+    "notes": "Demandes spéciales (optionnel)",
+    "confirm": "Confirmer la Réservation",
+    "cancel": "Annuler la Réservation",
+    "accept": "Accepter",
+    "reject": "Rejeter",
+    "pending": "En attente",
+    "confirmed": "Confirmé",
+    "rejected": "Rejeté",
+    "cancelled": "Annulé",
+    "completed": "Terminé",
+    "myBookings": "Mes Réservations",
+    "noBookings": "Aucune réservation pour le moment",
+    "totalAmount": "Montant Total",
+    "dates": "Dates",
+    "guests_count": "Personnes"
+  },
+  "account": {
+    "title": "Mon Compte",
+    "bookings": "Mes Réservations",
+    "orders": "Mes Commandes",
+    "reviews": "Mes Avis",
+    "messages": "Messages",
+    "profile": "Profil",
+    "memberSince": "Membre depuis",
+    "accountType": "Type de Compte"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "retry": "Réessayer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "back": "Retour",
+    "next": "Suivant",
+    "search": "Rechercher des produits...",
+    "filter": "Filtrer",
+    "sortBy": "Trier par",
+    "noResults": "Aucun résultat",
+    "viewAll": "Voir tout",
+    "seeMore": "Voir plus",
+    "handmade": "Fait main",
+    "authentic": "Authentique"
+  },
+  "cart": {
+    "title": "Mon Panier",
+    "empty": "Votre panier est vide",
+    "emptyDesc": "Découvrez nos trésors artisanaux et ajoutez quelque chose de spécial.",
+    "continueShopping": "Continuer vos achats",
+    "total": "Total de la commande",
+    "subtotal": "Sous-total",
+    "shipping": "Livraison",
+    "shippingNote": "Calculé au paiement",
+    "checkout": "Procéder au paiement"
+  },
+  "checkout": {
+    "title": "Paiement",
+    "delivery": "Adresse de livraison",
+    "payment": "Méthode de paiement",
+    "cod": "Paiement à la livraison",
+    "codDesc": "Payez lorsque votre commande arrive à votre porte.",
+    "bankTransfer": "Virement bancaire",
+    "bankDesc": "Virement sur notre compte. Expédition après confirmation.",
+    "notes": "Notes de commande (optionnel)",
+    "summary": "Résumé de la commande",
+    "placeOrder": "Passer la commande"
+  },
+  "artisans": {
+    "title": "Nos Artisans",
+    "subtitle": "Rencontrez les créateurs talentueux derrière chaque pièce",
+    "viewAll": "Voir tous les artisans",
+    "products": "produits"
+  },
+  "services": {
+    "title": "Services Touristiques",
+    "all": "Tous",
+    "accommodation": "Hébergements",
+    "tours": "Excursions",
+    "workshop": "Ateliers",
+    "transport": "Transport",
+    "bookNow": "Réserver",
+    "perNight": "/ nuit",
+    "perPerson": "/ personne",
+    "capacity": "Capacité",
+    "location": "Emplacement"
+  }
+}

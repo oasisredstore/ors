@@ -10,6 +10,7 @@ export function BookingForm({
   price,
   locale,
   isLoggedIn,
+  serviceType,
 }: {
   serviceId: string;
   price: number;

@@ -7,6 +7,7 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { SplashIntro } from "@/components/home/SplashIntro";
 import { VirtualMuseumSection } from "@/components/home/VirtualMuseumSection";
 import { ProductCard } from "@/components/marketplace/ProductCard";
+import { AdBanner } from "@/components/shared/AdBanner";
 import { Leaf, Globe, Heart, Award, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -113,6 +114,13 @@ export default async function HomePage({ params }: HomePageProps) {
       <main>
         {/* Hero */}
         <HeroSection locale={locale} />
+
+        {/* Homepage Ad Banner */}
+        <section className="py-4 bg-white px-4">
+          <div className="max-w-7xl mx-auto">
+            <AdBanner position="homepage" locale={locale} />
+          </div>
+        </section>
 
         {/* 1. Premium Accommodations Section (BMC Priority) */}
         {accommodations.length > 0 && (

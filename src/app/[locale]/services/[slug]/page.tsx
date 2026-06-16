@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Calendar, Users, MapPin, CheckCircle, Star } from "lucide-react";
 import { BookingForm } from "@/components/marketplace/BookingForm";
 import { WriteServiceReviewForm } from "@/components/marketplace/WriteServiceReviewForm";
+import { ContactProviderButton } from "@/components/shared/ContactProviderButton";
 
 export default async function ServiceDetailPage({
   params,
@@ -24,12 +25,15 @@ export default async function ServiceDetailPage({
       images: { orderBy: [{ isPrimary: "desc" }, { sortOrder: "asc" }] },
       provider: {
         select: {
+          id: true,
           businessName: true,
           slug: true,
           description: true,
           descriptionAr: true,
           avatarUrl: true,
           location: true,
+          contactPhone: true,
+          contactEmail: true,
         },
       },
       reviews: {
@@ -118,7 +122,9 @@ export default async function ServiceDetailPage({
                     <div className="flex items-center gap-3 text-clay-700 bg-desert-50 p-3 rounded-xl border border-desert-100">
                       <Users className="w-5 h-5 text-oasis-600" />
                       <span className="text-sm font-medium">
-                        {isAr ? `تتسع لـ ${service.capacity} أشخاص` : `Capacity: ${service.capacity} persons`}
+                        {service.type === "ROOM" || service.type === "TENT"
+                          ? (isAr ? `${service.capacity} سرير` : `${service.capacity} Beds`)
+                          : (isAr ? `تتسع لـ ${service.capacity} أشخاص` : `Capacity: ${service.capacity} persons`)}
                       </span>
                     </div>
                     <div className="flex items-center gap-3 text-clay-700 bg-desert-50 p-3 rounded-xl border border-desert-100">
@@ -130,13 +136,63 @@ export default async function ServiceDetailPage({
                   </div>
                 </div>
 
-                {/* Booking Form Component */}
-                <div className="bg-sand-50 p-6 rounded-2xl border border-sand-200">
-                  <h3 className="font-bold text-clay-900 mb-4 flex items-center gap-2">
-                    <Calendar className="w-5 h-5 text-sand-600" />
-                    {isAr ? "حجز الخدمة" : "Book this service"}
-                  </h3>
-                  <BookingForm serviceId={service.id} price={service.price} serviceType={service.type} locale={locale} isLoggedIn={!!session} />
+                {/* Contact + Booking */}
+                <div className="space-y-4">
+                  {/* Contact Provider Button */}
+                  {/* Provider Info Card */}
+                  <div className="bg-white p-6 rounded-2xl border border-desert-200 shadow-sm">
+                    <div className="flex items-center gap-4 mb-4">
+                      {service.provider.avatarUrl ? (
+                        <Image src={service.provider.avatarUrl} alt={service.provider.businessName} width={60} height={60} className="rounded-full object-cover" />
+                      ) : (
+                        <div className="w-14 h-14 bg-desert-100 rounded-full flex items-center justify-center text-xl">👤</div>
+                      )}
+                      <div>
+                        <h3 className="font-bold text-clay-900">{service.provider.businessName}</h3>
+                        <p className="text-sm text-clay-500">{service.provider.location || "Timimoun"}</p>
+                      </div>
+                    </div>
+                    {(service.provider.description || service.provider.descriptionAr) && (
+                      <p className="text-sm text-clay-600 mb-4 pb-4 border-b border-desert-100">
+                        {isAr && service.provider.descriptionAr ? service.provider.descriptionAr : service.provider.description}
+                      </p>
+                    )}
+                    <div className="space-y-2 mb-4">
+                      {service.provider.contactPhone && (
+                        <div className="flex items-center gap-2 text-sm text-clay-700">
+                          <span>📞</span> <a href={`tel:${service.provider.contactPhone.replace(/\s+/g, '')}`} className="hover:text-oasis-600 hover:underline">{service.provider.contactPhone}</a>
+                        </div>
+                      )}
+                      {service.provider.contactEmail && (
+                        <div className="flex items-center gap-2 text-sm text-clay-700">
+                          <span>✉️</span> <a href={`mailto:${service.provider.contactEmail}`} className="hover:text-oasis-600 hover:underline">{service.provider.contactEmail}</a>
+                        </div>
+                      )}
+                    </div>
+                    {session ? (
+                      <ContactProviderButton
+                        providerId={service.provider.id}
+                        artisanId={undefined}
+                        name={service.provider.businessName}
+                        locale={locale}
+                      />
+                    ) : (
+                      <a
+                        href={`/${locale}/auth/login`}
+                        className="block w-full text-center bg-desert-100 text-clay-600 py-2 rounded-xl text-sm font-semibold hover:bg-desert-200"
+                      >
+                        {isAr ? "سجل الدخول للمراسلة" : "Login to message"}
+                      </a>
+                    )}
+                  </div>
+                  {/* Booking Form Component */}
+                  <div className="bg-sand-50 p-6 rounded-2xl border border-sand-200">
+                    <h3 className="font-bold text-clay-900 mb-4 flex items-center gap-2">
+                      <Calendar className="w-5 h-5 text-sand-600" />
+                      {isAr ? "حجز الخدمة" : "Book this service"}
+                    </h3>
+                    <BookingForm serviceId={service.id} price={service.price} serviceType={service.type} locale={locale} isLoggedIn={!!session} />
+                  </div>
                 </div>
               </div>
             </div>

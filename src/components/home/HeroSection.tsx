@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { ArrowRight, ArrowLeft, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowLeft, Sparkles, Search, MapPin } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface HeroSectionProps {
   locale: string;
@@ -12,11 +14,24 @@ export function HeroSection({ locale }: HeroSectionProps) {
   const t = useTranslations("home.hero");
   const isRTL = locale === "ar";
   const Arrow = isRTL ? ArrowLeft : ArrowRight;
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/${locale}/products?search=${encodeURIComponent(searchQuery)}`);
+    } else {
+      router.push(`/${locale}/products`);
+    }
+  };
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-hero-gradient" />
+      {/* Background Image & Gradient Overlay */}
+      <div className="absolute inset-0 bg-[url('/images/timimoun/timimoun_oasis_sunset.webp')] bg-cover bg-center" />
+      <div className="absolute inset-0 overlay-toub" />
+      <div className="absolute inset-0 bg-hero-gradient mix-blend-multiply opacity-60" />
 
       {/* Decorative Pattern */}
       <div className="absolute inset-0 opacity-10">
@@ -60,24 +75,45 @@ export function HeroSection({ locale }: HeroSectionProps) {
             {t("subtitle")}
           </p>
 
-          {/* CTAs */}
+          {/* CTAs & Search */}
           <div
-            className="flex flex-wrap gap-4 animate-fade-in-up"
+            className="animate-fade-in-up w-full max-w-2xl"
             style={{ animationDelay: "0.3s" }}
           >
-            <Link
-              href={`/${locale}/products`}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-sand-400 to-sand-500 hover:from-sand-500 hover:to-sand-600 text-white font-semibold px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 active:scale-95"
+            <form 
+              onSubmit={handleSearch}
+              className="flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full p-2 focus-within:ring-2 focus-within:ring-sand-400 focus-within:bg-white/20 transition-all duration-300 shadow-2xl"
             >
-              {t("cta")}
-              <Arrow className="w-5 h-5" />
-            </Link>
-            <Link
-              href={`/${locale}/auth/artisan/register`}
-              className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/30 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300"
-            >
-              {t("ctaArtisan")}
-            </Link>
+              <div className="pl-4 pr-2 flex items-center justify-center">
+                <Search className="w-5 h-5 text-white/70" />
+              </div>
+              <input
+                type="text"
+                placeholder={locale === "ar" ? "ابحث عن فندق، رحلة، أو منتج..." : "Search for a hotel, tour, or product..."}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="flex-1 bg-transparent border-none text-white placeholder-white/60 focus:ring-0 outline-none text-base sm:text-lg"
+              />
+              <button
+                type="submit"
+                className="bg-sand-500 hover:bg-sand-600 text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all shadow-lg hover:shadow-sand-500/50"
+              >
+                {locale === "ar" ? "بحث" : "Search"}
+              </button>
+            </form>
+            
+            <div className="flex items-center gap-4 mt-6 text-sm text-white/80 font-medium">
+              <span className="flex items-center gap-1">
+                <MapPin className="w-4 h-4 text-sand-400" />
+                {locale === "ar" ? "تيميمون المركز" : "Timimoun Center"}
+              </span>
+              <Link href={`/${locale}/services?type=accommodation`} className="hover:text-sand-300 hover:underline transition-all">
+                {locale === "ar" ? "الفنادق والإقامات" : "Hotels & Stays"}
+              </Link>
+              <Link href={`/${locale}/services?type=tour`} className="hover:text-sand-300 hover:underline transition-all">
+                {locale === "ar" ? "الجولات السياحية" : "Tours"}
+              </Link>
+            </div>
           </div>
 
           {/* Stats */}
@@ -86,9 +122,9 @@ export function HeroSection({ locale }: HeroSectionProps) {
             style={{ animationDelay: "0.4s" }}
           >
             {[
-              { value: "200+", label: locale === "ar" ? "منتج حرفي" : "Artisan Products" },
-              { value: "50+", label: locale === "ar" ? "حرفي موثوق" : "Verified Artisans" },
-              { value: "15+", label: locale === "ar" ? "فئة حرفية" : "Craft Categories" },
+              { value: "50+", label: locale === "ar" ? "إقامة وجولة" : "Stays & Tours" },
+              { value: "100+", label: locale === "ar" ? "شريك محلي" : "Local Partners" },
+              { value: "300+", label: locale === "ar" ? "منتج حرفي" : "Artisan Products" },
             ].map((stat) => (
               <div key={stat.label}>
                 <p className="text-3xl font-display font-bold text-sand-300">{stat.value}</p>

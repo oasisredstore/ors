@@ -3,7 +3,7 @@ import { getSession } from "@/lib/session";
 import Link from "next/link";
 import {
   LayoutDashboard, Users, UserCheck, Package,
-  BarChart3, LogOut, ChevronRight, ChevronLeft,
+  BarChart3, LogOut, ChevronRight, ChevronLeft, Megaphone,
 } from "lucide-react";
 import { logoutAction } from "@/actions/auth.actions";
 import { AdminMobileNav } from "@/components/admin/AdminMobileNav";
@@ -24,11 +24,12 @@ export default async function AdminLayout({ children, params }: AdminLayoutProps
   const isRTL = locale === "ar";
 
   const navItems = [
-    { href: `/${locale}/admin`, labelEn: "Overview",   labelAr: "نظرة عامة",    icon: LayoutDashboard },
-    { href: `/${locale}/admin/users`,     labelEn: "Users",     labelAr: "المستخدمون",  icon: Users },
-    { href: `/${locale}/admin/artisans`,  labelEn: "Artisans",  labelAr: "الحرفيون",    icon: UserCheck },
-    { href: `/${locale}/admin/products`,  labelEn: "Products",  labelAr: "المنتجات",    icon: Package },
-    { href: `/${locale}/admin/analytics`, labelEn: "Analytics", labelAr: "الإحصائيات", icon: BarChart3 },
+    { href: `/${locale}/admin`,                  labelEn: "Overview",       labelAr: "نظرة عامة",    icon: LayoutDashboard },
+    { href: `/${locale}/admin/users`,            labelEn: "Users",          labelAr: "المستخدمون",  icon: Users },
+    { href: `/${locale}/admin/artisans`,         labelEn: "Artisans",       labelAr: "الحرفيون",    icon: UserCheck },
+    { href: `/${locale}/admin/products`,         labelEn: "Products",       labelAr: "المنتجات",    icon: Package },
+    { href: `/${locale}/admin/analytics`,        labelEn: "Analytics",      labelAr: "الإحصائيات", icon: BarChart3 },
+    { href: `/${locale}/admin/advertisements`,   labelEn: "Advertisements", labelAr: "الإعلانات",   icon: Megaphone },
   ];
 
   const ChevronIcon = isRTL ? ChevronLeft : ChevronRight;
