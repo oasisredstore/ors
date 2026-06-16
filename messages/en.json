@@ -13,6 +13,9 @@
     "admin": "Admin",
     "account": "My Account",
     "messages": "Messages",
+    "explore": "Explore",
+    "marketplace": "Marketplace",
+    "services_partners": "Services & Partners",
     "logout": "Sign Out"
   },
   "home": {
