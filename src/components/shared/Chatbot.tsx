@@ -12,44 +12,44 @@ interface Message {
 
 const KNOWLEDGE_BASE = [
   {
+    keywords: ["حجز", "فندق", "مبيت", "إقامة", "غرفة", "hotel", "stay", "book", "room", "accommodation"],
+    responseAr: "نقدم في المنصة خدمة حجز الفنادق ودور الضيافة (القصور) في تيميمون. يمكنك تصفح أماكن الإقامة، رؤية التقييمات، والحجز مباشرة عبر المنصة! <br/><br/><a href='/ar/services' style='color:#b45309; text-decoration:underline; font-weight:bold;'>تصفح أماكن الإقامة</a>",
+    responseEn: "We offer bookings for hotels and guesthouses (Ksours) in Timimoun. You can browse accommodations, see reviews, and book directly! <br/><br/><a href='/en/services' style='color:#b45309; text-decoration:underline; font-weight:bold;'>Browse accommodations</a>"
+  },
+  {
+    keywords: ["مرشد", "دليل", "جولة", "سفاري", "نقل", "guide", "transport", "tour", "safari", "trip"],
+    responseAr: "يمكنك العثور على مرشدين سياحيين محليين معتمدين لرحلات السفاري بالدفع الرباعي أو جولات الجمال في العرق الغربي الكبير، بالإضافة لخدمات النقل الموثوقة. <br/><br/><a href='/ar/services' style='color:#b45309; text-decoration:underline; font-weight:bold;'>ابحث عن مرشد</a>",
+    responseEn: "You can find certified local guides for 4x4 safaris or camel treks into the Grand Erg Occidental, as well as reliable transport services. <br/><br/><a href='/en/services' style='color:#b45309; text-decoration:underline; font-weight:bold;'>Find a guide</a>"
+  },
+  {
+    keywords: ["تسجيل", "انضمام", "حرفي", "مقدم خدمة", "بيع", "register", "join", "sell", "account", "provider"],
+    responseAr: "تدعم منصتنا تعدد الأدوار! يمكنك الانضمام كعميل عادي، أو كـ <b>حرفي</b> لبيع منتجاتك، أو كـ <b>مقدم خدمة سياحية</b> (فندق/مرشد) لتلقي الحجوزات. الحرفيون ومقدمو الخدمات يحصلون على لوحة تحكم خاصة بهم.",
+    responseEn: "Our platform supports multiple roles! You can join as a Customer, an <b>Artisan</b> to sell products, or a <b>Tourism Provider</b> (Hotel/Guide) to receive bookings. Artisans and Providers get their own dashboard."
+  },
+  {
+    keywords: ["متحف", "تراث", "تاريخ", "ثقافة", "heritage", "museum", "history", "culture"],
+    responseAr: "تيميمون غنية بالتراث! ندعوك لزيارة <b>المتحف الرقمي</b> في منصتنا لاستكشاف العمارة الحمراء، أنظمة الفقارة، والصناعات التقليدية عبر الزمن. <br/><br/><a href='/ar/heritage' style='color:#b45309; text-decoration:underline; font-weight:bold;'>زيارة المتحف الرقمي</a>",
+    responseEn: "Timimoun is rich in heritage! Visit our <b>Virtual Museum</b> to explore the red architecture, Foggara systems, and traditional crafts through time. <br/><br/><a href='/en/heritage' style='color:#b45309; text-decoration:underline; font-weight:bold;'>Visit Virtual Museum</a>"
+  },
+  {
     keywords: ["فاتيس", "سجاد", "نسيج", "زناتي", "زرابي", "fatiss", "carpet", "weaving", "rug"],
-    responseAr: "سجادة <b>الفاتيس</b> هي تحفة من النسيج الزناتي في قورارة. تُنسج يدوياً من الصوف الطبيعي وتتميز برموز هندسية مثل المعينات التي ترمز لدرء العين الحاسدة. <br/><br/><a href='/ar/products' style='color:#b45309; text-decoration:underline; font-weight:bold;'>تصفح السجاد من هنا</a>",
-    responseEn: "The <b>Fatiss</b> carpet is a masterpiece of Zenete weaving from Gourara. Handwoven from natural wool, it features geometric symbols like diamonds to deflect the evil eye. <br/><br/><a href='/en/products' style='color:#b45309; text-decoration:underline; font-weight:bold;'>Browse carpets here</a>"
+    responseAr: "سجادة <b>الفاتيس</b> هي تحفة من النسيج الزناتي في قورارة. تُنسج يدوياً من الصوف الطبيعي. <br/><br/><a href='/ar/products' style='color:#b45309; text-decoration:underline; font-weight:bold;'>تصفح السجاد من هنا</a>",
+    responseEn: "The <b>Fatiss</b> carpet is a masterpiece of Zenete weaving from Gourara. Handwoven from natural wool. <br/><br/><a href='/en/products' style='color:#b45309; text-decoration:underline; font-weight:bold;'>Browse carpets here</a>"
   },
   {
-    keywords: ["تادارة", "سعف", "نخيل", "طبق", "tadara", "palm", "plate", "basket"],
-    responseAr: "<b>التادارة</b> هي طبق مخروطي يُصنع ببراعة من سعف نخيل التمر. تُستخدم تقليدياً لحفظ الخبز دافئاً وحمايته من رمال الصحراء. <br/><br/><a href='/ar/products' style='color:#b45309; text-decoration:underline; font-weight:bold;'>اكتشف منتجات السعف</a>",
-    responseEn: "The <b>Tadara</b> is a conical plate skillfully crafted from date-palm fronds. It is traditionally used to keep bread warm and protect it from desert sand. <br/><br/><a href='/en/products' style='color:#b45309; text-decoration:underline; font-weight:bold;'>Discover palm products</a>"
-  },
-  {
-    keywords: ["هدية", "تذكار", "سياحة", "هدايا", "gift", "souvenir", "tourist", "recommend"],
-    responseAr: "لدينا العديد من الهدايا الرائعة للسياح! إذا كنت تبحث عن شيء صغير وأصيل، أنصحك بـ <b>البلغة الجلدية</b> أو <b>مروحة السعف</b>. أما إذا أردت قطعة فاخرة، فلا شيء يعلو على <b>سوار الدارة الفضي</b>. <br/><br/><a href='/ar/products' style='color:#b45309; text-decoration:underline; font-weight:bold;'>تصفح كل المنتجات</a>",
-    responseEn: "We have wonderful souvenirs! If you want something small and authentic, I recommend the <b>Leather Babouches</b> or the <b>Palm Leaf Fan</b>. For a premium gift, nothing beats the <b>Silver Dara Bracelet</b>. <br/><br/><a href='/en/products' style='color:#b45309; text-decoration:underline; font-weight:bold;'>Browse all products</a>"
-  },
-  {
-    keywords: ["فقارة", "ري", "ماء", "فخار", "براد", "foggara", "water", "irrigation", "clay", "barrad"],
-    responseAr: "ارتباط قورارة بالماء فريد جداً! الفخار الأحمر كـ <b>البرّاد</b> يستخدم للتبريد الطبيعي، و <b>نظام الفقارة</b> هو هندسة جوفية عبقرية لتوزيع المياه بين الواحات.",
-    responseEn: "Gourara's connection to water is unique! Red clay like the <b>Barrad</b> is used for natural cooling, and the <b>Foggara</b> system is an ingenious underground engineering for water distribution."
-  },
-  {
-    keywords: ["توصيل", "شحن", "شراء", "دفع", "delivery", "shipping", "buy", "pay"],
-    responseAr: "حالياً المنصة في المرحلة التجريبية. قريباً سنوفر خدمات التوصيل على المستوى الوطني والدولي بالتعاون مع شركائنا. الدفع حالياً يتم عند الاستلام.",
-    responseEn: "Currently, the platform is in its pilot phase. We will soon offer national and international delivery services. Payment is currently cash on delivery."
-  },
-  {
-    keywords: ["حرفي", "صانع", "اتصال", "تواصل", "موقع", "artisan", "maker", "contact", "whatsapp"],
-    responseAr: "يمكنك التواصل مع أي حرفي مباشرة عبر صفحة المنتج أو ملفه الشخصي باستخدام زر الواتساب أو البريد الإلكتروني المباشر. نحن ندعم التواصل المباشر لدعم السياحة المكانية!",
-    responseEn: "You can contact any artisan directly via the product page or their profile using the WhatsApp or direct email buttons. We support direct contact to promote geo-tourism!"
+    keywords: ["هدية", "تذكار", "هدايا", "gift", "souvenir", "recommend"],
+    responseAr: "لدينا منتجات حرفية أصيلة! أنصحك بـ <b>البلغة الجلدية</b>، <b>مروحة السعف</b>، أو <b>سوار الدارة الفضي</b> كهدية فاخرة. <br/><br/><a href='/ar/products' style='color:#b45309; text-decoration:underline; font-weight:bold;'>تصفح كل المنتجات</a>",
+    responseEn: "We have authentic crafts! I recommend <b>Leather Babouches</b>, <b>Palm Leaf Fan</b>, or the <b>Silver Dara Bracelet</b> as a premium gift. <br/><br/><a href='/en/products' style='color:#b45309; text-decoration:underline; font-weight:bold;'>Browse all products</a>"
   },
   {
     keywords: ["مرحبا", "سلام", "اهلا", "hello", "hi", "hey"],
-    responseAr: "مرحباً بك في الواحة الحمراء! أنا دليلك الذكي لقورارة. كيف يمكنني مساعدتك في استكشاف تراثنا اليوم؟",
-    responseEn: "Welcome to the Red Oasis! I am your smart Gourara guide. How can I help you explore our heritage today?"
+    responseAr: "مرحباً بك في الواحة الحمراء! أنا دليلك الذكي الشامل. كيف يمكنني مساعدتك في حجز فندق، إيجاد مرشد، أو شراء منتجات حرفية؟",
+    responseEn: "Welcome to the Red Oasis! I am your smart guide. How can I help you book a hotel, find a guide, or buy authentic crafts?"
   }
 ];
 
-const DEFAULT_RESPONSE_AR = "عذراً، لم أفهم سؤالك تماماً. أنا نظام خبير مبرمج للإجابة عن أسئلة تخص تراث تيميمون (مثل التادارة، الفاتيس، الفخار، أو اقتراحات الهدايا). جرب سؤالي عن هذه المواضيع!";
-const DEFAULT_RESPONSE_EN = "Sorry, I didn't quite catch that. I am an expert system programmed to answer questions about Timimoun's heritage (like Tadara, Fatiss, Pottery, or Souvenirs). Try asking me about these topics!";
+const DEFAULT_RESPONSE_AR = "عذراً، لم أفهم سؤالك تماماً. أنا مبرمج للإجابة عن أسئلة تخص خدمات المنصة (مثل حجز الفنادق، المرشدين السياحيين، المنتجات الحرفية، وطريقة الانضمام). جرب سؤالي عن هذه المواضيع!";
+const DEFAULT_RESPONSE_EN = "Sorry, I didn't quite catch that. I am programmed to answer questions about our platform services (like hotel bookings, tour guides, artisan products, and how to join). Try asking me about these topics!";
 
 export function Chatbot({ locale }: { locale: string }) {
   const isAr = locale === "ar";
@@ -67,8 +67,8 @@ export function Chatbot({ locale }: { locale: string }) {
           id: "welcome",
           sender: "bot",
           text: isAr 
-            ? "مرحباً! أنا دليل قورارة الذكي 🌴. اسألني عن الهدايا التذكارية، التادارة، الفاتيس، أو أي شيء يخص تراث تيميمون." 
-            : "Hello! I'm the Gourara Smart Guide 🌴. Ask me about souvenirs, Tadara, Fatiss, or anything about Timimoun's heritage.",
+            ? "مرحباً! أنا دليل قورارة الذكي 🌴. اسألني عن حجز الفنادق، الجولات السياحية، المنتجات الحرفية، أو كيفية الانضمام للمنصة." 
+            : "Hello! I'm the Gourara Smart Guide 🌴. Ask me about hotel bookings, tours, handmade crafts, or how to join the platform.",
           isHtml: false
         }
       ]);
@@ -117,8 +117,8 @@ export function Chatbot({ locale }: { locale: string }) {
   };
 
   const quickReplies = isAr 
-    ? ["اقترح لي هدية", "ما هي التادارة؟", "قصة سجاد الفاتيس", "التوصيل والدفع"]
-    : ["Suggest a souvenir", "What is Tadara?", "Fatiss carpet story", "Shipping info"];
+    ? ["حجز فندق", "مرشد سياحي", "اقترح لي هدية", "كيف أنضم كحرفي؟"]
+    : ["Book a hotel", "Find a guide", "Suggest a gift", "Join as an artisan"];
 
   return (
     <>
