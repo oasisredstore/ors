@@ -9,7 +9,7 @@ const globalForPrisma = globalThis as unknown as {
 function createPrismaClient() {
   const dbUrl =
     process.env.DATABASE_URL ??
-    `file://${path.resolve(process.cwd(), "dev.db").replace(/\\/g, "/")}`;
+    `file:///${path.resolve(process.cwd(), "dev.db").replace(/\\/g, "/")}`;
 
   const authToken = process.env.DATABASE_AUTH_TOKEN ?? process.env.TURSO_AUTH_TOKEN;
 

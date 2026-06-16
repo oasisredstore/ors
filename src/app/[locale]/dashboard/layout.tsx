@@ -1,9 +1,10 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/session";
 import Link from "next/link";
-import { LayoutDashboard, Package, ShoppingBag, LogOut, ChevronRight, UserCircle } from "lucide-react";
+import { LayoutDashboard, Package, ShoppingBag, LogOut, ChevronRight, UserCircle, MessageCircle, CreditCard } from "lucide-react";
 import { logoutAction } from "@/actions/auth.actions";
 import { DashboardMobileNav } from "@/components/dashboard/DashboardMobileNav";
+import { prisma } from "@/lib/prisma";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -20,18 +21,29 @@ export default async function DashboardLayout({ children, params }: DashboardLay
   }
 
   const isArtisan = session.role === "ARTISAN";
+  const isAr = locale === "ar";
 
   const navItems = isArtisan ? [
-    { href: `/${locale}/dashboard`, label: locale === "ar" ? "نظرة عامة" : "Overview", icon: LayoutDashboard },
-    { href: `/${locale}/dashboard/profile`, label: locale === "ar" ? "ملفي الشخصي" : "My Profile", icon: UserCircle },
-    { href: `/${locale}/dashboard/products`, label: locale === "ar" ? "منتجاتي" : "My Products", icon: Package },
-    { href: `/${locale}/dashboard/orders`, label: locale === "ar" ? "الطلبات" : "Orders", icon: ShoppingBag },
+    { href: `/${locale}/dashboard`, label: isAr ? "نظرة عامة" : "Overview", icon: LayoutDashboard },
+    { href: `/${locale}/dashboard/profile`, label: isAr ? "ملفي الشخصي" : "My Profile", icon: UserCircle },
+    { href: `/${locale}/dashboard/products`, label: isAr ? "منتجاتي" : "My Products", icon: Package },
+    { href: `/${locale}/dashboard/orders`, label: isAr ? "الطلبات" : "Orders", icon: ShoppingBag },
   ] : [
-    { href: `/${locale}/dashboard`, label: locale === "ar" ? "نظرة عامة" : "Overview", icon: LayoutDashboard },
-    { href: `/${locale}/dashboard/profile`, label: locale === "ar" ? "ملفي الشخصي" : "My Profile", icon: UserCircle },
-    { href: `/${locale}/dashboard/services`, label: locale === "ar" ? "خدماتي" : "My Services", icon: Package },
-    { href: `/${locale}/dashboard/bookings`, label: locale === "ar" ? "الحجوزات" : "Bookings", icon: ShoppingBag },
+    { href: `/${locale}/dashboard`, label: isAr ? "نظرة عامة" : "Overview", icon: LayoutDashboard },
+    { href: `/${locale}/dashboard/profile`, label: isAr ? "ملفي الشخصي" : "My Profile", icon: UserCircle },
+    { href: `/${locale}/dashboard/services`, label: isAr ? "خدماتي" : "My Services", icon: Package },
+    { href: `/${locale}/dashboard/bookings`, label: isAr ? "الحجوزات" : "Bookings", icon: ShoppingBag },
+    { href: `/${locale}/pricing`, label: isAr ? "الاشتراكات" : "Subscription", icon: CreditCard },
   ];
+
+  const roleLabel: Record<string, string> = {
+    ARTISAN: "Artisan",
+    HOTEL: "Hotel",
+    GUEST_HOUSE: "Guest House",
+    GUIDE: "Tour Guide",
+    AGENCY: "Agency",
+    ADMIN: "Admin",
+  };
 
   return (
     <div className="min-h-screen bg-desert-50 flex">
@@ -43,14 +55,16 @@ export default async function DashboardLayout({ children, params }: DashboardLay
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sand-500 to-clay-700 flex items-center justify-center">
               <span className="text-white font-display font-bold text-sm">R</span>
             </div>
-            <span className="font-display font-bold text-clay-800 text-sm">
-              {isArtisan ? "Artisan" : "Provider"} <span className="text-sand-500">Dashboard</span>
-            </span>
+            <div>
+              <span className="font-display font-bold text-clay-800 text-sm">
+                {roleLabel[session.role] ?? "Provider"} <span className="text-sand-500">Dashboard</span>
+              </span>
+            </div>
           </Link>
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 p-4 space-y-1">
+        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -64,6 +78,17 @@ export default async function DashboardLayout({ children, params }: DashboardLay
               <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
             </Link>
           ))}
+          {/* Messages — always visible */}
+          <Link
+            href={`/${locale}/messages`}
+            className="flex items-center justify-between px-4 py-3 rounded-xl text-clay-600 hover:bg-desert-50 hover:text-sand-600 transition-colors group"
+          >
+            <div className="flex items-center gap-3">
+              <MessageCircle className="w-4 h-4" />
+              <span className="text-sm font-medium">{isAr ? "الرسائل" : "Messages"}</span>
+            </div>
+            <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+          </Link>
         </nav>
 
         {/* Bottom */}
@@ -72,7 +97,7 @@ export default async function DashboardLayout({ children, params }: DashboardLay
             href={`/${locale}`}
             className="flex items-center gap-3 px-4 py-3 text-sm text-clay-500 hover:text-clay-700 rounded-xl hover:bg-desert-50 transition-colors mb-1"
           >
-            ← {locale === "ar" ? "العودة للموقع" : "Back to Gallery"}
+            ← {isAr ? "العودة للموقع" : "Back to Site"}
           </Link>
           <form action={logoutAction.bind(null, locale)}>
             <button
@@ -80,7 +105,7 @@ export default async function DashboardLayout({ children, params }: DashboardLay
               className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-500 hover:bg-red-50 rounded-xl transition-colors"
             >
               <LogOut className="w-4 h-4" />
-              {locale === "ar" ? "تسجيل الخروج" : "Sign Out"}
+              {isAr ? "تسجيل الخروج" : "Sign Out"}
             </button>
           </form>
         </div>
@@ -89,7 +114,7 @@ export default async function DashboardLayout({ children, params }: DashboardLay
       {/* Mobile Bottom Tab Bar */}
       <DashboardMobileNav locale={locale} role={session.role} />
 
-      {/* Main — extra bottom padding on mobile to clear the tab bar */}
+      {/* Main */}
       <main className="flex-1 lg:ml-64 pt-0 pb-16 lg:pb-0">
         <div className="min-h-screen">
           {children}

@@ -4,6 +4,7 @@
     "services": "Tourism Services",
     "products": "Handicrafts",
     "artisans": "Artisans",
+    "heritage": "Heritage",
     "categories": "Categories",
     "about": "About",
     "login": "Sign In",
@@ -11,15 +12,16 @@
     "dashboard": "Dashboard",
     "admin": "Admin",
     "account": "My Account",
+    "messages": "Messages",
     "logout": "Sign Out"
   },
   "home": {
     "hero": {
-      "badge": "Authentic Saharan Craftsmanship",
-      "title": "Where Desert Art Meets the World",
-      "subtitle": "Discover handcrafted treasures from Timimoun and the Algerian Sahara. Every piece tells a story of culture, tradition, and artistry.",
-      "cta": "Explore Collection",
-      "ctaArtisan": "Join as Artisan"
+      "badge": "Your Gateway to Saharan Magic",
+      "title": "Discover Timimoun: Stays, Tours & Heritage",
+      "subtitle": "Plan your complete journey in the Red Oasis. Book the best hotels and guest houses, explore the desert with local guides, and acquire authentic handcrafted treasures.",
+      "cta": "Start Exploring Timimoun",
+      "ctaArtisan": "Join as Partner"
     },
     "categories": {
       "title": "Browse by Category",
@@ -88,14 +90,21 @@
     "forgotPassword": "Forgot password?",
     "noAccount": "Don't have an account?",
     "hasAccount": "Already have an account?",
-    "artisanRegister": "Register as Artisan",
+    "artisanRegister": "Partner Registration",
     "shopName": "Shop Name",
     "bio": "About You & Your Craft",
     "location": "Location",
-    "specialization": "Specialization"
+    "specialization": "Specialization",
+    "providerType": "Service Type",
+    "businessName": "Business / Shop Name",
+    "type_artisan": "Artisan / Handcrafter",
+    "type_hotel": "Hotel",
+    "type_guesthouse": "Guest House",
+    "type_guide": "Tour Guide",
+    "type_agency": "Tourism / Transport Agency"
   },
   "dashboard": {
-    "title": "Artisan Dashboard",
+    "title": "Dashboard",
     "overview": "Overview",
     "products": "My Products",
     "addProduct": "Add New Product",
@@ -124,6 +133,7 @@
     "artisans": "Artisans",
     "products": "Products",
     "analytics": "Analytics",
+    "advertisements": "Advertisements",
     "approve": "Approve",
     "reject": "Reject",
     "approved": "Approved",
@@ -164,6 +174,59 @@
         "desc": "Baskets and household items made from palm fronds by skilled hands."
       }
     }
+  },
+  "heritage": {
+    "title": "Cultural Heritage",
+    "subtitle": "A journey through thousands of years of civilization",
+    "gallery": "Heritage Gallery",
+    "crafts": "Traditional Crafts Encyclopedia",
+    "timeline": "Historical Timeline",
+    "workshops": "Educational Craft Workshops",
+    "bookWorkshop": "Book a Workshop"
+  },
+  "messages": {
+    "title": "Messages",
+    "inbox": "Message Inbox",
+    "noMessages": "No messages yet",
+    "send": "Send Message",
+    "reply": "Reply",
+    "subject": "Subject",
+    "body": "Message",
+    "sendMessage": "Send a Message",
+    "contactProvider": "Contact Provider",
+    "contactArtisan": "Contact Artisan",
+    "sent": "Message sent"
+  },
+  "booking": {
+    "title": "Book this service",
+    "checkIn": "Check-in Date",
+    "checkOut": "Check-out Date",
+    "guests": "Number of Guests",
+    "notes": "Special requests (optional)",
+    "confirm": "Confirm Booking",
+    "cancel": "Cancel Booking",
+    "accept": "Accept",
+    "reject": "Reject",
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled",
+    "completed": "Completed",
+    "myBookings": "My Bookings",
+    "noBookings": "No bookings yet",
+    "totalAmount": "Total Amount",
+    "dates": "Dates",
+    "guests_count": "Guests"
+  },
+  "account": {
+    "title": "My Account",
+    "bookings": "My Bookings",
+    "orders": "My Orders",
+    "reviews": "My Reviews",
+    "messages": "Messages",
+    "profile": "Profile",
+    "memberSince": "Member since",
+    "accountType": "Account Type"
   },
   "common": {
     "loading": "Loading...",
@@ -211,5 +274,18 @@
     "subtitle": "Meet the talented creators behind every piece",
     "viewAll": "View All Artisans",
     "products": "products"
+  },
+  "services": {
+    "title": "Tourism Services",
+    "all": "All",
+    "accommodation": "Accommodations",
+    "tours": "Tours",
+    "workshop": "Workshops",
+    "transport": "Transport",
+    "bookNow": "Book Now",
+    "perNight": "/ night",
+    "perPerson": "/ person",
+    "capacity": "Capacity",
+    "location": "Location"
   }
 }

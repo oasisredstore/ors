@@ -53,13 +53,15 @@ model User {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
-  artisan          Artisan?
-  serviceProvider  ServiceProvider?
-  reviews          Review[]
-  serviceReviews   ServiceReview[]
-  addresses        Address[]
-  orders           Order[]
-  bookings         Booking[]
+  artisan               Artisan?
+  serviceProvider       ServiceProvider?
+  reviews               Review[]
+  serviceReviews        ServiceReview[]
+  addresses             Address[]
+  orders                Order[]
+  bookings              Booking[]
+  sentMessages          Message[]        @relation("SentMessages")
+  touristConversations  Conversation[]   @relation("TouristConversations")
 }
 
 model Artisan {
@@ -345,3 +347,51 @@ model UserSubscription {
   updatedAt      DateTime         @updatedAt
 }
 
+// ==========================================
+// MESSAGING SYSTEM
+// ==========================================
+
+model Conversation {
+  id          String    @id @default(cuid())
+  touristId   String
+  tourist     User      @relation("TouristConversations", fields: [touristId], references: [id])
+  // One of these must be set (polymorphic — artisan or service provider)
+  artisanId   String?
+  providerId  String?
+  subject     String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  messages    Message[]
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  senderId       String
+  sender         User         @relation("SentMessages", fields: [senderId], references: [id])
+  body           String
+  isRead         Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+}
+
+// ==========================================
+// ADVERTISEMENT SYSTEM
+// ==========================================
+
+model Advertisement {
+  id        String   @id @default(cuid())
+  title     String
+  titleAr   String?
+  imageUrl  String?
+  linkUrl   String
+  body      String?
+  bodyAr    String?
+  position  String   @default("homepage")  // homepage | services | sidebar
+  isActive  Boolean  @default(true)
+  startsAt  DateTime @default(now())
+  endsAt    DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

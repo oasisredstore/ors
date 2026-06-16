@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { getTranslations } from "next-intl/server";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { ProductCard } from "@/components/marketplace/ProductCard";
+import { CatalogItemCard } from "@/components/marketplace/CatalogItemCard";
 import { getSession } from "@/lib/session";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 
@@ -15,9 +15,8 @@ interface ProductsPageProps {
 export async function generateMetadata({ params }: ProductsPageProps) {
   const { locale } = await params;
   return {
-    title: locale === "ar" ? "المنتجات — ريد أوزيس أرتيزان" : "Products — RedOasisArtisan",
-    description: "Browse authentic handmade Saharan crafts from local artisans in Timimoun, Algeria.",
-    // C10 FIX: Use locale-appropriate OpenGraph locale code.
+    title: locale === "ar" ? "السوق الشامل — ريد أوزيس أرتيزان" : "Marketplace — RedOasisArtisan",
+    description: "Browse authentic handmade crafts, tours, accommodations, and more in Timimoun.",
     openGraph: {
       locale: locale === "ar" ? "ar_DZ" : "en_US",
     },
@@ -55,7 +54,7 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
   const products = await prisma.product.findMany({
     where: {
       isPublished: true,
-      ...(category && { category: { slug: category } }),
+      ...(category && category !== "all-services" && category !== "all-products" && { category: { slug: category } }),
       ...(search && {
         OR: [
           { name: { contains: search } },
@@ -72,12 +71,106 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
     },
     include: {
       images: { where: { isPrimary: true }, take: 1 },
-      artisan: { select: { shopName: true, slug: true } },
+      artisan: { select: { shopName: true, slug: true, location: true } },
       reviews: { select: { rating: true } },
       category: { select: { name: true, nameAr: true } },
     },
     orderBy,
   });
+
+  const services = await prisma.service.findMany({
+    where: {
+      isPublished: true,
+      ...(search && {
+        OR: [
+          { name: { contains: search } },
+          { nameAr: { contains: search } },
+          { description: { contains: search } },
+        ],
+      }),
+      ...(region && {
+        provider: { location: { contains: region } }
+      }),
+    },
+    include: {
+      images: { where: { isPrimary: true }, take: 1 },
+      provider: { select: { businessName: true, slug: true, location: true } },
+      reviews: { select: { rating: true } },
+    },
+    orderBy,
+  });
+
+  // Combine into a unified items array
+  let allItems: any[] = [];
+  
+  if (!category || category === "all-products") {
+    allItems = [...allItems, ...products.map((p: any) => ({
+      id: p.id,
+      slug: p.slug,
+      name: p.name,
+      nameAr: p.nameAr,
+      imageUrl: p.images[0]?.url,
+      providerName: p.artisan.shopName,
+      providerSlug: p.artisan.slug,
+      categoryOrType: locale === "ar" ? p.category.nameAr : p.category.name,
+      price: p.price,
+      itemType: "PRODUCT",
+      rating: p.reviews.length > 0 ? p.reviews.reduce((a: number, r: any) => a + r.rating, 0) / p.reviews.length : undefined,
+      reviewCount: p.reviews.length,
+      createdAt: p.createdAt,
+      location: p.artisan.location,
+    }))];
+  } else if (category && category !== "all-services") {
+    // A specific product category
+    allItems = [...allItems, ...products.map((p: any) => ({
+      id: p.id,
+      slug: p.slug,
+      name: p.name,
+      nameAr: p.nameAr,
+      imageUrl: p.images[0]?.url,
+      providerName: p.artisan.shopName,
+      providerSlug: p.artisan.slug,
+      categoryOrType: locale === "ar" ? p.category.nameAr : p.category.name,
+      price: p.price,
+      itemType: "PRODUCT",
+      rating: p.reviews.length > 0 ? p.reviews.reduce((a: number, r: any) => a + r.rating, 0) / p.reviews.length : undefined,
+      reviewCount: p.reviews.length,
+      createdAt: p.createdAt,
+      location: p.artisan.location,
+    }))];
+  }
+
+  if (!category || category === "all-services" || category === "ACCOMMODATION" || category === "TOUR" || category === "WORKSHOP" || category === "TRANSPORT") {
+    const filteredServices = services.filter((s: any) => {
+      if (!category || category === "all-services") return true;
+      if (category === "ACCOMMODATION") return s.type === "ROOM" || s.type === "TENT";
+      return s.type === category;
+    });
+
+    allItems = [...allItems, ...filteredServices.map((s: any) => ({
+      id: s.id,
+      slug: s.slug,
+      name: s.name,
+      nameAr: s.nameAr,
+      imageUrl: s.images[0]?.url,
+      providerName: s.provider.businessName,
+      providerSlug: s.provider.slug,
+      categoryOrType: s.type, // Will be translated in card or we can do it here
+      price: s.price,
+      itemType: s.type,
+      rating: s.reviews.length > 0 ? s.reviews.reduce((a: number, r: any) => a + r.rating, 0) / s.reviews.length : undefined,
+      reviewCount: s.reviews.length,
+      createdAt: s.createdAt,
+      location: s.provider.location,
+    }))];
+  }
+
+  // Re-sort combined array
+  if (sort === "az") {
+    allItems.sort((a, b) => a.name.localeCompare(b.name));
+  } else {
+    allItems.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
 
   const selectedCategory = category
     ? categories.find((c) => c.slug === category)
@@ -88,19 +181,19 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
       <Navbar locale={locale} user={user} />
       <main className="min-h-screen bg-desert-50 pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
           <div className="mb-8">
             <h1 className="font-display text-4xl font-bold text-clay-800 mb-2">
-              {selectedCategory
-                ? locale === "ar"
-                  ? selectedCategory.nameAr
-                  : selectedCategory.name
-                : locale === "ar"
-                ? "جميع المنتجات"
-                : "All Products"}
+              {category === "all-products" ? (locale === "ar" ? "جميع المنتجات الحرفية" : "All Handcrafts")
+              : category === "all-services" ? (locale === "ar" ? "جميع الخدمات والأنشطة" : "All Services & Activities")
+              : category === "ACCOMMODATION" ? (locale === "ar" ? "أماكن الإقامة" : "Accommodations")
+              : category === "TOUR" ? (locale === "ar" ? "الجولات السياحية" : "Tours")
+              : category === "WORKSHOP" ? (locale === "ar" ? "ورشات العمل" : "Workshops")
+              : category === "TRANSPORT" ? (locale === "ar" ? "خدمات النقل" : "Transport")
+              : selectedCategory ? (locale === "ar" ? selectedCategory.nameAr : selectedCategory.name)
+              : (locale === "ar" ? "السوق الشامل (الكل)" : "All Marketplace Items")}
             </h1>
             <p className="text-clay-500">
-              {products.length} {locale === "ar" ? "منتج" : "products found"}
+              {allItems.length} {locale === "ar" ? "عنصر متاح" : "items available"}
             </p>
           </div>
 
@@ -122,7 +215,49 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
                           : "text-clay-600 hover:bg-desert-50"
                       }`}
                     >
-                      {locale === "ar" ? "الكل" : "All"}
+                      {locale === "ar" ? "السوق الشامل (الكل)" : "All Marketplace"}
+                    </a>
+                  </li>
+
+                  <li className="mt-3 mb-1 pt-2 border-t border-desert-100">
+                    <span className="px-3 text-xs font-bold text-clay-400 uppercase tracking-wider">
+                      {locale === "ar" ? "الخدمات والأنشطة" : "Services & Activities"}
+                    </span>
+                  </li>
+                  <li>
+                    <a href={`/${locale}/products?category=all-services`} className={`block px-3 py-2 rounded-xl text-sm transition-colors ${category === "all-services" ? "bg-sand-100 text-sand-700 font-semibold" : "text-clay-600 hover:bg-desert-50"}`}>
+                      {locale === "ar" ? "كل الخدمات" : "All Services"}
+                    </a>
+                  </li>
+                  <li>
+                    <a href={`/${locale}/products?category=ACCOMMODATION`} className={`block px-3 py-2 rounded-xl text-sm transition-colors ${category === "ACCOMMODATION" ? "bg-sand-100 text-sand-700 font-semibold" : "text-clay-600 hover:bg-desert-50"}`}>
+                      🏨 {locale === "ar" ? "إقامة" : "Accommodations"}
+                    </a>
+                  </li>
+                  <li>
+                    <a href={`/${locale}/products?category=TOUR`} className={`block px-3 py-2 rounded-xl text-sm transition-colors ${category === "TOUR" ? "bg-sand-100 text-sand-700 font-semibold" : "text-clay-600 hover:bg-desert-50"}`}>
+                      🐪 {locale === "ar" ? "جولات" : "Tours"}
+                    </a>
+                  </li>
+                  <li>
+                    <a href={`/${locale}/products?category=WORKSHOP`} className={`block px-3 py-2 rounded-xl text-sm transition-colors ${category === "WORKSHOP" ? "bg-sand-100 text-sand-700 font-semibold" : "text-clay-600 hover:bg-desert-50"}`}>
+                      🎨 {locale === "ar" ? "ورشات عمل" : "Workshops"}
+                    </a>
+                  </li>
+                  <li>
+                    <a href={`/${locale}/products?category=TRANSPORT`} className={`block px-3 py-2 rounded-xl text-sm transition-colors ${category === "TRANSPORT" ? "bg-sand-100 text-sand-700 font-semibold" : "text-clay-600 hover:bg-desert-50"}`}>
+                      🚙 {locale === "ar" ? "نقل" : "Transport"}
+                    </a>
+                  </li>
+
+                  <li className="mt-3 mb-1 pt-2 border-t border-desert-100">
+                    <span className="px-3 text-xs font-bold text-clay-400 uppercase tracking-wider">
+                      {locale === "ar" ? "المنتجات الحرفية" : "Handcrafts"}
+                    </span>
+                  </li>
+                  <li>
+                    <a href={`/${locale}/products?category=all-products`} className={`block px-3 py-2 rounded-xl text-sm transition-colors ${category === "all-products" ? "bg-sand-100 text-sand-700 font-semibold" : "text-clay-600 hover:bg-desert-50"}`}>
+                      🏺 {locale === "ar" ? "كل المنتجات" : "All Products"}
                     </a>
                   </li>
                   {categories.map((cat) => (
@@ -132,7 +267,7 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
                         className={`block px-3 py-2 rounded-xl text-sm transition-colors ${
                           category === cat.slug
                             ? "bg-sand-100 text-sand-700 font-semibold"
-                            : "text-clay-600 hover:bg-desert-50"
+                            : "text-clay-600 hover:bg-desert-50 pl-8"
                         }`}
                       >
                         {locale === "ar" ? cat.nameAr : cat.name}
@@ -239,39 +374,33 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
                 )}
               </form>
 
-              {products.length > 0 ? (
+              {allItems.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {products.map((product) => {
-                    const avgRating =
-                      product.reviews.length > 0
-                        ? product.reviews.reduce((a, r) => a + r.rating, 0) /
-                          product.reviews.length
-                        : undefined;
-
-                    return (
-                      <ProductCard
-                        key={product.id}
-                        id={product.id}
-                        slug={product.slug}
-                        name={product.name}
-                        nameAr={product.nameAr}
-                        imageUrl={product.images[0]?.url}
-                        artisanName={product.artisan.shopName}
-                        artisanSlug={product.artisan.slug}
-                        categoryName={product.category.name}
-                        categoryNameAr={product.category.nameAr}
-                        rating={avgRating}
-                        reviewCount={product.reviews.length}
-                        locale={locale}
-                      />
-                    );
-                  })}
+                  {allItems.map((item: any) => (
+                    <CatalogItemCard
+                      key={`${item.itemType}-${item.id}`}
+                      id={item.id}
+                      slug={item.slug}
+                      name={item.name}
+                      nameAr={item.nameAr}
+                      imageUrl={item.imageUrl}
+                      providerName={item.providerName}
+                      providerSlug={item.providerSlug}
+                      categoryOrType={item.categoryOrType}
+                      price={item.price}
+                      itemType={item.itemType}
+                      rating={item.rating}
+                      reviewCount={item.reviewCount}
+                      locale={locale}
+                      location={item.location}
+                    />
+                  ))}
                 </div>
               ) : (
                 <div className="text-center py-20 bg-white rounded-2xl border border-desert-200">
                   <p className="text-5xl mb-4">🔍</p>
                   <p className="text-clay-500 font-medium">
-                    {locale === "ar" ? "لا توجد منتجات" : "No products found"}
+                    {locale === "ar" ? "لا توجد عناصر" : "No items found"}
                   </p>
                 </div>
               )}

@@ -58,6 +58,9 @@ async function main() {
   console.log("🌱 Seeding RedOasisArtisan database with Timimoun/Gourara data...\n");
 
   // ─── Clear existing data ────────────────────────────────────────────────────
+  await prisma.message.deleteMany();
+  await prisma.conversation.deleteMany();
+  await prisma.advertisement.deleteMany();
   await prisma.serviceReview.deleteMany();
   await prisma.booking.deleteMany();
   await prisma.serviceImage.deleteMany();
@@ -644,6 +647,131 @@ async function main() {
   });
   console.log("✅ Tourism Services created");
 
+  // ─── Subscription Plans ─────────────────────────────────────────────────────
+  const plans = await Promise.all([
+    prisma.subscriptionPlan.create({
+      data: {
+        tier: "FREE",
+        name: "Free Plan",
+        nameAr: "الباقة المجانية",
+        price: 0,
+        durationDays: 36500, // 100 years — free forever
+        features: JSON.stringify(["3 services max", "Standard visibility", "Email support"]),
+        isActive: true,
+      },
+    }),
+    prisma.subscriptionPlan.create({
+      data: {
+        tier: "BASIC",
+        name: "Basic Plan",
+        nameAr: "الباقة الأساسية",
+        price: 2500,
+        durationDays: 30,
+        features: JSON.stringify(["Unlimited services", "Advanced search visibility", "Booking reports", "Priority support"]),
+        isActive: true,
+      },
+    }),
+    prisma.subscriptionPlan.create({
+      data: {
+        tier: "PREMIUM",
+        name: "Premium Plan",
+        nameAr: "الباقة الاحترافية",
+        price: 5000,
+        durationDays: 30,
+        features: JSON.stringify(["All Basic features", "Verification badge", "Advanced analytics", "Personal account manager"]),
+        isActive: true,
+      },
+    }),
+  ]);
+  console.log(`✅ ${plans.length} subscription plans created`);
+
+  // Give the hotel provider a free subscription by default
+  const freePlan = plans.find((p) => p.tier === "FREE")!;
+  const hotelProviderRecord = await prisma.serviceProvider.findUnique({ where: { userId: hotelManager.id } });
+  if (hotelProviderRecord) {
+    const endDate = new Date();
+    endDate.setFullYear(endDate.getFullYear() + 100);
+    await prisma.userSubscription.create({
+      data: {
+        providerId: hotelProviderRecord.id,
+        planId: freePlan.id,
+        endDate,
+        isActive: true,
+      },
+    });
+  }
+
+  // ─── Sample Advertisement ────────────────────────────────────────────────────
+  const adExpiry = new Date();
+  adExpiry.setMonth(adExpiry.getMonth() + 3);
+  await prisma.advertisement.create({
+    data: {
+      title: "✨ Discover Timimoun Heritage Tours",
+      titleAr: "✨ اكتشف جولات تراث تيميمون",
+      body: "Book a guided tour of the ancient Ksar and Foggara irrigation systems with certified local guides.",
+      bodyAr: "احجز جولة إرشادية في القصر القديم وأنظمة ري الفقارة مع مرشدين محليين معتمدين.",
+      linkUrl: "/en/services",
+      position: "homepage",
+      isActive: true,
+      endsAt: adExpiry,
+    },
+  });
+  console.log("✅ Sample advertisement created");
+
+  // ─── Sample Booking ──────────────────────────────────────────────────────────
+  // Get the first published service from the hotel provider
+  const hotelProviderFull = await prisma.serviceProvider.findUnique({
+    where: { userId: hotelManager.id },
+    include: { services: { where: { isPublished: true }, take: 1 } },
+  });
+  if (hotelProviderFull && hotelProviderFull.services.length > 0) {
+    const service = hotelProviderFull.services[0];
+    const checkIn = new Date();
+    checkIn.setDate(checkIn.getDate() + 7);
+    const checkOut = new Date(checkIn);
+    checkOut.setDate(checkOut.getDate() + 3);
+
+    await prisma.booking.create({
+      data: {
+        userId: customer.id,
+        serviceId: service.id,
+        startDate: checkIn,
+        endDate: checkOut,
+        guestsCount: 2,
+        totalAmount: service.price * 3,
+        status: "PENDING",
+        notes: "We would like a room facing the palm grove if possible.",
+      },
+    });
+    console.log("✅ Sample booking created (PENDING — ready for provider to Accept/Reject)");
+  }
+
+  // ─── Sample Conversation & Messages ─────────────────────────────────────────
+  if (hotelProviderFull) {
+    const conversation = await prisma.conversation.create({
+      data: {
+        touristId: customer.id,
+        providerId: hotelProviderFull.id,
+        subject: "Question about hotel availability",
+        messages: {
+          create: [
+            {
+              senderId: customer.id,
+              body: "Hello! Do you have rooms available for next week? We are a family of 4 visiting Timimoun for the first time.",
+              isRead: true,
+            },
+            {
+              senderId: hotelManager.id,
+              body: "Welcome! Yes, we have availability next week. Our Royal Oasis Suite is perfect for families. Shall I hold a reservation for you?",
+              isRead: false,
+            },
+          ],
+        },
+      },
+    });
+    console.log("✅ Sample conversation created (ID:", conversation.id, ")");
+  }
+
   console.log("\n" + "═".repeat(50));
   console.log("🎉 Seeding complete!\n");
   console.log("📋 Verified Accounts:");
@@ -659,7 +787,8 @@ async function main() {
   console.log("🏨 Hotel:    ahmed.hotel@redoasisartisan.dz / provider123");
   console.log("🐪 Guide:    tarik.guide@redoasisartisan.dz / provider123");
   console.log("─".repeat(50));
-  console.log(`📦 ${products.length} products, ${categories.length} categories, ${artisans.length} artisans`);
+  console.log(`📦 ${products.length} products | ${categories.length} categories | ${artisans.length} artisans`);
+  console.log(`💳 3 subscription plans | 1 advertisement | 1 booking | 1 conversation`);
 }
 
 main()
