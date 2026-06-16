@@ -27,8 +27,8 @@ export function Footer({ locale }: FooterProps) {
             </div>
             <p className="text-sm text-clay-300 leading-relaxed mb-5">
               {locale === "ar" 
-                ? "الحفاظ على التراث الصحراوي من خلال الحرف اليدوية الأصلية والخدمات السياحية في تيميمون، الجزائر."
-                : "Preserving Saharan heritage through authentic handmade craftsmanship and tourism from Timimoun, Algeria."}
+                ? "أكثر من مجرد منصة؛ هي بوابتك الشاملة لعيش سحر تيميمون. استكشف تراثنا من خلال المتحف الافتراضي، اقتنِ أروع الحرف اليدوية، واحجز خدماتك السياحية من فنادق، ونقل، وجولات استكشافية في مكان واحد."
+                : "More than just a platform; it's your comprehensive gateway to experience the magic of Timimoun. Explore our heritage through the virtual museum, acquire the finest handicrafts, and book your tourism services—from hotels and transport to exploration tours—all in one place."}
             </p>
             <div className="flex items-center gap-3">
               {[Share2, Globe, MessageCircle].map((Icon, i) => (
