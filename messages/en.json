@@ -146,14 +146,39 @@
   },
   "about": {
     "title": "About Us",
-    "subtitle": "RedOasisArtisan — A home for Saharan craftsmanship",
+    "subtitle": "RedOasisArtisan — Your digital gateway to Saharan tourism and heritage",
     "histoire": {
       "title": "Our Story",
-      "content": "From the heart of Timimoun, deep in the great Algerian Sahara, RedOasisArtisan was born. A project that brings together the authenticity of handcraft with a passion for documentation and connection."
+      "p1": "Originating from Timimoun, the jewel of the Algerian Sahara, RedOasisArtisan was founded to be your premier digital gateway to authentic tourism.",
+      "p2": "Our project bridges the heritage of the past with the technology of the present. Our mission is to build a sustainable digital ecosystem that supports the local economy by showcasing the magnificence of traditional crafts and facilitating the booking of tourism services—from accommodations and transport to workshops. We are here to make your journey to the Sahara seamless, enriching, and deeply impactful."
     },
-    "mission": {
-      "title": "Our Mission",
-      "content": "We believe every handmade piece carries the soul of its maker and the memory of its place. Our mission is to bring this creativity to the world and preserve this living heritage."
+    "showcase": {
+      "title": "Our Platform at a Glance",
+      "subtitle": "How RedOasisArtisan works to elevate your journey?",
+      "marketplace": {
+        "title": "Handicrafts Marketplace",
+        "desc": "Acquire authentic art pieces directly from creative artisans."
+      },
+      "booking": {
+        "title": "Tourism Services Booking",
+        "desc": "Plan your entire trip: hotels, guides, and transport in one place."
+      },
+      "museum": {
+        "title": "Virtual Museum",
+        "desc": "Discover the region's history and culture through our digital galleries."
+      }
+    },
+    "partners": {
+      "title": "Join Us & Make an Impact",
+      "subtitle": "Whether you are an artisan, a hotel owner, or a tour guide, our platform is designed to grow your business.",
+      "benefits": {
+        "global": "Global reach for your clients",
+        "direct": "Direct bookings and sales",
+        "digital": "Easy digital management",
+        "heritage": "Supporting local economy & heritage"
+      },
+      "ctaArtisan": "Join as Artisan",
+      "ctaProvider": "Join as Service Provider"
     },
     "techniques": {
       "title": "Materials & Techniques",
