@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: ArtisanProfilePageProps) {
   };
 }
 
+export default async function ArtisanProfilePage({ params }: ArtisanProfilePageProps) {
   const { locale, slug } = await params;
   const session = await getSession();
   const user = session ? { name: session.email.split("@")[0], role: session.role } : null;
