@@ -101,10 +101,19 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
               </button>
               <div className="absolute top-12 left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 w-56">
                 <div className="bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 p-2 flex flex-col gap-1">
-                  <Link href={`/${locale}/services`} className="px-4 py-2.5 text-sm text-clay-700 font-medium hover:bg-sand-50 hover:text-sand-600 rounded-xl transition-colors">
+                  <Link href={`/${locale}/services?type=accommodation`} className="px-4 py-2 text-sm text-clay-700 font-medium hover:bg-sand-50 hover:text-sand-600 rounded-xl transition-colors">
+                    {isAr ? "أماكن الإقامة" : "Accommodations"}
+                  </Link>
+                  <Link href={`/${locale}/services?type=homestay`} className="px-4 py-2 text-sm text-clay-700 font-medium hover:bg-sand-50 hover:text-sand-600 rounded-xl transition-colors">
+                    {isAr ? "الإقامة لدى الساكنة" : "Homestays"}
+                  </Link>
+                  <Link href={`/${locale}/services?type=tour`} className="px-4 py-2 text-sm text-clay-700 font-medium hover:bg-sand-50 hover:text-sand-600 rounded-xl transition-colors">
+                    {isAr ? "الجولات والتجارب" : "Tours & Guides"}
+                  </Link>
+                  <Link href={`/${locale}/services`} className="px-4 py-2 text-sm text-clay-700 font-medium hover:bg-sand-50 hover:text-sand-600 rounded-xl transition-colors border-t border-desert-100 mt-1 pt-2">
                     {t("services")}
                   </Link>
-                  <Link href={`/${locale}/artisans`} className="px-4 py-2.5 text-sm text-clay-700 font-medium hover:bg-sand-50 hover:text-sand-600 rounded-xl transition-colors">
+                  <Link href={`/${locale}/artisans`} className="px-4 py-2 text-sm text-clay-700 font-medium hover:bg-sand-50 hover:text-sand-600 rounded-xl transition-colors">
                     {t("artisans")}
                   </Link>
                 </div>
@@ -325,15 +334,36 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
 
               <div className="px-4 py-2 mt-4 text-[10px] font-black text-sand-500 uppercase tracking-widest">{t("services_partners")}</div>
               <Link
-                href={`/${locale}/services`}
-                className="block px-4 py-3 text-clay-800 hover:bg-sand-50 hover:text-sand-600 rounded-2xl font-bold transition-colors"
+                href={`/${locale}/services?type=accommodation`}
+                className="block px-4 py-2.5 text-clay-800 hover:bg-sand-50 hover:text-sand-600 rounded-xl font-bold transition-colors text-sm"
                 onClick={() => setMobileOpen(false)}
               >
-                {t("services")}
+                {isAr ? "أماكن الإقامة" : "Accommodations"}
+              </Link>
+              <Link
+                href={`/${locale}/services?type=homestay`}
+                className="block px-4 py-2.5 text-clay-800 hover:bg-sand-50 hover:text-sand-600 rounded-xl font-bold transition-colors text-sm"
+                onClick={() => setMobileOpen(false)}
+              >
+                {isAr ? "الإقامة لدى الساكنة" : "Homestays"}
+              </Link>
+              <Link
+                href={`/${locale}/services?type=tour`}
+                className="block px-4 py-2.5 text-clay-800 hover:bg-sand-50 hover:text-sand-600 rounded-xl font-bold transition-colors text-sm"
+                onClick={() => setMobileOpen(false)}
+              >
+                {isAr ? "الجولات والتجارب" : "Tours"}
+              </Link>
+              <Link
+                href={`/${locale}/services`}
+                className="block px-4 py-2.5 text-clay-800 hover:bg-sand-50 hover:text-sand-600 rounded-xl font-bold transition-colors text-sm border-t border-desert-100"
+                onClick={() => setMobileOpen(false)}
+              >
+                {isAr ? "جميع الخدمات" : "All Services"}
               </Link>
               <Link
                 href={`/${locale}/artisans`}
-                className="block px-4 py-3 text-clay-800 hover:bg-sand-50 hover:text-sand-600 rounded-2xl font-bold transition-colors"
+                className="block px-4 py-2.5 text-clay-800 hover:bg-sand-50 hover:text-sand-600 rounded-xl font-bold transition-colors text-sm"
                 onClick={() => setMobileOpen(false)}
               >
                 {t("artisans")}

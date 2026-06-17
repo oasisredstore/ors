@@ -24,7 +24,9 @@ export default async function ServicesListingPage({
   // Build type filter
   let typeFilter: { in?: string[]; equals?: string } | undefined = undefined;
   if (type === "accommodation") {
-    typeFilter = { in: ["ROOM", "TENT"] };
+    typeFilter = { in: ["ROOM", "TENT", "HOMESTAY"] };
+  } else if (type === "homestay") {
+    typeFilter = { equals: "HOMESTAY" };
   } else if (type === "tour") {
     typeFilter = { equals: "TOUR" };
   } else if (type === "workshop") {
@@ -51,6 +53,7 @@ export default async function ServicesListingPage({
     { key: "accommodation", label: isAr ? "أماكن إقامة" : "Accommodations" },
     { key: "tour", label: isAr ? "جولات وتجارب" : "Tours" },
     { key: "workshop", label: isAr ? "ورشات تعليمية" : "Workshops" },
+    { key: "homestay", label: isAr ? "إقامة لدى الساكنة" : "Homestays" },
     { key: "transport", label: isAr ? "النقل" : "Transport" },
   ];
 
@@ -58,6 +61,7 @@ export default async function ServicesListingPage({
     type === "accommodation" ? (isAr ? "أماكن الإقامة السياحية" : "Accommodations & Stays") :
     type === "tour"          ? (isAr ? "الجولات والتجارب"       : "Tours & Experiences") :
     type === "workshop"      ? (isAr ? "الورشات التعليمية"       : "Educational Workshops") :
+    type === "homestay"      ? (isAr ? "الإقامة في البيوت لدى الساكنة" : "Homestay Accommodations") :
     type === "transport"     ? (isAr ? "خدمات النقل"            : "Transport Services") :
                                (isAr ? "جميع الخدمات السياحية"   : "All Tourism Services");
 

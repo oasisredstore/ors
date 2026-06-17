@@ -24,7 +24,7 @@ export function BookingForm({
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const isAccommodation = ["ROOM", "GUEST_HOUSE", "TENT"].includes(serviceType || "");
+  const isAccommodation = ["ROOM", "GUEST_HOUSE", "TENT", "HOMESTAY"].includes(serviceType || "");
   
   let nights = 1;
   if (isAccommodation && startDate && endDate) {
@@ -69,6 +69,7 @@ export function BookingForm({
           <input
             type="date"
             required
+            min={new Date().toISOString().split('T')[0]}
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
             className="w-full rounded-xl border border-desert-300 px-3 py-2 text-sm text-clay-800 focus:border-sand-500 focus:ring-2 focus:ring-sand-100 outline-none"
@@ -81,6 +82,7 @@ export function BookingForm({
           <input
             type="date"
             required
+            min={startDate || new Date().toISOString().split('T')[0]}
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
             className="w-full rounded-xl border border-desert-300 px-3 py-2 text-sm text-clay-800 focus:border-sand-500 focus:ring-2 focus:ring-sand-100 outline-none"

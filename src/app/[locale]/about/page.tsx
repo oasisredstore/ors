@@ -333,6 +333,40 @@ export default async function AboutPage({ params }: AboutPageProps) {
           </div>
         </section>
 
+        {/* Team & Credits */}
+        <section className="py-24 bg-desert-50 border-t border-desert-200">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="font-display text-3xl font-bold text-clay-900 mb-6">
+              {isAr ? "فريق العمل" : "Our Team"}
+            </h2>
+            <div className="bg-white p-8 rounded-3xl shadow-lg border border-desert-200 mb-10">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                <div>
+                  <div className="w-16 h-16 mx-auto bg-sand-200 rounded-full mb-3 flex items-center justify-center text-xl">🎓</div>
+                  <h4 className="font-bold text-clay-800">{isAr ? "بلقاسيمي سعاد" : "Souad Belkacemi"}</h4>
+                </div>
+                <div>
+                  <div className="w-16 h-16 mx-auto bg-sand-200 rounded-full mb-3 flex items-center justify-center text-xl">🎓</div>
+                  <h4 className="font-bold text-clay-800">{isAr ? "مصطفاوي خديجة" : "Khadidja Mostefaoui"}</h4>
+                </div>
+                <div>
+                  <div className="w-16 h-16 mx-auto bg-sand-200 rounded-full mb-3 flex items-center justify-center text-xl">🎓</div>
+                  <h4 className="font-bold text-clay-800">{isAr ? "غرايبي العربي" : "Larbi Gheraibi"}</h4>
+                </div>
+                <div>
+                  <div className="w-16 h-16 mx-auto bg-sand-200 rounded-full mb-3 flex items-center justify-center text-xl">🎓</div>
+                  <h4 className="font-bold text-clay-800">{isAr ? "اصغير عبد الحميد" : "Abdelhamid Seghir"}</h4>
+                </div>
+              </div>
+              <div className="p-5 bg-sand-50 rounded-2xl border border-sand-200 text-clay-700 text-sm md:text-base leading-relaxed font-medium">
+                {isAr
+                  ? "يعد هذا العمل ثمرة انتاج عمل مشترك للفريق ضمن مذكرة تخرج لنيل شهادة مؤسسة ناشئة في اطار القرار الوزاري 1275 المعدل والمتمم بالقرار الوزراي 008 المؤرخ في 23 فيفري 2025"
+                  : "This work is the fruit of a joint team effort within a graduation thesis to obtain a startup certificate under Ministerial Decree 1275, amended and supplemented by Ministerial Decree 008 dated February 23, 2025."}
+              </div>
+            </div>
+          </div>
+        </section>
+
       </main>
       <Footer locale={locale} />
     </>

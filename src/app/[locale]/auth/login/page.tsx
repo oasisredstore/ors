@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { loginAction } from "@/actions/auth.actions";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -39,7 +39,14 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-desert-gradient flex items-center justify-center px-4">
+    <div className="min-h-screen bg-desert-gradient flex items-center justify-center px-4 relative">
+      <Link 
+        href={`/${locale}`} 
+        className="absolute top-6 left-6 sm:top-8 sm:left-8 flex items-center gap-2 text-clay-600 bg-white/80 hover:bg-white px-4 py-2 rounded-full shadow-sm backdrop-blur-sm transition-all font-semibold text-sm z-10"
+      >
+        <ArrowLeft className={`w-4 h-4 ${locale === 'ar' ? 'rotate-180' : ''}`} />
+        {locale === 'ar' ? 'العودة للرئيسية' : 'Back to Home'}
+      </Link>
       <div className="w-full max-w-md">
         {/* Card */}
         <div className="bg-white rounded-3xl shadow-2xl p-8 sm:p-10">
