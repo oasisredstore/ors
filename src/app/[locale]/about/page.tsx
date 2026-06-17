@@ -15,10 +15,10 @@ interface AboutPageProps {
 export async function generateMetadata({ params }: AboutPageProps) {
   const { locale } = await params;
   return {
-    title: locale === "ar" ? "من نحن — ريد أوزيس أرتيزان" : "About — RedOasisArtisan",
+    title: locale === "ar" ? "من نحن — قورارة للحرف" : "About — Gourara Crafts",
     description: locale === "ar"
-      ? "اكتشف قصة ريد أوزيس أرتيزان وحرفيي تيميمون، الجزائر."
-      : "Discover the story of RedOasisArtisan and the artisans of Timimoun, Algeria.",
+      ? "اكتشف قصة قورارة للحرف وحرفيي تيميمون، الجزائر."
+      : "Discover the story of Gourara Crafts and the artisans of Timimoun, Algeria.",
   };
 }
 
