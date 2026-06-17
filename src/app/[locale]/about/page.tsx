@@ -55,13 +55,10 @@ export default async function AboutPage({ params }: AboutPageProps) {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-orange-500 blur-3xl opacity-20" />
           </div>
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center z-10">
-            <span className="inline-block bg-sand-500/20 text-sand-300 text-sm font-semibold px-4 py-1.5 rounded-full mb-6 border border-sand-500/30 backdrop-blur-sm">
-              {isAr ? "🌵 تيميمون، الجزائر" : "🌵 Timimoun, Algeria"}
-            </span>
-            <h1 className="font-display text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+            <h1 className="font-display text-4xl lg:text-6xl font-bold mb-6 leading-tight mt-6">
               {t("title")}
             </h1>
-            <p className="text-clay-300 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-medium">
+            <p className="text-sand-100 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto font-medium">
               {t("subtitle")}
             </p>
           </div>
