@@ -188,6 +188,7 @@ export async function artisanRegisterAction(formData: FormData) {
             },
           },
         },
+        include: { artisan: true },
       });
       break; // success
     } catch (err: unknown) {
@@ -207,7 +208,24 @@ export async function artisanRegisterAction(formData: FormData) {
       throw err;
     }
   }
-
+  // Automated Subscription Fee Message
+  const adminUser = await prisma.user.findFirst({ where: { role: "ADMIN" } });
+  if (adminUser && user.artisan) {
+    const subFeeMsg = `مرحباً بك في منصة RedOasisArtisan! يرجى دفع حقوق الاشتراك الرمزية لتفعيل حسابك والاستفادة من كافة الخدمات.\n\nWelcome to RedOasisArtisan! Please pay the symbolic subscription fee to activate your account and benefit from all services.`;
+    await prisma.conversation.create({
+      data: {
+        touristId: adminUser.id,
+        artisanId: user.artisan.id,
+        subject: "تفعيل الحساب / Account Activation",
+        messages: {
+          create: {
+            senderId: adminUser.id,
+            body: subFeeMsg,
+          }
+        }
+      }
+    });
+  }
   const token = await signToken({
     userId: user.id,
     email: user.email,
@@ -287,6 +305,7 @@ export async function providerRegisterAction(formData: FormData) {
             },
           },
         },
+        include: { serviceProvider: true },
       });
       break;
     } catch (err: unknown) {
@@ -303,7 +322,24 @@ export async function providerRegisterAction(formData: FormData) {
       throw err;
     }
   }
-
+  // Automated Subscription Fee Message
+  const adminUser = await prisma.user.findFirst({ where: { role: "ADMIN" } });
+  if (adminUser && user.serviceProvider) {
+    const subFeeMsg = `مرحباً بك في منصة RedOasisArtisan! يرجى دفع حقوق الاشتراك الرمزية لتفعيل حسابك والاستفادة من كافة الخدمات.\n\nWelcome to RedOasisArtisan! Please pay the symbolic subscription fee to activate your account and benefit from all services.`;
+    await prisma.conversation.create({
+      data: {
+        touristId: adminUser.id,
+        providerId: user.serviceProvider.id,
+        subject: "تفعيل الحساب / Account Activation",
+        messages: {
+          create: {
+            senderId: adminUser.id,
+            body: subFeeMsg,
+          }
+        }
+      }
+    });
+  }
   const token = await signToken({
     userId: user.id,
     email: user.email,

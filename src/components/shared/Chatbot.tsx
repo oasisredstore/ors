@@ -42,9 +42,34 @@ const KNOWLEDGE_BASE = [
     responseEn: "We have authentic crafts! I recommend <b>Leather Babouches</b>, <b>Palm Leaf Fan</b>, or the <b>Silver Dara Bracelet</b> as a premium gift. <br/><br/><a href='/en/products' style='color:#b45309; text-decoration:underline; font-weight:bold;'>Browse all products</a>"
   },
   {
+    keywords: ["تيميمون", "اين تقع", "موقع", "timimoun", "location", "where"],
+    responseAr: "تيميمون هي واحة ساحرة تقع في منطقة قورارة بالصحراء الجزائرية، ولاية تيميمون (كانت تابعة لأدرار سابقاً). تُعرف بـ 'الواحة الحمراء' بسبب مبانيها المشيدة بالطين الأحمر المميز. تبعد عن العاصمة الجزائر بحوالي 1200 كم.",
+    responseEn: "Timimoun is a magical oasis located in the Gourara region of the Algerian Sahara. Known as the 'Red Oasis' due to its distinct red clay buildings. It is located about 1200 km from Algiers."
+  },
+  {
+    keywords: ["قورارة", "تاريخ", "منطقة", "gourara", "history", "region"],
+    responseAr: "تاريخ قورارة يمتد لقرون، وهي منطقة غنية بالثقافات (الأمازيغية الزناتية، العربية، والإفريقية). اشتهرت بنظام الري الفريد 'الفقارة' الذي يعود لمئات السنين، وبقصورها العتيقة التي تحكي تاريخ قوافل التجارة العابرة للصحراء.",
+    responseEn: "Gourara's history spans centuries, rich in Berber (Zenete), Arab, and African cultures. It is famous for its ancient 'Foggara' irrigation system and its historic Ksours (castles) that tell the story of trans-Saharan trade caravans."
+  },
+  {
+    keywords: ["مواقع", "اثرية", "سياحية", "اماكن", "sites", "places", "tourism", "visit"],
+    responseAr: "أهم المواقع السياحية في تيميمون: <b>واحة تيميمون</b> (بساتين النخيل)، <b>القصر القديم</b>، <b>فندق قورارة</b> (تحفة معمارية صممها فرناند بويون)، ومناطق السبخة (بحيرة ملحية جافة) والكثبان الرملية الذهبية في العرق الغربي الكبير.",
+    responseEn: "Top tourist sites in Timimoun include the <b>Timimoun Oasis</b> (palm groves), the <b>Old Ksar</b>, the historic <b>Hotel Gourara</b> (designed by Fernand Pouillon), the Sebkha (dry salt lake), and the golden dunes of the Grand Erg Occidental."
+  },
+  {
+    keywords: ["مظاهرات", "برامج", "مهرجان", "فعاليات", "events", "festival", "program"],
+    responseAr: "تشهد تيميمون فعاليات كبرى أهمها: <b>أسبوع المولد النبوي الشريف</b> (أسبوع أهليل قورارة المصنف عالمياً من اليونسكو كأوّل تراث شفوي للإنسانية)، بالإضافة إلى احتفالات رأس السنة الميلادية التي تجذب السياح من كل العالم، ومهرجانات الصناعات التقليدية.",
+    responseEn: "Timimoun hosts major events, notably the <b>Mawlid Ennabawi week</b> (Ahellil of Gourara, a UNESCO World Intangible Heritage), New Year's Eve celebrations which attract tourists globally, and traditional crafts festivals."
+  },
+  {
+    keywords: ["هيئات", "عمومية", "مديرية", "وزارة", "authorities", "ministry", "directorate"],
+    responseAr: "تدعم الهيئات العمومية مثل <b>مديرية السياحة والصناعة التقليدية لولاية تيميمون</b> والغرفة الولائية للصناعة التقليدية والحرف، جهود الحرفيين ومقدمي الخدمات لتطوير القطاع. منصتنا هذه تأتي متوافقة مع رؤية هذه الهيئات لدعم الرقمنة (مثل قرار 1275).",
+    responseEn: "Public authorities like the <b>Directorate of Tourism and Handicrafts of Timimoun</b> support artisans and providers. Our platform aligns with their vision to digitize and promote local heritage (e.g., Ministerial Decree 1275)."
+  },
+  {
     keywords: ["مرحبا", "سلام", "اهلا", "hello", "hi", "hey"],
-    responseAr: "مرحباً بك في الواحة الحمراء! أنا دليلك الذكي الشامل. كيف يمكنني مساعدتك في حجز فندق، إيجاد مرشد، أو شراء منتجات حرفية؟",
-    responseEn: "Welcome to the Red Oasis! I am your smart guide. How can I help you book a hotel, find a guide, or buy authentic crafts?"
+    responseAr: "مرحباً بك في الواحة الحمراء! أنا دليلك الذكي الشامل. كيف يمكنني مساعدتك في حجز فندق، إيجاد مرشد، أو معرفة تاريخ وتراث تيميمون وقورارة؟",
+    responseEn: "Welcome to the Red Oasis! I am your smart guide. How can I help you book a hotel, find a guide, or discover the history and heritage of Timimoun and Gourara?"
   }
 ];
 
@@ -117,8 +142,8 @@ export function Chatbot({ locale }: { locale: string }) {
   };
 
   const quickReplies = isAr 
-    ? ["حجز فندق", "مرشد سياحي", "اقترح لي هدية", "كيف أنضم كحرفي؟"]
-    : ["Book a hotel", "Find a guide", "Suggest a gift", "Join as an artisan"];
+    ? ["تاريخ تيميمون", "أهم المواقع السياحية", "حجز فندق", "مرشد سياحي", "كيف أنضم كحرفي؟"]
+    : ["Timimoun History", "Top Tourist Sites", "Book a hotel", "Find a guide"];
 
   return (
     <>

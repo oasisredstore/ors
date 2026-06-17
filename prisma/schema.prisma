@@ -218,6 +218,7 @@ enum ServiceType {
   TOUR
   WORKSHOP
   TRANSPORT
+  HOMESTAY
 }
 
 enum BookingStatus {
