@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: ArtisanProfilePageProps) {
   const artisan = await prisma.artisan.findUnique({ where: { slug } });
   if (!artisan) return { title: "Artisan Not Found" };
   return {
-    title: `${artisan.shopName} — قورارة للحرف`,
+    title: `${artisan.shopName} — قورارة أطلس`,
     description: artisan.bio || `Shop handmade crafts from ${artisan.shopName}`,
   };
 }

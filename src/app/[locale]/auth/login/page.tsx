@@ -58,7 +58,7 @@ export default function LoginPage() {
             <h1 className="font-display text-2xl font-bold text-clay-800">
               {t("login")}
             </h1>
-            <p className="text-sm text-clay-400 mt-1">{locale === 'ar' ? 'قورارة للحرف' : 'Gourara Crafts'}</p>
+            <p className="text-sm text-clay-400 mt-1">{locale === 'ar' ? 'قورارة أطلس' : 'Gourara Atlas'}</p>
           </div>
 
           {error && (
