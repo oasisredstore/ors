@@ -41,7 +41,7 @@ export default function ProviderRegisterPage() {
               تسجيل مقدم خدمة سياحية
             </h1>
             <p className="text-sm text-clay-400 mt-1">
-              Join RedOasis as a Hotel, Guide, or Agency
+              Join Gourara Crafts as a Hotel, Guide, or Agency
             </p>
           </div>
 

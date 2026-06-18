@@ -15,7 +15,7 @@ interface ArtisansPageProps {
 export async function generateMetadata({ params }: ArtisansPageProps) {
   const { locale } = await params;
   return {
-    title: locale === "ar" ? "شركاؤنا — قورارة أطلس" : "Our Partners — Gourara Atlas",
+    title: locale === "ar" ? "شركاؤنا — قورارة للحرف" : "Our Partners — Gourara Crafts",
     description: "Meet the talented local partners from Timimoun, including artisans, guides, and tourism agencies.",
   };
 }

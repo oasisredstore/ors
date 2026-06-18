@@ -61,7 +61,7 @@ const timeline = [
   { year: "1852", yearAr: "1852", event: "French colonial expedition reaches Timimoun", eventAr: "وصول الحملة الاستعمارية الفرنسية إلى تيميمون" },
   { year: "1962", yearAr: "1962", event: "Independence of Algeria", eventAr: "استقلال الجزائر" },
   { year: "2021", yearAr: "2021", event: "Timimoun becomes a wilaya", eventAr: "تيميمون تصبح ولاية" },
-  { year: "2024", yearAr: "2024", event: "Launch of RedOasis platform to digitize heritage", eventAr: "إطلاق منصة ريد أوزيس لرقمنة التراث" },
+  { year: "2024", yearAr: "2024", event: "Launch of Gourara Crafts platform to digitize heritage", eventAr: "إطلاق منصة قورارة للحرف لرقمنة التراث" },
 ];
 
 const craftCategories = [

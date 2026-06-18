@@ -22,7 +22,7 @@ export function Footer({ locale }: FooterProps) {
                 <span className="text-white font-display font-bold text-sm">ق</span>
               </div>
               <span className="font-display font-bold text-lg text-white">
-                قورارة <span className="text-sand-400">أطلس</span>
+                {locale === 'ar' ? 'قورارة' : 'Gourara'} <span className="text-sand-400">{locale === 'ar' ? 'للحرف' : 'Crafts'}</span>
               </span>
             </div>
             <p className="text-sm text-clay-300 leading-relaxed mb-5">
@@ -115,7 +115,7 @@ export function Footer({ locale }: FooterProps) {
         {/* Bottom Bar */}
         <div className="border-t border-clay-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-clay-500">
-            © {new Date().getFullYear()} {locale === "ar" ? "قورارة أطلس" : "Gourara Atlas"}. {locale === "ar" ? "جميع الحقوق محفوظة." : "All rights reserved."}
+            © {new Date().getFullYear()} {locale === "ar" ? "قورارة للحرف" : "Gourara Crafts"}. {locale === "ar" ? "جميع الحقوق محفوظة." : "All rights reserved."}
           </p>
           <div className="flex items-center gap-4 text-xs text-clay-500">
             <a href="#" className="hover:text-sand-400 transition-colors">{locale === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}</a>
