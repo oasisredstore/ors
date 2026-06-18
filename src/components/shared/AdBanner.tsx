@@ -51,7 +51,7 @@ export async function AdBanner({ position = "homepage", locale }: AdBannerProps)
           )}
           <div className="flex-1 text-center md:text-left">
             <span className="inline-block px-2 py-0.5 bg-oasis-50 text-[10px] font-bold uppercase tracking-widest text-oasis-700 rounded-full mb-1 border border-oasis-100">
-              {isAr ? "شريك RedOasis" : "RedOasis Partner"}
+              {isAr ? "شريك قورارة للحرف" : "Gourara Crafts Partner"}
             </span>
             <p className="text-clay-800 font-display font-bold text-xl leading-tight">{title}</p>
             {body && <p className="text-clay-600 text-sm mt-1 line-clamp-2">{body}</p>}

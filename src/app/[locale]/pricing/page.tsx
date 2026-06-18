@@ -71,7 +71,7 @@ export default function PricingPage() {
           <p className="text-xl text-clay-600">
             {isAr
               ? "انضم إلى منصة الواحة الحمراء وضاعف حجوزاتك السياحية من خلال باقاتنا المرنة"
-              : "Join RedOasis and multiply your tourism bookings with our flexible plans"}
+              : "Join Gourara Crafts and multiply your tourism bookings with our flexible plans"}
           </p>
         </div>
 

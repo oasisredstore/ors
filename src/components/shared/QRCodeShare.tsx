@@ -61,7 +61,7 @@ export function QRCodeShare({ url, title }: QRCodeShareProps) {
     try {
       if (navigator.share) {
         await navigator.share({ 
-          title: `RedOasis - ${title}`, 
+          title: `قورارة للحرف - ${title}`, 
           text: "اكتشف هذا على منصة الواحة الحمراء!",
           url: fullUrl 
         });

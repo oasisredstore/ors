@@ -76,7 +76,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
             className="flex items-center gap-2 group"
           >
             <div className="w-9 h-9 rounded-full bg-gradient-to-br from-sand-400 to-clay-800 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all group-hover:scale-105">
-              <span className="text-white font-display font-bold text-sm">R</span>
+              <span className="text-white font-display font-bold text-sm">{isAr ? 'ق' : 'G'}</span>
             </div>
             <span
               className={cn(
@@ -84,7 +84,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
                 isSolid ? "text-clay-900" : "text-white"
               )}
             >
-              RedOasis<span className="text-sand-500">Artisan</span>
+              {isAr ? 'قورارة' : 'Gourara'}<span className="text-sand-500">{isAr ? ' للحرف' : ' Crafts'}</span>
             </span>
           </Link>
 
