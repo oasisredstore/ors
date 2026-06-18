@@ -53,12 +53,12 @@ export default function LoginPage() {
           {/* Logo */}
           <div className="text-center mb-8">
             <div className="w-14 h-14 rounded-full bg-gradient-to-br from-sand-500 to-clay-700 flex items-center justify-center mx-auto mb-3 shadow-lg">
-              <span className="text-white font-display font-bold text-xl">R</span>
+              <span className="text-white font-display font-bold text-xl">ق</span>
             </div>
             <h1 className="font-display text-2xl font-bold text-clay-800">
               {t("login")}
             </h1>
-            <p className="text-sm text-clay-400 mt-1">RedOasisArtisan</p>
+            <p className="text-sm text-clay-400 mt-1">{locale === 'ar' ? 'قورارة للحرف' : 'Gourara Crafts'}</p>
           </div>
 
           {error && (
