@@ -19,10 +19,10 @@ export function Footer({ locale }: FooterProps) {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-sand-500 to-sand-700 flex items-center justify-center">
-                <span className="text-white font-display font-bold text-sm">R</span>
+                <span className="text-white font-display font-bold text-sm">ق</span>
               </div>
               <span className="font-display font-bold text-lg text-white">
-                RedOasis<span className="text-sand-400">Artisan</span>
+                قورارة <span className="text-sand-400">للحرف</span>
               </span>
             </div>
             <p className="text-sm text-clay-300 leading-relaxed mb-5">
@@ -114,8 +114,8 @@ export function Footer({ locale }: FooterProps) {
 
         {/* Bottom Bar */}
         <div className="border-t border-clay-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-clay-500" dir="ltr">
-            © {new Date().getFullYear()} RedOasisArtisan. {locale === "ar" ? "جميع الحقوق محفوظة." : "All rights reserved."}
+          <p className="text-xs text-clay-500">
+            © {new Date().getFullYear()} {locale === "ar" ? "قورارة للحرف" : "Gourara Crafts"}. {locale === "ar" ? "جميع الحقوق محفوظة." : "All rights reserved."}
           </p>
           <div className="flex items-center gap-4 text-xs text-clay-500">
             <a href="#" className="hover:text-sand-400 transition-colors">{locale === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}</a>

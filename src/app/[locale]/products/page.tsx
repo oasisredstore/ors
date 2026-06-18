@@ -15,7 +15,7 @@ interface ProductsPageProps {
 export async function generateMetadata({ params }: ProductsPageProps) {
   const { locale } = await params;
   return {
-    title: locale === "ar" ? "السوق الشامل — ريد أوزيس أرتيزان" : "Marketplace — RedOasisArtisan",
+    title: locale === "ar" ? "السوق الشامل — قورارة للحرف" : "Marketplace — Gourara Crafts",
     description: "Browse authentic handmade crafts, tours, accommodations, and more in Timimoun.",
     openGraph: {
       locale: locale === "ar" ? "ar_DZ" : "en_US",

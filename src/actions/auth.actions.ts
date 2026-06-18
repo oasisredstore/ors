@@ -211,7 +211,7 @@ export async function artisanRegisterAction(formData: FormData) {
   // Automated Subscription Fee Message
   const adminUser = await prisma.user.findFirst({ where: { role: "ADMIN" } });
   if (adminUser && user.artisan) {
-    const subFeeMsg = `مرحباً بك في منصة RedOasisArtisan! يرجى دفع حقوق الاشتراك الرمزية لتفعيل حسابك والاستفادة من كافة الخدمات.\n\nWelcome to RedOasisArtisan! Please pay the symbolic subscription fee to activate your account and benefit from all services.`;
+    const subFeeMsg = `مرحباً بك في منصة قورارة للحرف! يرجى دفع حقوق الاشتراك الرمزية لتفعيل حسابك والاستفادة من كافة الخدمات.\n\nWelcome to Gourara Crafts! Please pay the symbolic subscription fee to activate your account and benefit from all services.`;
     await prisma.conversation.create({
       data: {
         touristId: adminUser.id,
@@ -325,7 +325,7 @@ export async function providerRegisterAction(formData: FormData) {
   // Automated Subscription Fee Message
   const adminUser = await prisma.user.findFirst({ where: { role: "ADMIN" } });
   if (adminUser && user.serviceProvider) {
-    const subFeeMsg = `مرحباً بك في منصة RedOasisArtisan! يرجى دفع حقوق الاشتراك الرمزية لتفعيل حسابك والاستفادة من كافة الخدمات.\n\nWelcome to RedOasisArtisan! Please pay the symbolic subscription fee to activate your account and benefit from all services.`;
+    const subFeeMsg = `مرحباً بك في منصة قورارة للحرف! يرجى دفع حقوق الاشتراك الرمزية لتفعيل حسابك والاستفادة من كافة الخدمات.\n\nWelcome to Gourara Crafts! Please pay the symbolic subscription fee to activate your account and benefit from all services.`;
     await prisma.conversation.create({
       data: {
         touristId: adminUser.id,
