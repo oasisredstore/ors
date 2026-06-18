@@ -37,8 +37,8 @@ const notoArabic = Noto_Sans_Arabic({
 export const metadata: Metadata = {
   manifest: "/manifest.json",
   title: {
-    default: "قورارة للحرف — Gourara Crafts | Authentic Saharan Handmade",
-    template: "%s | قورارة للحرف",
+    default: "قورارة أطلس — Gourara Atlas | Authentic Saharan Tourism",
+    template: "%s | قورارة أطلس",
   },
   description:
     "Discover handcrafted treasures from Timimoun and the Algerian Sahara. Premium authentic pottery, textiles, palm crafts and traditional artisan works.",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    siteName: "قورارة للحرف — Gourara Crafts",
+    siteName: "قورارة أطلس — Gourara Atlas",
     // C10 FIX: locale is now set per-page in generateMetadata where the
     // locale param is available. This static fallback covers the root layout.
     locale: "en_US",
