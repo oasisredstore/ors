@@ -24,7 +24,7 @@ export default async function ArtisansPage({ params, searchParams }: ArtisansPag
   const { locale } = await params;
   const { type, q } = await searchParams;
   const session = await getSession();
-  const user = session ? { name: session.email.split("@")[0], role: session.role } : null;
+  const user = session ? { name: session.firstName ?? session.email.split("@")[0], role: session.role } : null;
 
   const artisans = await prisma.artisan.findMany({
     where: { isApproved: true, isActive: true },
@@ -165,8 +165,27 @@ export default async function ArtisansPage({ params, searchParams }: ArtisansPag
             </form>
           </div>
 
+          {/* ── Mobile: horizontal type chip strip ── */}
+          <div className="lg:hidden mb-6 overflow-x-auto scrollbar-none -mx-4 px-4">
+            <div className="flex gap-2 pb-1 w-max">
+              {partnerTypes.map(pt => (
+                <a
+                  key={pt.value}
+                  href={`/${locale}/artisans?type=${pt.value}${q ? `&q=${q}` : ""}`}
+                  className={`flex items-center px-4 py-2.5 rounded-full text-sm font-bold whitespace-nowrap border transition-all ${
+                    (type || "ALL") === pt.value
+                      ? "bg-clay-900 text-white border-clay-900 shadow-sm"
+                      : "bg-white text-clay-700 border-desert-200"
+                  }`}
+                >
+                  {locale === "ar" ? pt.labelAr : pt.labelEn}
+                </a>
+              ))}
+            </div>
+          </div>
+
           {/* Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {partners.map((partner) => (
               <Link
                 key={partner.id}
