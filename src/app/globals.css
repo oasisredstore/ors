@@ -426,3 +426,59 @@ body {
 [dir="rtl"] .rtl-flip {
   transform: scaleX(-1);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLLBAR UTILITIES
+═══════════════════════════════════════════════════════════════ */
+
+/* Hide scrollbar but keep scrollability (chips strips, trust bar, drawer) */
+.scrollbar-none {
+  scrollbar-width: none;          /* Firefox */
+  -ms-overflow-style: none;       /* IE / Edge */
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;                  /* Chrome / Safari / Opera */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE SAFE AREA — iPhone notch & home indicator
+═══════════════════════════════════════════════════════════════ */
+
+/* Bottom nav sits above iOS home indicator */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BOTTOM NAV DRAWER — Backdrop & smooth overscroll
+═══════════════════════════════════════════════════════════════ */
+
+/* Prevent body scroll when drawer is open */
+body.drawer-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* Smooth drawer animation */
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes slideDown {
+  from { transform: translateY(0);    opacity: 1; }
+  to   { transform: translateY(100%); opacity: 0; }
+}
+
+.drawer-enter {
+  animation: slideUp 0.32s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.drawer-exit {
+  animation: slideDown 0.24s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACTIVE TAP HIGHLIGHT — Suppress default mobile tap flash
+═══════════════════════════════════════════════════════════════ */
+* {
+  -webkit-tap-highlight-color: transparent;
+}

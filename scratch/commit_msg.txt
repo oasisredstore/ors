@@ -1,0 +1,14 @@
+feat(mobile-products): hide sidebar + scrollable category chips on mobile
+
+products/page.tsx:
+- Sidebar (aside) now hidden on mobile: `hidden lg:block lg:w-56`
+- Added mobile-only horizontal chip bar (lg:hidden) above the grid
+  * When NO category selected: scrollable pill strip with all categories
+    - All / All Services / Stays / Tours / Workshops / Transport
+    - Separator + All Crafts + DB categories from Prisma
+  * When a category IS selected:
+    - Slim active-filter pill showing current category name + X to clear
+    - "← Change" link to go back to full listing
+- Products grid: switches to grid-cols-2 on mobile when category is active
+  so products fill the full screen width in 2 columns (no wasted space)
+- Desktop layout unchanged (sidebar remains on the left)
