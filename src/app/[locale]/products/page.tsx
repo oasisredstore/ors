@@ -197,9 +197,85 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
             </p>
           </div>
 
+          {/* ── Mobile: horizontal category chip strip ─────────────────────────────
+               Only shown on mobile (< lg). When a category IS selected the strip
+               is collapsed and we show a slim active-filter pill instead.         */}
+          <div className="lg:hidden mb-4">
+            {!category ? (
+              /* ── No filter active → scrollable chip strip ── */
+              <div className="overflow-x-auto scrollbar-none -mx-4 px-4">
+                <div className="flex gap-2 pb-2 w-max">
+                  {/* All */}
+                  <a href={`/${locale}/products`}
+                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-bold whitespace-nowrap border bg-clay-900 text-white border-clay-900 shadow-sm">
+                    {locale === "ar" ? "🛍️ الكل" : "🛍️ All"}
+                  </a>
+                  {/* Services group */}
+                  <a href={`/${locale}/products?category=all-services`}
+                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-bold whitespace-nowrap border bg-white text-clay-700 border-desert-200">
+                    {locale === "ar" ? "✨ جميع الخدمات" : "✨ All Services"}
+                  </a>
+                  <a href={`/${locale}/products?category=ACCOMMODATION`}
+                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-bold whitespace-nowrap border bg-white text-clay-700 border-desert-200">
+                    🏨 {locale === "ar" ? "إقامة" : "Stays"}
+                  </a>
+                  <a href={`/${locale}/products?category=TOUR`}
+                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-bold whitespace-nowrap border bg-white text-clay-700 border-desert-200">
+                    🐪 {locale === "ar" ? "جولات" : "Tours"}
+                  </a>
+                  <a href={`/${locale}/products?category=WORKSHOP`}
+                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-bold whitespace-nowrap border bg-white text-clay-700 border-desert-200">
+                    🎨 {locale === "ar" ? "ورشات" : "Workshops"}
+                  </a>
+                  <a href={`/${locale}/products?category=TRANSPORT`}
+                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-bold whitespace-nowrap border bg-white text-clay-700 border-desert-200">
+                    🚙 {locale === "ar" ? "نقل" : "Transport"}
+                  </a>
+                  {/* Separator */}
+                  <span className="w-px bg-desert-200 mx-1 self-stretch shrink-0" />
+                  {/* Product categories */}
+                  <a href={`/${locale}/products?category=all-products`}
+                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-bold whitespace-nowrap border bg-white text-clay-700 border-desert-200">
+                    🏺 {locale === "ar" ? "كل المنتجات" : "All Crafts"}
+                  </a>
+                  {categories.map((cat) => (
+                    <a key={cat.id} href={`/${locale}/products?category=${cat.slug}`}
+                      className="flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-bold whitespace-nowrap border bg-white text-clay-700 border-desert-200">
+                      {locale === "ar" ? cat.nameAr : cat.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              /* ── Category selected → slim active-filter pill ── */
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 bg-sand-100 border border-sand-300 px-4 py-2 rounded-full">
+                  <span className="text-sm font-bold text-sand-700">
+                    {category === "all-products" ? (locale === "ar" ? "🏺 كل المنتجات" : "🏺 All Crafts")
+                     : category === "all-services" ? (locale === "ar" ? "✨ كل الخدمات" : "✨ All Services")
+                     : category === "ACCOMMODATION" ? (locale === "ar" ? "🏨 إقامة" : "🏨 Stays")
+                     : category === "TOUR" ? (locale === "ar" ? "🐪 جولات" : "🐪 Tours")
+                     : category === "WORKSHOP" ? (locale === "ar" ? "🎨 ورشات" : "🎨 Workshops")
+                     : category === "TRANSPORT" ? (locale === "ar" ? "🚙 نقل" : "🚙 Transport")
+                     : selectedCategory ? (locale === "ar" ? selectedCategory.nameAr : selectedCategory.name)
+                     : category}
+                  </span>
+                  <a href={`/${locale}/products`} aria-label="Clear filter"
+                    className="w-5 h-5 rounded-full bg-sand-300 hover:bg-sand-400 flex items-center justify-center transition-colors">
+                    <X className="w-3 h-3 text-sand-800" />
+                  </a>
+                </div>
+                <a href={`/${locale}/products`}
+                  className="text-xs font-bold text-clay-500 hover:text-clay-800 transition-colors whitespace-nowrap">
+                  {locale === "ar" ? "← تغيير الصنف" : "← Change"}
+                </a>
+              </div>
+            )}
+          </div>
+
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Sidebar Filters */}
-            <aside className="lg:w-56 shrink-0">
+            {/* Sidebar Filters — desktop only */}
+            <aside className="hidden lg:block lg:w-56 shrink-0">
               <div className="bg-white rounded-2xl border border-desert-200 p-5 sticky top-24">
                 <h3 className="font-semibold text-clay-800 mb-4 flex items-center gap-2">
                   <SlidersHorizontal className="w-4 h-4" />
@@ -375,7 +451,11 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
               </form>
 
               {allItems.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div className={`grid gap-4 ${
+                  category
+                    ? "grid-cols-2 sm:grid-cols-2 xl:grid-cols-3"
+                    : "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
+                }`}>
                   {allItems.map((item: any) => (
                     <CatalogItemCard
                       key={`${item.itemType}-${item.id}`}
