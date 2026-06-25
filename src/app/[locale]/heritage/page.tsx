@@ -4,8 +4,8 @@ import { Footer } from "@/components/layout/Footer";
 import { getSession } from "@/lib/session";
 import Link from "next/link";
 import Image from "next/image";
-import { Info, BookOpen, Landmark, Calendar, Palette, Sprout, MapPin, Phone, Globe } from "lucide-react";
-import { timimounContacts } from "@/data/timimoun-contacts";
+import { Info, BookOpen, Landmark, Calendar, Palette, Sprout, MapPin, Phone, Globe, Mail, Printer, CheckCircle } from "lucide-react";
+import { timimounContacts, CONTACT_TYPE_LABELS } from "@/data/timimoun-contacts";
 
 const heritageItems = [
   {
@@ -279,56 +279,132 @@ export default async function HeritagePage({
             </div>
           </section>
         )}
-        {/* Local Contacts Section */}
+        {/* Local Guide / Directory Section */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center gap-3 mb-12">
+            {/* Header */}
+            <div className="flex items-center gap-3 mb-4">
               <MapPin className="w-6 h-6 text-sand-500" />
               <h2 className="font-display text-3xl font-bold text-clay-800">
                 {isAr ? "دليل قورارة المحلي" : "Gourara Local Guide"}
               </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {timimounContacts.map((contact) => (
-                <div key={contact.id} className="bg-desert-50 rounded-2xl p-6 border border-desert-100 hover:shadow-md transition-shadow">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs font-bold uppercase tracking-wider text-sand-600 bg-sand-100 px-2 py-1 rounded">
-                      {contact.type.replace('_', ' ')}
-                    </span>
-                    {contact.isVerified && (
-                      <span className="text-[10px] bg-green-100 text-green-700 px-2 py-1 rounded-full font-bold">
-                        VERIFIED
-                      </span>
-                    )}
+            <p className="text-clay-500 mb-12 max-w-2xl">
+              {isAr
+                ? "أرقام التواصل والمعلومات الرسمية لجميع الهيئات العمومية والمديريات التنفيذية بولاية تيميمون."
+                : "Contact details and official information for all public institutions and executive directorates of Timimoun Wilaya."}
+            </p>
+
+            {/* Category groups */}
+            {(["wilaya", "commune", "health", "education", "tourism", "social", "economy", "culture", "hotel", "artisan_coop", "guide"] as const).map((type) => {
+              const contacts = timimounContacts.filter((c) => c.type === type);
+              if (contacts.length === 0) return null;
+              const label = CONTACT_TYPE_LABELS[type];
+              return (
+                <div key={type} className="mb-12">
+                  {/* Category heading */}
+                  <div className="flex items-center gap-2 mb-5">
+                    <span className="text-2xl">{label.emoji}</span>
+                    <h3 className="font-bold text-lg text-clay-700">
+                      {isAr ? label.ar : label.en}
+                    </h3>
+                    <div className="flex-1 h-px bg-desert-100 ml-2" />
                   </div>
-                  <h3 className="text-lg font-bold text-clay-800 mb-2">
-                    {isAr && contact.nameAr ? contact.nameAr : contact.name}
-                  </h3>
-                  <p className="text-sm text-clay-600 mb-4 h-10 line-clamp-2">
-                    {isAr && contact.descriptionAr ? contact.descriptionAr : contact.description}
-                  </p>
-                  
-                  <div className="space-y-2 text-sm text-clay-700">
-                    <div className="flex items-start gap-2">
-                      <MapPin className="w-4 h-4 text-clay-400 mt-0.5 shrink-0" />
-                      <span>{contact.address}</span>
-                    </div>
-                    {contact.phone && (
-                      <div className="flex items-center gap-2">
-                        <Phone className="w-4 h-4 text-clay-400 shrink-0" />
-                        <a href={`tel:${contact.phone}`} className="hover:text-sand-600">{contact.phone}</a>
+
+                  {/* Cards */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {contacts.map((contact) => (
+                      <div
+                        key={contact.id}
+                        className="bg-desert-50 rounded-2xl p-5 border border-desert-100 hover:shadow-lg hover:border-sand-300 transition-all duration-300 flex flex-col gap-3"
+                      >
+                        {/* Card header */}
+                        <div className="flex items-start justify-between gap-2">
+                          <h4 className="font-bold text-clay-900 leading-snug text-base">
+                            {isAr && contact.nameAr ? contact.nameAr : contact.name}
+                          </h4>
+                          {contact.isVerified && (
+                            <CheckCircle className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+                          )}
+                        </div>
+
+                        {/* Description */}
+                        <p className="text-xs text-clay-500 leading-relaxed">
+                          {isAr && contact.descriptionAr ? contact.descriptionAr : contact.description}
+                        </p>
+
+                        {/* Info rows */}
+                        <div className="space-y-1.5 text-sm">
+                          {/* Address */}
+                          <div className="flex items-start gap-2 text-clay-600">
+                            <MapPin className="w-3.5 h-3.5 text-clay-400 mt-0.5 shrink-0" />
+                            <span className="text-xs">{isAr && contact.addressAr ? contact.addressAr : contact.address}</span>
+                          </div>
+                          {/* Phone */}
+                          {contact.phone && (
+                            <div className="flex items-center gap-2">
+                              <Phone className="w-3.5 h-3.5 text-oasis-500 shrink-0" />
+                              <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="text-xs text-oasis-700 hover:text-oasis-900 font-medium">
+                                {contact.phone}
+                              </a>
+                              {contact.phone2 && (
+                                <>
+                                  <span className="text-clay-300">|</span>
+                                  <a href={`tel:${contact.phone2.replace(/\s/g, "")}`} className="text-xs text-oasis-700 hover:text-oasis-900 font-medium">
+                                    {contact.phone2}
+                                  </a>
+                                </>
+                              )}
+                            </div>
+                          )}
+                          {/* Fax */}
+                          {contact.fax && (
+                            <div className="flex items-center gap-2">
+                              <Printer className="w-3.5 h-3.5 text-clay-400 shrink-0" />
+                              <span className="text-xs text-clay-600">{contact.fax}</span>
+                            </div>
+                          )}
+                          {/* Email */}
+                          {contact.email && (
+                            <div className="flex items-center gap-2">
+                              <Mail className="w-3.5 h-3.5 text-sand-500 shrink-0" />
+                              <a href={`mailto:${contact.email}`} className="text-xs text-sand-700 hover:text-sand-900 truncate">
+                                {contact.email}
+                              </a>
+                            </div>
+                          )}
+                          {/* Website */}
+                          {contact.website && (
+                            <div className="flex items-center gap-2">
+                              <Globe className="w-3.5 h-3.5 text-clay-400 shrink-0" />
+                              <a href={contact.website} target="_blank" rel="noopener noreferrer" className="text-xs text-oasis-600 hover:underline truncate">
+                                {contact.website.replace(/^https?:\/\//, "")}
+                              </a>
+                            </div>
+                          )}
+                          {/* Facebook / Social */}
+                          {contact.social_link && (
+                            <div className="flex items-center gap-2">
+                              <span className="text-[10px] bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded font-bold shrink-0">FB</span>
+                              <a href={contact.social_link} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-600 hover:underline truncate">
+                                {isAr ? "صفحة الفيسبوك" : "Facebook Page"}
+                              </a>
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    )}
-                    {contact.website && (
-                      <div className="flex items-center gap-2">
-                        <Globe className="w-4 h-4 text-clay-400 shrink-0" />
-                        <a href={contact.website} target="_blank" rel="noopener noreferrer" className="hover:text-sand-600 truncate">{contact.website}</a>
-                      </div>
-                    )}
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
+              );
+            })}
+
+            {/* Disclaimer */}
+            <p className="text-center text-xs text-clay-400 mt-8 border-t border-desert-100 pt-6">
+              {isAr
+                ? "⚠️ المعلومات مُجمَّعة من المواقع الرسمية وأدلة الاتصال المعتمدة. قد تتغير أرقام الهاتف — يُنصح بالتحقق مباشرة من الجهة المعنية."
+                : "⚠️ Information compiled from official websites and verified directories. Phone numbers may change — please confirm directly with the institution."}
+            </p>
           </div>
         </section>
 
