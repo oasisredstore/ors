@@ -54,19 +54,11 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navLinkClasses = cn(
-    "text-sm font-semibold transition-colors hover:text-sand-500",
-    isSolid ? "text-clay-700" : "text-white/90"
-  );
+  const navLinkClasses = "text-sm font-semibold text-clay-700 transition-colors hover:text-sand-500";
 
   return (
     <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled || !transparentOnTop
-          ? "bg-white/80 backdrop-blur-xl shadow-sm border-b border-white/20"
-          : "bg-transparent"
-      )}
+      className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-desert-100 shadow-sm transition-all duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
@@ -78,12 +70,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
             <div className="w-9 h-9 rounded-full bg-gradient-to-br from-sand-400 to-clay-800 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all group-hover:scale-105">
               <span className="text-white font-display font-bold text-sm">{isAr ? 'ق' : 'G'}</span>
             </div>
-            <span
-              className={cn(
-                "font-display font-bold text-lg hidden sm:block transition-colors tracking-tight",
-                isSolid ? "text-clay-900" : "text-white"
-              )}
-            >
+            <span className="font-display font-bold text-lg hidden sm:block text-clay-900 tracking-tight">
               {isAr ? 'قورارة' : 'Gourara'}<span className="text-sand-500">{isAr ? ' للحرف' : ' Crafts'}</span>
             </span>
           </Link>
@@ -145,12 +132,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
             {/* Language Switcher - Icon & Abbreviation */}
             <Link
               href={switchHref}
-              className={cn(
-                "hidden sm:flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-full transition-all border border-transparent",
-                isSolid
-                  ? "text-clay-600 hover:bg-desert-50 hover:border-desert-200"
-                  : "text-white/80 hover:bg-white/10 hover:border-white/20"
-              )}
+              className="hidden sm:flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-full transition-all border border-transparent text-clay-600 hover:bg-desert-50 hover:border-desert-200"
             >
               <Globe className="w-4 h-4" />
               {otherLocale.toUpperCase()}
@@ -159,12 +141,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
             {/* PWA Download Button - Icon Only on Desktop */}
             <button
               onClick={() => window.dispatchEvent(new Event("trigger-pwa-install"))}
-              className={cn(
-                "hidden sm:flex items-center justify-center p-2 rounded-full transition-all border border-transparent",
-                isSolid
-                  ? "text-sand-600 hover:bg-sand-50 hover:border-sand-200"
-                  : "text-white/80 hover:bg-white/10 hover:border-white/20"
-              )}
+              className="hidden sm:flex items-center justify-center p-2 rounded-full transition-all border border-transparent text-sand-600 hover:bg-sand-50 hover:border-sand-200"
               title={isAr ? "تنزيل التطبيق" : "Install App"}
             >
               <Download className="w-4 h-4" />
@@ -173,12 +150,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
             {/* Wishlist */}
             <Link
               href={`/${locale}/wishlist`}
-              className={cn(
-                "relative p-2 rounded-full transition-all border border-transparent",
-                isSolid
-                  ? "text-clay-600 hover:bg-desert-50 hover:border-desert-200"
-                  : "text-white/80 hover:bg-white/10 hover:border-white/20"
-              )}
+              className="relative p-2 rounded-full transition-all border border-transparent text-clay-600 hover:bg-desert-50 hover:border-desert-200"
               aria-label="Wishlist"
             >
               <Heart className="w-5 h-5" />
@@ -192,12 +164,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
             {/* Cart */}
             <Link
               href={`/${locale}/cart`}
-              className={cn(
-                "relative p-2 rounded-full transition-all border border-transparent",
-                isSolid
-                  ? "text-clay-600 hover:bg-desert-50 hover:border-desert-200"
-                  : "text-white/80 hover:bg-white/10 hover:border-white/20"
-              )}
+              className="relative p-2 rounded-full transition-all border border-transparent text-clay-600 hover:bg-desert-50 hover:border-desert-200"
               aria-label="Cart"
             >
               <ShoppingCart className="w-5 h-5" />
@@ -215,12 +182,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
               <div className="relative">
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className={cn(
-                    "flex items-center gap-2 px-2 py-1 rounded-full text-sm font-medium transition-all border border-transparent",
-                    isSolid
-                      ? "text-clay-700 hover:bg-desert-50 hover:border-desert-200"
-                      : "text-white hover:bg-white/10 hover:border-white/20"
-                  )}
+                  className="flex items-center gap-2 px-2 py-1 rounded-full text-sm font-medium transition-all border border-transparent text-clay-700 hover:bg-desert-50 hover:border-desert-200"
                 >
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sand-400 to-orange-500 flex items-center justify-center text-white text-sm font-bold shadow-sm">
                     {user.name.charAt(0).toUpperCase()}
@@ -279,7 +241,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
             ) : (
               <Link
                 href={`/${locale}/auth/login`}
-                className="hidden sm:inline-flex items-center justify-center bg-clay-900 text-white text-sm font-bold px-6 py-2.5 rounded-full hover:bg-sand-500 shadow-sm hover:shadow-md transition-all"
+                className="hidden sm:inline-flex items-center justify-center bg-clay-900 text-white text-sm font-bold px-6 py-2.5 rounded-full hover:bg-sand-600 shadow-sm hover:shadow-md transition-all"
               >
                 {t("login")}
               </Link>
@@ -287,10 +249,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
 
             {/* Mobile Menu Toggle */}
             <button
-              className={cn(
-                "lg:hidden p-2 rounded-full transition-all ml-1",
-                isSolid ? "text-clay-800 bg-desert-100/50" : "text-white bg-white/10"
-              )}
+              className="lg:hidden p-2 rounded-full transition-all ml-1 text-clay-800 bg-desert-100/50 hover:bg-desert-200"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
