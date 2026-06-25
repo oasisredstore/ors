@@ -8,6 +8,7 @@ import { routing } from "@/i18n/routing";
 import { PWAInstallPrompt } from "@/components/layout/PWAInstallPrompt";
 import { Chatbot } from "@/components/shared/Chatbot";
 import { BottomNav } from "@/components/layout/BottomNav";
+import { getSession } from "@/lib/session";
 import "@/app/globals.css";
 
 // B1 FIX: The variable was previously named --font-inter even though DM Sans
@@ -87,6 +88,12 @@ export default async function LocaleLayout({
   const messages = await getMessages();
   const isRTL = locale === "ar";
 
+  // Provide user context to BottomNav for role-aware tabs
+  const session = await getSession();
+  const navUser = session
+    ? { name: session.firstName ?? session.email.split("@")[0], role: session.role }
+    : null;
+
   return (
     <html
       lang={locale}
@@ -94,13 +101,13 @@ export default async function LocaleLayout({
       className={`${dmSans.variable} ${playfair.variable} ${notoArabic.variable}`}
       suppressHydrationWarning
     >
-      <body className={isRTL ? "font-arabic" : ""} suppressHydrationWarning>
+      <body className={`${isRTL ? "font-arabic" : ""} pb-[4.5rem] lg:pb-0`} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages} locale={locale}>
           {children}
           <PWAInstallPrompt />
           <Chatbot locale={locale} />
-          {/* Mobile floating bottom nav */}
-          <BottomNav locale={locale} />
+          {/* Mobile Super App bottom navigation */}
+          <BottomNav locale={locale} user={navUser} />
           <Toaster
             position={isRTL ? "bottom-left" : "bottom-right"}
             toastOptions={{
