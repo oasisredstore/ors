@@ -1,14 +1,19 @@
-feat(mobile-products): hide sidebar + scrollable category chips on mobile
+feat(ux): CSS utilities + artisans mobile chips + session fixes
 
-products/page.tsx:
-- Sidebar (aside) now hidden on mobile: `hidden lg:block lg:w-56`
-- Added mobile-only horizontal chip bar (lg:hidden) above the grid
-  * When NO category selected: scrollable pill strip with all categories
-    - All / All Services / Stays / Tours / Workshops / Transport
-    - Separator + All Crafts + DB categories from Prisma
-  * When a category IS selected:
-    - Slim active-filter pill showing current category name + X to clear
-    - "← Change" link to go back to full listing
-- Products grid: switches to grid-cols-2 on mobile when category is active
-  so products fill the full screen width in 2 columns (no wasted space)
-- Desktop layout unchanged (sidebar remains on the left)
+globals.css:
+- Added .scrollbar-none utility (Firefox + Chrome/Safari/Opera)
+  Fixes visible scrollbar on TrustBar pills, product chips, BottomNav drawer
+- Added .safe-bottom for iOS home indicator safe area
+- Added body.drawer-open scroll lock + overscroll-behavior: none
+- Added .drawer-enter / .drawer-exit keyframe animations (slideUp/Down)
+- Added -webkit-tap-highlight-color: transparent globally
+  (removes default blue flash on mobile taps)
+
+artisans/page.tsx:
+- Fixed user name: now uses session.firstName (not email prefix)
+- Added mobile horizontal chip bar for partner type filtering
+  (same pattern as products page - hides desktop select on mobile)
+- Grid: grid-cols-2 on mobile (was 1-col, wasted space)
+
+StickyProductActions.tsx:
+- pb-16 correctly clears the BottomNav on product detail pages
