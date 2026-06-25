@@ -14,8 +14,10 @@ export default function LoginPage() {
   const t = useTranslations("auth");
   const { locale = "en" } = useParams<{ locale: string }>();
   const [showPw, setShowPw] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -94,6 +96,41 @@ export default function LoginPage() {
               </button>
             </div>
 
+            <div className="flex items-center justify-between pt-1">
+              <label
+                htmlFor="rememberMe"
+                className="flex items-center gap-2 cursor-pointer select-none group"
+              >
+                {/* Custom styled checkbox */}
+                <div
+                  onClick={() => setRememberMe(!rememberMe)}
+                  className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${
+                    rememberMe
+                      ? "bg-sand-500 border-sand-500"
+                      : "bg-white border-desert-300"
+                  }`}
+                >
+                  {rememberMe && (
+                    <svg className="w-3 h-3 text-white" viewBox="0 0 12 12" fill="none">
+                      <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )}
+                </div>
+                <input
+                  type="checkbox"
+                  id="rememberMe"
+                  name="rememberMe"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="sr-only"
+                />
+                <span className="text-sm text-clay-600 group-hover:text-clay-800 transition-colors">
+                  {locale === "ar" ? "تذكرني لمدة 30 يوماً" : "Remember me for 30 days"}
+                </span>
+              </label>
+            </div>
+
+
             <Button
               type="submit"
               size="lg"
@@ -103,6 +140,7 @@ export default function LoginPage() {
               {t("login")}
             </Button>
           </form>
+
 
           <div className="mt-6 text-center space-y-3">
             <p className="text-sm text-clay-500">
