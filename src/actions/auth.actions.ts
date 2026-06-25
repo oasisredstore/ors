@@ -27,6 +27,9 @@ export async function loginAction(formData: FormData) {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
   };
+  // "تذكرني" / "Remember me" — if checked keep session for 30 days,
+  // otherwise expire when the browser is closed (no maxAge).
+  const rememberMe = formData.get("rememberMe") === "on";
 
   const parsed = LoginSchema.safeParse(raw);
   if (!parsed.success) {
@@ -54,8 +57,6 @@ export async function loginAction(formData: FormData) {
     userId: user.id,
     email: user.email,
     role: user.role,
-    // B4 FIX: Include firstName so the UI can greet users by name
-    // rather than slicing their email address at the @ sign.
     firstName: user.firstName,
   });
 
@@ -64,7 +65,8 @@ export async function loginAction(formData: FormData) {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    maxAge: 60 * 60 * 24 * 7, // 7 days
+    // Remember me: 30 days; otherwise session cookie (closes with browser)
+    ...(rememberMe ? { maxAge: 60 * 60 * 24 * 30 } : {}),
     path: "/",
   });
 
@@ -119,7 +121,7 @@ export async function registerAction(formData: FormData) {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    maxAge: 60 * 60 * 24 * 7,
+    maxAge: 60 * 60 * 24 * 30, // 30 days
     path: "/",
   });
 
@@ -239,7 +241,7 @@ export async function artisanRegisterAction(formData: FormData) {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    maxAge: 60 * 60 * 24 * 7,
+    maxAge: 60 * 60 * 24 * 30, // 30 days
     path: "/",
   });
 
@@ -352,7 +354,7 @@ export async function providerRegisterAction(formData: FormData) {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    maxAge: 60 * 60 * 24 * 7,
+    maxAge: 60 * 60 * 24 * 30, // 30 days
     path: "/",
   });
 
