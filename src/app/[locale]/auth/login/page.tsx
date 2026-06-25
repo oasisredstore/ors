@@ -104,7 +104,7 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <div className="mt-6 text-center space-y-2">
+          <div className="mt-6 text-center space-y-3">
             <p className="text-sm text-clay-500">
               {t("noAccount")}{" "}
               <Link
@@ -114,15 +114,17 @@ export default function LoginPage() {
                 {t("register")}
               </Link>
             </p>
-            <p className="text-sm text-clay-500">
-              Artisan?{" "}
+
+            {/* Become a Vendor CTA */}
+            <div className="border-t border-desert-100 pt-4">
               <Link
                 href={`/${locale}/auth/artisan/register`}
-                className="text-oasis-600 font-semibold hover:text-oasis-700"
+                className="flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-clay-900 to-clay-800 hover:from-sand-600 hover:to-sand-700 text-white rounded-2xl font-bold text-sm transition-all duration-300 shadow-sm hover:shadow-md"
               >
-                {t("artisanRegister")}
+                <span className="text-lg">🏺</span>
+                {locale === 'ar' ? 'افتح متجرك — انضم كحرفي أو مزود خدمة' : 'Become a Vendor — Artisan or Service Provider'}
               </Link>
-            </p>
+            </div>
           </div>
         </div>
       </div>

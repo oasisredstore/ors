@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Star, Package, Ruler, MapPin, MessageCircle, Mail, ExternalLink, ShoppingCart, Check, Heart } from "lucide-react";
@@ -10,6 +10,7 @@ import { useWishlistStore } from "@/store/wishlistStore";
 import { formatPrice } from "@/lib/utils";
 import toast from "react-hot-toast";
 import { QRCodeShare } from "@/components/shared/QRCodeShare";
+import { StickyProductActions } from "@/components/marketplace/StickyProductActions";
 
 interface ProductDetailClientProps {
   product: {
@@ -56,6 +57,8 @@ export function ProductDetailClient({ product, locale }: ProductDetailClientProp
   const { toggleItem, isWishlisted } = useWishlistStore();
   const wishlisted = isWishlisted(product.id);
   const isAr = locale === "ar";
+  // Ref for the primary add-to-cart button — StickyProductActions watches this
+  const cartButtonRef = useRef<HTMLDivElement>(null);
 
   const displayName = isAr && product.nameAr ? product.nameAr : product.name;
   const displayDesc = isAr && product.descriptionAr ? product.descriptionAr : product.description;
@@ -79,6 +82,7 @@ export function ProductDetailClient({ product, locale }: ProductDetailClientProp
     : null;
 
   return (
+    <>
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
       {/* Images */}
       <div>
@@ -211,7 +215,7 @@ export function ProductDetailClient({ product, locale }: ProductDetailClientProp
         )}
 
         {/* Price & Add to Cart */}
-        <div className="bg-gradient-to-br from-sand-50 to-desert-50 rounded-2xl p-5 mb-6 border border-sand-200">
+        <div ref={cartButtonRef} className="bg-gradient-to-br from-sand-50 to-desert-50 rounded-2xl p-5 mb-6 border border-sand-200">
           <div className="flex items-center justify-between mb-4">
             <div>
               {product.price > 0 ? (
@@ -355,5 +359,13 @@ export function ProductDetailClient({ product, locale }: ProductDetailClientProp
         </div>
       </div>
     </div>
+
+    {/* Sticky Add to Cart / Buy Now bar */}
+    <StickyProductActions
+      product={product}
+      triggerRef={cartButtonRef}
+      locale={locale}
+    />
+    </>
   );
 }
