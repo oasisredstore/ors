@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { getSession } from "@/lib/session";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { TrustBar } from "@/components/layout/TrustBar";
 import { HeroSection } from "@/components/home/HeroSection";
 import { SplashIntro } from "@/components/home/SplashIntro";
 import { VirtualMuseumSection } from "@/components/home/VirtualMuseumSection";
@@ -110,6 +111,10 @@ export default async function HomePage({ params }: HomePageProps) {
     <>
       <SplashIntro />
       <Navbar locale={locale} user={user} transparentOnTop={true} />
+      {/* Trust/value proposition bar */}
+      <div className="pt-16 lg:pt-20">
+        <TrustBar locale={locale} />
+      </div>
 
       <main>
         {/* Hero */}

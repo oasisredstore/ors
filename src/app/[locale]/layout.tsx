@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { PWAInstallPrompt } from "@/components/layout/PWAInstallPrompt";
 import { Chatbot } from "@/components/shared/Chatbot";
+import { BottomNav } from "@/components/layout/BottomNav";
 import "@/app/globals.css";
 
 // B1 FIX: The variable was previously named --font-inter even though DM Sans
@@ -98,6 +99,8 @@ export default async function LocaleLayout({
           {children}
           <PWAInstallPrompt />
           <Chatbot locale={locale} />
+          {/* Mobile floating bottom nav */}
+          <BottomNav locale={locale} />
           <Toaster
             position={isRTL ? "bottom-left" : "bottom-right"}
             toastOptions={{
