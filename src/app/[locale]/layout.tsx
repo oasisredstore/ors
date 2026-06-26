@@ -56,17 +56,42 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "قورارة للحرف — Gourara Crafts",
-    // C10 FIX: locale is now set per-page in generateMetadata where the
-    // locale param is available. This static fallback covers the root layout.
     locale: "en_US",
+  },
+  // Apple PWA meta tags
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Gourara Crafts",
+  },
+  // Additional icons for various platforms
+  icons: {
+    apple: [
+      { url: "/icons/icon-192x192.png", sizes: "192x192" },
+      { url: "/icons/icon-152x152.png", sizes: "152x152" },
+      { url: "/icons/icon-144x144.png", sizes: "144x144" },
+      { url: "/icons/icon-128x128.png", sizes: "128x128" },
+    ],
+    icon: [
+      { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+  },
+  formatDetection: {
+    telephone: true,
+    address: true,
   },
 };
 
 export const viewport = {
-  themeColor: "#ffffff",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#C04A1A" },
+    { media: "(prefers-color-scheme: dark)", color: "#1E1410" },
+  ],
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
 };
 
 interface LocaleLayoutProps {

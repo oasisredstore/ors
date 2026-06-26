@@ -5,6 +5,14 @@ import withPWAInit from "@ducanh2912/next-pwa";
 const withPWA = withPWAInit({
   dest: "public",
   disable: process.env.NODE_ENV === "development",
+  // Offline fallback page served when navigation requests fail
+  fallbacks: {
+    document: "/en/offline",
+  },
+  // Cache static assets aggressively
+  aggressiveFrontEndNavCaching: true,
+  reloadOnOnline: true,
+  cacheOnFrontEndNav: true,
 });
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");

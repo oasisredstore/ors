@@ -1,0 +1,29 @@
+feat(professional): full PWA and visual elevation upgrade
+
+PWA improvements:
+- manifest.json: brand theme_color #C04A1A, maskable icons (8 sizes),
+  App Shortcuts (Shop/Stay/Tour), lang/dir/categories/display_override
+- layout.tsx: Apple PWA meta (appleWebApp), adaptive themeColor,
+  viewportFit cover, icon arrays for apple-touch-icon
+- next.config.ts: offline fallback route, aggressive caching flags
+- offline/page.tsx: branded bilingual EN/AR offline page (NEW)
+
+Global CSS:
+- Fluid clamp() typography: .text-fluid-hero, .text-fluid-xl, .text-fluid-lg
+- 9 new keyframes: floatOrb, rotateSlow, gradientShift, shimmerGold,
+  slideInFromBottom, countUp, ringPulse, splashRing, breathe
+- New utilities: .glass-navbar, .gradient-border, .bg-gradient-animated,
+  .btn-pulsing, .animate-float, .reveal-on-scroll with stagger classes
+
+Components upgraded:
+- SplashIntro: logo mark + gold pulse rings + 3-phase enter/hold/exit
+- HeroSection: parallax scroll, animated stat counters, focused
+  glassmorphic search bar, pulsing CTA, ambient orbs, scroll hint
+- Navbar: fixed transparentOnTop (truly transparent on hero),
+  color-aware buttons, active route underline, emoji dropdown items
+- TrustBar: scroll-triggered entrance stagger, gold shimmer overlay
+- VirtualMuseumSection: stagger entrance, hover text reveal, museum CTA,
+  badge pills, animated header underline, ambient glow background
+- BottomNav: gradient FAB, gradient active pill, frosted drawer header
+- Footer: gold gradient dividers, social hover colors, newsletter spinner
+- PWAInstallPrompt: app-store card, bilingual, star rating, install spinner
