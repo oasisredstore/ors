@@ -80,7 +80,9 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
     if (isSolid) {
       return cn(navLinkBase, active ? "text-sand-500" : "text-clay-700 hover:text-sand-500");
     }
-    return cn(navLinkBase, active ? "text-amber-300" : "text-white/85 hover:text-white");
+    return cn(navLinkBase, active ? "text-amber-300" : "text-white hover:text-sand-300",
+      "[text-shadow:0_1px_4px_rgba(0,0,0,0.6)]"
+    );
   };
 
   return (
@@ -111,7 +113,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
             <span
               className={cn(
                 "font-display font-bold text-lg hidden sm:block tracking-tight transition-colors duration-300",
-                isSolid ? "text-clay-900" : "text-white"
+                isSolid ? "text-clay-900" : "text-white [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]"
               )}
             >
               {isAr ? "قورارة" : "Gourara"}
@@ -134,7 +136,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
                 className={cn(
                   navLinkBase,
                   "flex items-center gap-1 py-5",
-                  isSolid ? "text-clay-700 hover:text-sand-500" : "text-white/85 hover:text-white"
+                  isSolid ? "text-clay-700 hover:text-sand-500" : "text-white hover:text-sand-300 [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]"
                 )}
               >
                 {t("services_partners")}
@@ -209,7 +211,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
                 "hidden sm:flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-full transition-all border",
                 isSolid
                   ? "text-clay-600 border-transparent hover:bg-desert-50 hover:border-desert-200"
-                  : "text-white/80 border-white/20 hover:bg-white/10 hover:text-white"
+                  : "text-white border-white/30 hover:bg-white/15 hover:text-sand-200 [text-shadow:0_1px_3px_rgba(0,0,0,0.5)]"
               )}
             >
               <Globe className="w-3.5 h-3.5" />
@@ -238,7 +240,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
                 "relative flex items-center justify-center w-9 h-9 rounded-full transition-all border",
                 isSolid
                   ? "text-clay-600 border-transparent hover:bg-desert-50 hover:border-desert-200"
-                  : "text-white/80 border-white/15 hover:bg-white/10 hover:text-white"
+                  : "text-white border-white/20 hover:bg-white/15 hover:text-sand-200"
               )}
               aria-label="Wishlist"
             >
@@ -257,7 +259,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
                 "relative flex items-center justify-center w-9 h-9 rounded-full transition-all border",
                 isSolid
                   ? "text-clay-600 border-transparent hover:bg-desert-50 hover:border-desert-200"
-                  : "text-white/80 border-white/15 hover:bg-white/10 hover:text-white"
+                  : "text-white border-white/20 hover:bg-white/15 hover:text-sand-200"
               )}
               aria-label="Cart"
             >

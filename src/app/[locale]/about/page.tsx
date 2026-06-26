@@ -355,10 +355,22 @@ export default async function AboutPage({ params }: AboutPageProps) {
                   <h4 className="font-bold text-clay-800">{isAr ? "اصغير عبد الحميد" : "Abdelhamid Seghir"}</h4>
                 </div>
               </div>
-              <div className="p-5 bg-sand-50 rounded-2xl border border-sand-200 text-clay-700 text-sm md:text-base leading-relaxed font-medium">
-                {isAr
-                  ? "يعد هذا العمل ثمرة انتاج عمل مشترك للفريق ضمن مذكرة تخرج لنيل شهادة مؤسسة ناشئة في اطار القرار الوزاري 1275 المعدل والمتمم بالقرار الوزراي 008 المؤرخ في 23 فيفري 2025"
-                  : "This work is the fruit of a joint team effort within a graduation thesis to obtain a startup certificate under Ministerial Decree 1275, amended and supplemented by Ministerial Decree 008 dated February 23, 2025."}
+              <div className="p-5 bg-sand-50 rounded-2xl border border-sand-200 text-clay-700 text-sm md:text-base leading-relaxed">
+                {isAr ? (
+                  <div className="text-center space-y-2">
+                    <p className="font-bold text-clay-800 mb-3">تم هذا العمل تحت إشراف:</p>
+                    <p className="font-medium">🎓 د. جعفري مبارك</p>
+                    <p className="font-medium">🎓 د. بورقيق عبد الكريم</p>
+                    <p className="font-medium">🎓 د. ياحي توفيق</p>
+                  </div>
+                ) : (
+                  <div className="text-center space-y-2">
+                    <p className="font-bold text-clay-800 mb-3">This work was supervised by:</p>
+                    <p className="font-medium">🎓 Dr. Djafri Mubarak</p>
+                    <p className="font-medium">🎓 Dr. Bourkaib Abdelkrim</p>
+                    <p className="font-medium">🎓 Dr. Yahi Tawfiq</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
