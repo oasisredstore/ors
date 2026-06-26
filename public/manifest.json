@@ -1,23 +1,102 @@
 {
-  "name": "RedOasis Artisan",
-  "short_name": "RedOasis",
-  "description": "Timimoun's Premier Artisan Marketplace",
+  "name": "قورارة للحرف — Gourara Crafts",
+  "short_name": "Gourara",
+  "description": "Your gateway to Timimoun & Gourara. Authentic handcrafted artisan goods, desert stays & guided tours from the Algerian Sahara.",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["shopping", "travel", "lifestyle"],
   "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "/icons/icon-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#C04A1A",
+  "background_color": "#1E1410",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
   "orientation": "portrait-primary",
   "start_url": "/en",
-  "scope": "/"
+  "scope": "/",
+  "id": "/en",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Shop Products",
+      "short_name": "Shop",
+      "description": "Browse authentic Saharan artisan products",
+      "url": "/en/products",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Book a Stay",
+      "short_name": "Stays",
+      "description": "Find hotels and traditional houses in Timimoun",
+      "url": "/en/services?type=accommodation",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Explore Tours",
+      "short_name": "Tours",
+      "description": "Guided desert tours and experiences",
+      "url": "/en/services?type=tour",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+    }
+  ]
 }

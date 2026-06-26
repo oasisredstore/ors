@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Truck, RotateCcw, ShieldCheck, Headphones, Gift } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +16,7 @@ const TRUST_ITEMS = [
     bg: "bg-oasis-50",
     border: "border-oasis-200",
     iconBg: "bg-oasis-100",
+    gradient: "from-oasis-500/10 to-transparent",
   },
   {
     key: "returns",
@@ -24,6 +25,7 @@ const TRUST_ITEMS = [
     bg: "bg-sand-50",
     border: "border-sand-200",
     iconBg: "bg-sand-100",
+    gradient: "from-sand-500/10 to-transparent",
   },
   {
     key: "securePay",
@@ -32,6 +34,7 @@ const TRUST_ITEMS = [
     bg: "bg-emerald-50",
     border: "border-emerald-200",
     iconBg: "bg-emerald-100",
+    gradient: "from-emerald-500/10 to-transparent",
   },
   {
     key: "support",
@@ -40,6 +43,7 @@ const TRUST_ITEMS = [
     bg: "bg-indigo-50",
     border: "border-indigo-200",
     iconBg: "bg-indigo-100",
+    gradient: "from-indigo-500/10 to-transparent",
   },
   {
     key: "giftService",
@@ -48,29 +52,47 @@ const TRUST_ITEMS = [
     bg: "bg-rose-50",
     border: "border-rose-200",
     iconBg: "bg-rose-100",
+    gradient: "from-rose-500/10 to-transparent",
   },
 ] as const;
 
 const LABELS_AR: Record<string, { title: string; desc: string }> = {
-  freeShipping: { title: "توصيل مجاني", desc: "للطلبات فوق 5000 دج" },
-  returns:      { title: "استرجاع مضمون", desc: "خلال 3 أيام" },
-  securePay:    { title: "دفع آمن 100%", desc: "حماية كاملة لبياناتك" },
-  support:      { title: "دعم 24/7", desc: "فريق متخصص بخدمتك" },
-  giftService:  { title: "خدمة الهدايا", desc: "تغليف وإرسال هدايا" },
+  freeShipping: { title: "توصيل مجاني",    desc: "للطلبات فوق 5000 دج" },
+  returns:      { title: "استرجاع مضمون",   desc: "خلال 3 أيام" },
+  securePay:    { title: "دفع آمن 100%",    desc: "حماية كاملة لبياناتك" },
+  support:      { title: "دعم 24/7",        desc: "فريق متخصص بخدمتك" },
+  giftService:  { title: "خدمة الهدايا",    desc: "تغليف وإرسال هدايا" },
 };
 
 const LABELS_EN: Record<string, { title: string; desc: string }> = {
-  freeShipping: { title: "Free Shipping", desc: "On orders above 5000 DZD" },
-  returns:      { title: "Easy Returns", desc: "Within 3 days" },
-  securePay:    { title: "100% Secure Pay", desc: "Your data is protected" },
-  support:      { title: "24/7 Support", desc: "Dedicated expert team" },
-  giftService:  { title: "Gift Service", desc: "Wrapping & delivery" },
+  freeShipping: { title: "Free Shipping",    desc: "On orders above 5000 DZD" },
+  returns:      { title: "Easy Returns",     desc: "Within 3 days" },
+  securePay:    { title: "100% Secure Pay",  desc: "Your data is protected" },
+  support:      { title: "24/7 Support",     desc: "Dedicated expert team" },
+  giftService:  { title: "Gift Service",     desc: "Wrapping & delivery" },
 };
 
 export function TrustBar({ locale = "en" }: TrustBarProps) {
   const isAr = locale === "ar";
   const labels = isAr ? LABELS_AR : LABELS_EN;
   const scrollRef = useRef<HTMLDivElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  // Entrance animation on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (barRef.current) observer.observe(barRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   // Auto-scroll animation on mobile
   useEffect(() => {
@@ -85,7 +107,7 @@ export function TrustBar({ locale = "en" }: TrustBarProps) {
       const maxScroll = el.scrollWidth - el.clientWidth;
       if (maxScroll <= 0) return;
 
-      pos += direction * 0.5;
+      pos += direction * 0.4;
       if (pos >= maxScroll) { direction = -1; pos = maxScroll; }
       if (pos <= 0)         { direction = 1;  pos = 0; }
 
@@ -93,44 +115,77 @@ export function TrustBar({ locale = "en" }: TrustBarProps) {
       animId = requestAnimationFrame(animate);
     };
 
-    // Pause on touch
-    const pause = () => cancelAnimationFrame(animId);
+    const pause  = () => cancelAnimationFrame(animId);
     const resume = () => { animId = requestAnimationFrame(animate); };
 
     animId = requestAnimationFrame(animate);
-    el.addEventListener("touchstart", pause, { passive: true });
-    el.addEventListener("touchend", resume, { passive: true });
+    el.addEventListener("touchstart", pause,  { passive: true });
+    el.addEventListener("touchend",   resume, { passive: true });
 
     return () => {
       cancelAnimationFrame(animId);
       el.removeEventListener("touchstart", pause);
-      el.removeEventListener("touchend", resume);
+      el.removeEventListener("touchend",   resume);
     };
   }, [isAr]);
 
   return (
-    <div className="w-full bg-gradient-to-r from-clay-900 via-clay-800 to-clay-900 border-b border-clay-700">
+    <div
+      ref={barRef}
+      className="w-full relative overflow-hidden"
+      style={{
+        background: "linear-gradient(135deg, #1E1410 0%, #2D1C14 35%, #1E1410 65%, #362420 100%)",
+        borderBottom: "1px solid rgba(222, 176, 72, 0.15)",
+      }}
+    >
+      {/* Animated gradient shimmer */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "linear-gradient(90deg, transparent 0%, rgba(222,176,72,0.04) 50%, transparent 100%)",
+          backgroundSize: "200% 100%",
+          animation: "shimmerGold 4s ease-in-out infinite",
+        }}
+      />
+
+      {/* Top gold line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{
+          background: "linear-gradient(90deg, transparent, rgba(222,176,72,0.40), transparent)",
+        }}
+      />
+
       {/* Desktop: horizontal bar */}
-      <div className="hidden md:flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 divide-x divide-clay-700 rtl:divide-x-reverse">
-        {TRUST_ITEMS.map((item) => {
+      <div
+        className="hidden md:flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 divide-x divide-clay-800 rtl:divide-x-reverse"
+        dir={isAr ? "rtl" : "ltr"}
+      >
+        {TRUST_ITEMS.map((item, idx) => {
           const Icon = item.icon;
           const label = labels[item.key];
           return (
             <div
               key={item.key}
-              className="flex items-center gap-2.5 px-5 py-2.5 flex-1 group cursor-default"
+              className={cn(
+                "flex items-center gap-3 px-5 py-3 flex-1 group cursor-default transition-all duration-700 ease-out",
+                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              )}
+              style={{ transitionDelay: `${idx * 80}ms` }}
             >
-              <div className={cn(
-                "w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-transform group-hover:scale-110",
-                item.iconBg
-              )}>
-                <Icon className={cn("w-3.5 h-3.5", item.color)} strokeWidth={2} />
+              <div
+                className={cn(
+                  "w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:shadow-md",
+                  item.iconBg
+                )}
+              >
+                <Icon className={cn("w-4 h-4", item.color)} strokeWidth={2} />
               </div>
               <div>
-                <p className="text-xs font-bold text-white whitespace-nowrap leading-tight">
+                <p className="text-xs font-bold text-white whitespace-nowrap leading-tight group-hover:text-sand-200 transition-colors">
                   {label.title}
                 </p>
-                <p className="text-[10px] text-clay-400 whitespace-nowrap mt-0.5">
+                <p className="text-[10px] text-clay-400 whitespace-nowrap mt-0.5 group-hover:text-clay-300 transition-colors">
                   {label.desc}
                 </p>
               </div>
@@ -142,7 +197,7 @@ export function TrustBar({ locale = "en" }: TrustBarProps) {
       {/* Mobile: scrollable pill strip */}
       <div
         ref={scrollRef}
-        className="md:hidden flex items-center gap-2.5 px-4 py-2.5 overflow-x-auto scrollbar-none"
+        className="md:hidden flex items-center gap-2.5 px-4 py-3 overflow-x-auto scrollbar-none"
         dir={isAr ? "rtl" : "ltr"}
       >
         {TRUST_ITEMS.map((item) => {
@@ -152,7 +207,7 @@ export function TrustBar({ locale = "en" }: TrustBarProps) {
             <div
               key={item.key}
               className={cn(
-                "flex items-center gap-2 px-3 py-1.5 rounded-full border shrink-0 transition-all",
+                "flex items-center gap-2 px-3.5 py-2 rounded-full border shrink-0 transition-all",
                 item.bg, item.border
               )}
             >
