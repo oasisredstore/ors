@@ -99,12 +99,17 @@ export default function LoginPage() {
             <div className="flex items-center justify-between pt-1">
               <label
                 htmlFor="rememberMe"
-                className="flex items-center gap-2 cursor-pointer select-none group"
+                className={`flex items-center gap-2 cursor-pointer select-none group ${
+                  locale === "ar" ? "flex-row-reverse" : ""
+                }`}
               >
+                <span className="text-sm text-clay-600 group-hover:text-clay-800 transition-colors">
+                  {locale === "ar" ? "تذكرني لمدة 30 يوماً" : "Remember me for 30 days"}
+                </span>
                 {/* Custom styled checkbox */}
                 <div
                   onClick={() => setRememberMe(!rememberMe)}
-                  className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${
+                  className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all shrink-0 ${
                     rememberMe
                       ? "bg-sand-500 border-sand-500"
                       : "bg-white border-desert-300"
@@ -124,9 +129,6 @@ export default function LoginPage() {
                   onChange={(e) => setRememberMe(e.target.checked)}
                   className="sr-only"
                 />
-                <span className="text-sm text-clay-600 group-hover:text-clay-800 transition-colors">
-                  {locale === "ar" ? "تذكرني لمدة 30 يوماً" : "Remember me for 30 days"}
-                </span>
               </label>
             </div>
 

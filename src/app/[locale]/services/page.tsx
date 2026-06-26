@@ -77,7 +77,7 @@ export default async function ServicesListingPage({
   return (
     <>
       <Navbar locale={locale} user={user} />
-      <main className="min-h-screen bg-desert-50 pt-24 pb-16">
+      <main className="min-h-screen bg-desert-50 pt-24 pb-20 lg:pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* AdBanner for services page */}
@@ -94,8 +94,8 @@ export default async function ServicesListingPage({
             </p>
           </div>
 
-          {/* Filter Tabs */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
+          {/* Filter Tabs — desktop: centered wrap | mobile: horizontal scroll strip */}
+          <div className="hidden sm:flex flex-wrap justify-center gap-2 mb-10">
             {filterTabs.map((tab) => (
               <Link
                 key={tab.key ?? "all"}
@@ -111,8 +111,27 @@ export default async function ServicesListingPage({
             ))}
           </div>
 
+          {/* Mobile: single-row horizontal chip strip */}
+          <div className="sm:hidden overflow-x-auto scrollbar-none -mx-4 px-4 mb-8">
+            <div className="flex gap-2 pb-1 w-max">
+              {filterTabs.map((tab) => (
+                <Link
+                  key={tab.key ?? "all"}
+                  href={tab.key ? `/${locale}/services?type=${tab.key}` : `/${locale}/services`}
+                  className={`flex items-center px-4 py-2.5 rounded-full text-sm font-bold whitespace-nowrap border transition-all ${
+                    type === tab.key
+                      ? "bg-clay-900 text-white border-clay-900 shadow-sm"
+                      : "bg-white text-clay-700 border-desert-200"
+                  }`}
+                >
+                  {tab.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
           {services.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {services.map((service: any) => {
                 const avgRating = service.reviews.length > 0
                   ? service.reviews.reduce((acc: number, r: any) => acc + r.rating, 0) / service.reviews.length

@@ -122,7 +122,7 @@ export default async function ArtisansPage({ params, searchParams }: ArtisansPag
             <h1 className="font-display text-5xl font-bold text-clay-800 mb-4">
               {locale === "ar" ? "دليل الشركاء" : "Partners Directory"}
             </h1>
-            <p className="text-clay-500 max-w-xl mx-auto text-lg mb-8">
+            <p className="text-clay-500 max-w-xl mx-auto text-lg mb-8" dir="auto">
               {locale === "ar"
                 ? "دليلك الشامل للتعرف على شركائنا المحليين في تيميمون، من حرفيين، مرشدين، وأصحاب فنادق ودور ضيافة"
                 : "Your comprehensive guide to local partners in Timimoun, from artisans to guides and hoteliers"}
@@ -212,11 +212,11 @@ export default async function ArtisansPage({ params, searchParams }: ArtisansPag
                 <div className="px-5 pb-5">
                   {/* Avatar */}
                   <div className="relative -mt-10 mb-3">
-                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-sand-400 to-clay-700 flex items-center justify-center text-white text-2xl font-display font-bold shadow-lg border-4 border-white overflow-hidden">
+                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-sand-400 to-clay-700 flex items-center justify-center text-white text-3xl font-display font-bold shadow-lg border-4 border-white overflow-hidden">
                       {partner.avatarUrl ? (
                         <Image src={partner.avatarUrl} alt={partner.name} width={80} height={80} className="object-cover" />
                       ) : (
-                        partner.name.charAt(0)
+                        <span className="drop-shadow-sm">{partner.name.charAt(0).toUpperCase()}</span>
                       )}
                     </div>
                   </div>
@@ -233,7 +233,7 @@ export default async function ArtisansPage({ params, searchParams }: ArtisansPag
                   </div>
 
                   {partner.bio && (
-                    <p className="text-xs text-clay-500 mt-3 line-clamp-2 leading-relaxed">
+                    <p className="text-xs text-clay-500 mt-3 line-clamp-2 leading-relaxed" dir="auto">
                       {partner.bio}
                     </p>
                   )}

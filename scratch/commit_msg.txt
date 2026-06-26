@@ -1,26 +1,24 @@
-sec(auth): remove default credentials, add security elements
+fix(mobile-audit): comprehensive mobile UX improvements
 
-All 3 auth registration pages updated:
+Issues fixed based on mobile browser audit:
 
-register/page.tsx (Customer):
-- Removed placeholder "Ahmed" / "Benali" example names
-- Added Eye/EyeOff password show/hide toggle
-- Added PasswordStrength component (4 bars: weak/fair/strong)
-- Added ShieldCheck SSL security notice below form
-- Added Lock icon + Privacy Policy · Terms links
-- Corrected logo initial (G not R)
-- Full bilingual (AR/EN) support
+services/page.tsx (D-01):
+- Filter tabs now use dual implementation:
+  * Desktop: existing flex-wrap centered layout (hidden on sm)
+  * Mobile: single-row horizontal scroll strip (sm:hidden)
+    using scrollbar-none + w-max pattern from products page
+- Grid: grid-cols-2 on mobile (was 1-col, wasted space)
+- Added pb-20 on mobile for BottomNav clearance
 
-artisan/register/page.tsx (Artisan & Providers):
-- Added Eye/EyeOff password show/hide toggle
-- Added ShieldCheck SSL notice + Lock privacy footer
-- Replaced review notice with proper SSL security card
+artisans/page.tsx (D-03, D-05):
+- Added dir="auto" to bio text paragraphs
+  fixes BiDi bug: English text was reversed/broken in RTL layout
+- Avatar placeholder: text now .toUpperCase() + drop-shadow-sm
+  for better legibility as monogram fallback
+- Avatar text size: text-2xl -> text-3xl for visibility
 
-provider/register/page.tsx (Hotels, Guides, Agencies):
-- Removed hardcoded English-only labels — now fully bilingual
-- Added empty default option to service type select
-- Added Eye/EyeOff password show/hide toggle
-- Added ShieldCheck SSL security notice
-- Added Lock icon + Privacy Policy footer
-- Added back-to-login link at top
-- Correct placeholder texts (no personal defaults)
+auth/login/page.tsx (M-03):
+- Remember Me checkbox: added flex-row-reverse in AR locale
+  so checkbox appears on RIGHT side of label (Arabic convention)
+  Previously the checkbox was left-aligned (LTR convention) which
+  felt wrong in an RTL interface
