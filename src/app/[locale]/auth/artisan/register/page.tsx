@@ -16,6 +16,10 @@ import {
   Building2,
   CheckCircle2,
   ChevronRight,
+  Eye,
+  EyeOff,
+  ShieldCheck,
+  Lock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -109,6 +113,8 @@ export default function ArtisanRegisterPage() {
   const [selectedType, setSelectedType] = useState<string>("ARTISAN");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPw, setShowPw] = useState(false);
+  const [password, setPassword] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -375,7 +381,26 @@ export default function ArtisanRegisterPage() {
                         </div>
                         <Input id="email" name="email" type="email" label={t("email")} required />
                         <Input id="phone" name="phone" type="tel" label={t("phone")} />
-                        <Input id="password" name="password" type="password" label={t("password")} required />
+                        {/* Password + show/hide */}
+                        <div className="relative">
+                          <Input
+                            id="password"
+                            name="password"
+                            type={showPw ? "text" : "password"}
+                            label={t("password")}
+                            placeholder="••••••••"
+                            required
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowPw(!showPw)}
+                            className="absolute right-3 bottom-2.5 text-clay-400 hover:text-clay-700 transition-colors"
+                          >
+                            {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                          </button>
+                        </div>
                       </div>
                     </div>
 
@@ -383,11 +408,22 @@ export default function ArtisanRegisterPage() {
                       {isAr ? "إنشاء الحساب وتقديم الطلب" : "Create Account & Apply"}
                     </Button>
 
-                    <p className="text-center text-xs text-clay-400">
-                      {isAr
-                        ? "سيتم مراجعة حسابك من قِبل الفريق قبل التفعيل"
-                        : "Your account will be reviewed by our team before activation"}
-                    </p>
+                    {/* Security Notice */}
+                    <div className="p-3 bg-desert-50 border border-desert-200 rounded-xl flex items-start gap-2.5">
+                      <ShieldCheck className="w-4 h-4 text-oasis-600 shrink-0 mt-0.5" />
+                      <p className="text-xs text-clay-500 leading-relaxed">
+                        {isAr
+                          ? "بياناتك محمية بتشفير SSL. سيتم مراجعة حسابك قبل التفعيل."
+                          : "Your data is SSL-encrypted. Your account will be reviewed before activation."}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-center gap-1.5">
+                      <Lock className="w-3 h-3 text-clay-400" />
+                      <p className="text-xs text-clay-400">
+                        {isAr ? "سياسة الخصوصية · شروط الخدمة" : "Privacy Policy · Terms of Service"}
+                      </p>
+                    </div>
                   </form>
                 </div>
               )}
