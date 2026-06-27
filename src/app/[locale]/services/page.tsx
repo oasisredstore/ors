@@ -7,6 +7,7 @@ import Image from "next/image";
 import { getSession } from "@/lib/session";
 import { Users } from "lucide-react";
 import { serviceTypeLabel, serviceTypeEmoji } from "@/lib/utils";
+import { ServiceType } from "@prisma/client";
 
 export default async function ServicesListingPage({
   params,
@@ -23,17 +24,17 @@ export default async function ServicesListingPage({
   const user = session ? { name: session.firstName ?? session.email.split("@")[0], role: session.role } : null;
 
   // Build type filter
-  let typeFilter: { in?: string[]; equals?: string } | undefined = undefined;
+  let typeFilter: { in?: ServiceType[]; equals?: ServiceType } | undefined = undefined;
   if (type === "accommodation") {
-    typeFilter = { in: ["ROOM", "TENT", "HOMESTAY"] };
+    typeFilter = { in: [ServiceType.ROOM, ServiceType.TENT, ServiceType.HOMESTAY] };
   } else if (type === "homestay") {
-    typeFilter = { equals: "HOMESTAY" };
+    typeFilter = { equals: ServiceType.HOMESTAY };
   } else if (type === "tour") {
-    typeFilter = { equals: "TOUR" };
+    typeFilter = { equals: ServiceType.TOUR };
   } else if (type === "workshop") {
-    typeFilter = { equals: "WORKSHOP" };
+    typeFilter = { equals: ServiceType.WORKSHOP };
   } else if (type === "transport") {
-    typeFilter = { equals: "TRANSPORT" };
+    typeFilter = { equals: ServiceType.TRANSPORT };
   }
 
   const services = await prisma.service.findMany({

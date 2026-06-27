@@ -205,7 +205,7 @@ export default async function ArtisansPage({ params, searchParams }: ArtisansPag
                     </svg>
                   </div>
                   {partner.coverUrl && (
-                    <Image src={partner.coverUrl} alt="" fill className="object-cover" />
+                    <img src={partner.coverUrl} alt="" className="object-cover w-full h-full" />
                   )}
                 </div>
 
@@ -214,7 +214,7 @@ export default async function ArtisansPage({ params, searchParams }: ArtisansPag
                   <div className="relative -mt-10 mb-3">
                     <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-sand-400 to-clay-700 flex items-center justify-center text-white text-3xl font-display font-bold shadow-lg border-4 border-white overflow-hidden">
                       {partner.avatarUrl ? (
-                        <Image src={partner.avatarUrl} alt={partner.name} width={80} height={80} className="object-cover" />
+                        <img src={partner.avatarUrl} alt={partner.name} width={80} height={80} className="object-cover rounded-2xl border-4 border-white" />
                       ) : (
                         <span className="drop-shadow-sm">{partner.name.charAt(0).toUpperCase()}</span>
                       )}

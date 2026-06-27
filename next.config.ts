@@ -80,7 +80,7 @@ const nextConfig: NextConfig = {
               "script-src 'self' 'unsafe-inline' 'unsafe-eval'",  // needed for Next.js dev
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: blob: https://images.unsplash.com https://api.dicebear.com",
+              "img-src 'self' data: blob: https://images.unsplash.com https://api.dicebear.com https://*.basemaps.cartocdn.com",
               "connect-src 'self'",
               "frame-ancestors 'self'",
               "object-src 'none'",
