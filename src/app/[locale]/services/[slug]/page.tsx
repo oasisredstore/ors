@@ -8,6 +8,7 @@ import { Calendar, Users, MapPin, CheckCircle, Star } from "lucide-react";
 import { BookingForm } from "@/components/marketplace/BookingForm";
 import { WriteServiceReviewForm } from "@/components/marketplace/WriteServiceReviewForm";
 import { ContactProviderButton } from "@/components/shared/ContactProviderButton";
+import { serviceTypeLabel, serviceTypeEmoji } from "@/lib/utils";
 
 export default async function ServiceDetailPage({
   params,
@@ -87,11 +88,11 @@ export default async function ServiceDetailPage({
                   />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center text-6xl">
-                    {service.type === "TOUR" ? "🐪" : "🏨"}
+                    {service.type === "TOUR" ? "🐪" : serviceTypeEmoji(service.type)}
                   </div>
                 )}
                 <div className="absolute top-4 right-4 bg-oasis-500 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-lg">
-                  {service.type}
+                  {serviceTypeLabel(service.type, locale)}
                 </div>
               </div>
 

@@ -28,3 +28,31 @@ export function truncate(str: string, n: number): string {
 export function getInitials(firstName: string, lastName: string): string {
   return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
 }
+
+/** Translate service type enum to display label */
+export function serviceTypeLabel(type: string, locale: string): string {
+  const labels: Record<string, { ar: string; en: string }> = {
+    ROOM:      { ar: "غرفة / إقامة",        en: "Room / Stay" },
+    TENT:      { ar: "خيمة صحراوية",         en: "Desert Tent" },
+    HOMESTAY:  { ar: "إقامة لدى الساكنة",    en: "Homestay" },
+    TOUR:      { ar: "جولة إرشادية",          en: "Guided Tour" },
+    WORKSHOP:  { ar: "ورشة تعليمية",          en: "Workshop" },
+    TRANSPORT: { ar: "خدمة نقل",             en: "Transport" },
+  };
+  const entry = labels[type];
+  if (!entry) return type;
+  return locale === "ar" ? entry.ar : entry.en;
+}
+
+/** Return emoji for service type */
+export function serviceTypeEmoji(type: string): string {
+  const emojis: Record<string, string> = {
+    ROOM:      "🏨",
+    TENT:      "⛺",
+    HOMESTAY:  "🏡",
+    TOUR:      "🐪",
+    WORKSHOP:  "🎨",
+    TRANSPORT: "🚌",
+  };
+  return emojis[type] ?? "✨";
+}

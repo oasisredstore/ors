@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { Plus } from "lucide-react";
+import { serviceTypeLabel, serviceTypeEmoji } from "@/lib/utils";
 
 export default async function ServicesPage({
   params,
@@ -92,8 +93,9 @@ export default async function ServicesPage({
                     <p className="font-medium text-clay-900">{isAr ? service.nameAr || service.name : service.name}</p>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-sand-100 text-sand-700">
-                      {service.type}
+                    <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-sand-100 text-sand-700 flex items-center gap-1 w-fit">
+                      <span>{serviceTypeEmoji(service.type)}</span>
+                      {serviceTypeLabel(service.type, locale)}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-clay-600">
