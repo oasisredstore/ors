@@ -217,6 +217,11 @@ export function TimimounMap({ markers = [], locale, height = "500px" }: Timimoun
         shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
       });
 
+      let container = L.DomUtil.get(mapRef.current!);
+      if (container != null) {
+        (container as any)._leaflet_id = null;
+      }
+
       const map = L.map(mapRef.current!, {
         center: [29.2628, 0.2371],
         zoom: 14,
