@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -12,8 +12,9 @@ interface SearchBarProps {
 
 export function SearchBar({ locale, scrolled }: SearchBarProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(searchParams.get("search") ?? "");
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Cmd+K / Ctrl+K shortcut
@@ -40,12 +41,17 @@ export function SearchBar({ locale, scrolled }: SearchBarProps) {
     }
   }, [open]);
 
+  useEffect(() => {
+    const current = searchParams.get("search") ?? "";
+    setValue(current);
+  }, [searchParams]);
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const q = value.trim();
     if (!q) return;
     setOpen(false);
-    setValue("");
+    // Removed setValue("") here to keep the search text visible when navigating
     router.push(`/${locale}/products?search=${encodeURIComponent(q)}`);
   }
 

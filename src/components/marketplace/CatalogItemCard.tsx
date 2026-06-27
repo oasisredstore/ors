@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Star, Eye, Heart, MapPin } from "lucide-react";
@@ -41,7 +42,13 @@ export function CatalogItemCard({
   const isAr = locale === "ar";
   const displayName = isAr && nameAr ? nameAr : name;
   const { toggleItem, isWishlisted } = useWishlistStore();
-  const wishlisted = isWishlisted(id);
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const wishlisted = mounted && isWishlisted(id);
 
   // Styling and wording based on itemType
   const getTypeConfig = () => {

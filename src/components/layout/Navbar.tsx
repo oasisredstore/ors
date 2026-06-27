@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
@@ -203,7 +203,9 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
 
           {/* Actions */}
           <div className="flex items-center gap-0.5 sm:gap-1">
-            <SearchBar locale={locale} scrolled={isSolid} />
+            <Suspense fallback={<div className="w-8 h-8" />}>
+              <SearchBar locale={locale} scrolled={isSolid} />
+            </Suspense>
 
             {/* Language Switcher */}
             <Link
