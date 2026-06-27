@@ -3,88 +3,430 @@
 > eslint
 
 
-E:\RedOasisArtisan\generate-pdf.js
-   1:19  error    A `require()` style import is forbidden  @typescript-eslint/no-require-imports
-   2:21  error    A `require()` style import is forbidden  @typescript-eslint/no-require-imports
-   3:12  error    A `require()` style import is forbidden  @typescript-eslint/no-require-imports
-   4:14  error    A `require()` style import is forbidden  @typescript-eslint/no-require-imports
-  73:47  warning  'e' is defined but never used            @typescript-eslint/no-unused-vars
+E:\RedOasisArtisan\download-icons.js
+  1:15  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+E:\RedOasisArtisan\generate-pdf.mjs
+  77:47  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\prisma.config.ts
+  2:24  warning  'env' is defined but never used  @typescript-eslint/no-unused-vars
 
 E:\RedOasisArtisan\prisma\seed.ts
-    6:14  error    A `require()` style import is forbidden           @typescript-eslint/no-require-imports
-    7:12  error    A `require()` style import is forbidden           @typescript-eslint/no-require-imports
-  449:9   warning  'sampleOrder' is assigned a value but never used  @typescript-eslint/no-unused-vars
+    1:1  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-require-imports')
+  471:9  warning  'sampleOrder' is assigned a value but never used                                                          @typescript-eslint/no-unused-vars
+  550:9  warning  'hotelProvider' is assigned a value but never used                                                        @typescript-eslint/no-unused-vars
+  600:9  warning  'guideProvider' is assigned a value but never used                                                        @typescript-eslint/no-unused-vars
 
-E:\RedOasisArtisan\prisma\update-images.ts
-  8:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
-  9:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+E:\RedOasisArtisan\scratch\apply-migration.js
+   1:15  error    A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+   2:12  error    A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+   3:14  error    A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  81:14  warning  'e' is defined but never used            @typescript-eslint/no-unused-vars
 
-E:\RedOasisArtisan\scratch\check-db.ts
-  11:7  error  'missingImages' is never reassigned. Use 'const' instead  prefer-const
-  12:7  error  'wrongImages' is never reassigned. Use 'const' instead    prefer-const
-  13:7  error  'duplicates' is never reassigned. Use 'const' instead     prefer-const
-  14:7  error  'mismatched' is never reassigned. Use 'const' instead     prefer-const
-  15:7  error  'total' is never reassigned. Use 'const' instead          prefer-const
+E:\RedOasisArtisan\scratch\crawler.ts
+  62:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
 
-E:\RedOasisArtisan\scratch\check_db.ts
-  4:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
-  5:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+E:\RedOasisArtisan\scratch\create-icons.js
+  1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
 
-E:\RedOasisArtisan\src\app\[locale]\account\orders\page.tsx
-  82:27  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+E:\RedOasisArtisan\scratch\fix-djenane-malek-image.ts
+  1:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
 
-E:\RedOasisArtisan\src\app\[locale]\admin\orders\page.tsx
-  15:7  warning  'STATUS_LABELS' is assigned a value but never used  @typescript-eslint/no-unused-vars
+E:\RedOasisArtisan\scratch\fix_db_images.js
+  1:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+E:\RedOasisArtisan\scratch\list_users.js
+  1:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+E:\RedOasisArtisan\scratch\seed-accommodations.ts
+  1:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+E:\RedOasisArtisan\scratch\seed_transport.ts
+  1:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+E:\RedOasisArtisan\scratch\seed_workshops.ts
+  1:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+E:\RedOasisArtisan\scratch\update-djenane-malek.ts
+  1:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+E:\RedOasisArtisan\scratch\update-room.ts
+  1:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+E:\RedOasisArtisan\scratch\update-tent.ts
+  1:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+E:\RedOasisArtisan\scratch\update_avatars.ts
+  1:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+E:\RedOasisArtisan\scratch\update_camel_image.ts
+  1:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+E:\RedOasisArtisan\src\app\[locale]\about\page.tsx
+   8:10  warning  'Leaf' is defined but never used               @typescript-eslint/no-unused-vars
+  39:9   warning  'artisans' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\src\app\[locale]\account\page.tsx
+  181:25  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  266:31  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  300:25  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
 
 E:\RedOasisArtisan\src\app\[locale]\admin\page.tsx
-  156:27  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  29:5  warning  'cancelledOrders' is assigned a value but never used  @typescript-eslint/no-unused-vars
 
-E:\RedOasisArtisan\src\app\[locale]\admin\products\page.tsx
-  78:29  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
-
-E:\RedOasisArtisan\src\app\[locale]\admin\users\page.tsx
-  3:10  warning  'formatDate' is defined but never used  @typescript-eslint/no-unused-vars
+E:\RedOasisArtisan\src\app\[locale]\artisans\[slug]\page.tsx
+   32:20  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   84:40  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   84:66  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  225:35  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  228:60  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
 
 E:\RedOasisArtisan\src\app\[locale]\artisans\page.tsx
-  2:10  warning  'getTranslations' is defined but never used  @typescript-eslint/no-unused-vars
+    7:8   warning  'Image' is defined but never used                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+    8:35  warning  'SlidersHorizontal' is defined but never used                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+    8:54  warning  'UserCircle2' is defined but never used                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+  208:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  217:25  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
 
-E:\RedOasisArtisan\src\app\[locale]\checkout\page.tsx
-  22:10  warning  'addressId' is assigned a value but never used     @typescript-eslint/no-unused-vars
-  22:21  warning  'setAddressId' is assigned a value but never used  @typescript-eslint/no-unused-vars
+E:\RedOasisArtisan\src\app\[locale]\auth\register\page.tsx
+  20:9  warning  'labelsAr' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  21:9  warning  'labelsEn' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  23:9  warning  'textColors' is assigned a value but never used  @typescript-eslint/no-unused-vars
 
-E:\RedOasisArtisan\src\app\[locale]\dashboard\orders\page.tsx
-  129:27  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+E:\RedOasisArtisan\src\app\[locale]\map\page.tsx
+   87:34  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   94:22  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   97:23  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  105:34  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  112:22  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  115:23  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
 
-E:\RedOasisArtisan\src\app\[locale]\dashboard\page.tsx
-  121:23  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+E:\RedOasisArtisan\src\app\[locale]\messages\[id]\page.tsx
+  40:9  warning  'replyAction' is assigned a value but never used  @typescript-eslint/no-unused-vars
 
-E:\RedOasisArtisan\src\app\[locale]\dashboard\products\page.tsx
-  94:29  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+E:\RedOasisArtisan\src\app\[locale]\messages\page.tsx
+  7:10  warning  'replyMessageAction' is defined but never used          @typescript-eslint/no-unused-vars
+  7:30  warning  'markConversationReadAction' is defined but never used  @typescript-eslint/no-unused-vars
+  8:25  warning  'ArrowLeft' is defined but never used                   @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\src\app\[locale]\offline\page.tsx
+  52:14  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  59:28  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  91:20  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+E:\RedOasisArtisan\src\app\[locale]\page.tsx
+  159:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  223:35  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
 
 E:\RedOasisArtisan\src\app\[locale]\products\page.tsx
-  34:9  warning  't' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  125:17  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  128:50  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  139:70  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  146:50  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  157:70  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  165:50  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  171:58  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  182:70  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  458:40  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
 
-E:\RedOasisArtisan\src\components\admin\AnalyticsCharts.tsx
-  3:10  warning  'useEffect' is defined but never used  @typescript-eslint/no-unused-vars
-  3:21  warning  'useRef' is defined but never used     @typescript-eslint/no-unused-vars
+E:\RedOasisArtisan\src\app\[locale]\services\[slug]\page.tsx
+  7:35  warning  'CheckCircle' is defined but never used  @typescript-eslint/no-unused-vars
+  7:48  warning  'Star' is defined but never used         @typescript-eslint/no-unused-vars
 
-E:\RedOasisArtisan\src\components\dashboard\EditProductForm.tsx
-  229:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
-  256:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+E:\RedOasisArtisan\src\app\[locale]\services\page.tsx
+   43:46  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  129:39  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  131:61  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
 
-E:\RedOasisArtisan\src\components\dashboard\ProductForm.tsx
-  182:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+E:\RedOasisArtisan\src\components\dashboard\DashboardSidebarNav.tsx
+  3:10  warning  'usePathname' is defined but never used  @typescript-eslint/no-unused-vars
 
-E:\RedOasisArtisan\src\components\dashboard\ProfileForm.tsx
-   58:13  warning  Image elements must have an alt prop, either with meaningful text, or an empty string for decorative images  jsx-a11y/alt-text
-  187:15  warning  Image elements must have an alt prop, either with meaningful text, or an empty string for decorative images  jsx-a11y/alt-text
+E:\RedOasisArtisan\src\components\home\HeroSection.tsx
+  43:9  warning  'Arrow' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\src\components\home\ReviewsSection.tsx
+   58:18  error  Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+E:\RedOasisArtisan\src\components\home\ReviewsSection.tsx:58:18
+  56 |
+  57 |   const relativeTime = (date: Date) => {
+> 58 |     const diff = Date.now() - new Date(date).getTime();
+     |                  ^^^^^^^^^^ Cannot call impure function
+  59 |     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  60 |     if (days === 0) return isAr ? "اليوم" : "Today";
+  61 |     if (days === 1) return isAr ? "أمس" : "Yesterday";  react-hooks/purity
+  240:33  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-explicit-any
+
+E:\RedOasisArtisan\src\components\home\TestimonialsSection.tsx
+  230:6  warning  React Hook useEffect has a missing dependency: 'next'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\RedOasisArtisan\src\components\layout\BottomNav.tsx
+  114:9   warning  'router' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  129:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+E:\RedOasisArtisan\src\components\layout\BottomNav.tsx:129:5
+  127 |
+  128 |   useEffect(() => {
+> 129 |     setMounted(true);
+      |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  130 |   }, []);
+  131 |
+  132 |   // Lock scroll when drawer open  react-hooks/set-state-in-effect
+  206:27  warning  'idx' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\src\components\layout\Footer.tsx
+  35:9  warning  't' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\src\components\layout\Navbar.tsx
+  51:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+E:\RedOasisArtisan\src\components\layout\Navbar.tsx:51:5
+  49 |
+  50 |   useEffect(() => {
+> 51 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  52 |     const onScroll = () => setScrolled(window.scrollY > 20);
+  53 |     // Set initial state
+  54 |     onScroll();  react-hooks/set-state-in-effect
+
+E:\RedOasisArtisan\src\components\layout\PWAInstallPrompt.tsx
+   4:23  warning  'Smartphone' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+  44:9   error    Error: Cannot access variable before it is declared
+
+`handleInstallClick` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+E:\RedOasisArtisan\src\components\layout\PWAInstallPrompt.tsx:44:9
+  42 |     const triggerInstall = () => {
+  43 |       if (deferredPrompt) {
+> 44 |         handleInstallClick();
+     |         ^^^^^^^^^^^^^^^^^^ `handleInstallClick` accessed before it is declared
+  45 |       } else if (!isStandalone) {
+  46 |         // iOS fallback
+  47 |         const ua = navigator.userAgent;
+
+E:\RedOasisArtisan\src\components\layout\PWAInstallPrompt.tsx:76:3
+  74 |   }, [deferredPrompt]);
+  75 |
+> 76 |   const handleInstallClick = async () => {
+     |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 77 |     if (!deferredPrompt) return;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 78 |     setInstalling(true);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 79 |     deferredPrompt.prompt();
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 80 |     await deferredPrompt.userChoice;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 81 |     setDeferredPrompt(null);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 82 |     setShowPrompt(false);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 83 |     setInstalling(false);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 84 |   };
+     | ^^^^^ `handleInstallClick` is declared here
+  85 |
+  86 |   const dismissPrompt = () => {
+  87 |     setDismissed(true);  react-hooks/immutability
+
+E:\RedOasisArtisan\src\components\layout\SearchBar.tsx
+  46:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+E:\RedOasisArtisan\src\components\layout\SearchBar.tsx:46:5
+  44 |   useEffect(() => {
+  45 |     const current = searchParams.get("search") ?? "";
+> 46 |     setValue(current);
+     |     ^^^^^^^^ Avoid calling setState() directly within an effect
+  47 |   }, [searchParams]);
+  48 |
+  49 |   function handleSubmit(e: React.FormEvent) {  react-hooks/set-state-in-effect
+
+E:\RedOasisArtisan\src\components\map\TimimounMap.tsx
+    4:10  warning  'MapPin' is defined but never used                    @typescript-eslint/no-unused-vars
+  196:29  error    Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+  197:29  error    Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+  213:43  error    Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+  220:11  error    'container' is never reassigned. Use 'const' instead  prefer-const
+  222:23  error    Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+
+E:\RedOasisArtisan\src\components\marketplace\BookingForm.tsx
+  5:10  warning  'Input' is defined but never used      @typescript-eslint/no-unused-vars
+  9:3   warning  'serviceId' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\src\components\marketplace\CatalogItemCard.tsx
+   6:16  warning  'Eye' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  48:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+E:\RedOasisArtisan\src\components\marketplace\CatalogItemCard.tsx:48:5
+  46 |   
+  47 |   useEffect(() => {
+> 48 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  49 |   }, []);
+  50 |
+  51 |   const wishlisted = mounted && isWishlisted(id);  react-hooks/set-state-in-effect
 
 E:\RedOasisArtisan\src\components\marketplace\ProductCard.tsx
-  38:9  warning  't' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  47:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+E:\RedOasisArtisan\src\components\marketplace\ProductCard.tsx:47:5
+  45 |   
+  46 |   useEffect(() => {
+> 47 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  48 |   }, []);
+  49 |
+  50 |   const wishlisted = mounted && isWishlisted(id);  react-hooks/set-state-in-effect
 
 E:\RedOasisArtisan\src\components\marketplace\ProductDetailClient.tsx
-  271:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  61:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
 
-✖ 38 problems (15 errors, 23 warnings)
-  5 errors and 0 warnings potentially fixable with the `--fix` option.
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+E:\RedOasisArtisan\src\components\marketplace\ProductDetailClient.tsx:61:5
+  59 |
+  60 |   useEffect(() => {
+> 61 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  62 |   }, []);
+  63 |
+  64 |   const wishlisted = mounted && isWishlisted(product.id);  react-hooks/set-state-in-effect
+
+E:\RedOasisArtisan\src\components\marketplace\ProductsFilters.tsx
+  39:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+E:\RedOasisArtisan\src\components\marketplace\ProductsFilters.tsx:39:5
+  37 |   useEffect(() => {
+  38 |     const currentSearch = searchParams.get("search") ?? "";
+> 39 |     setQuery(currentSearch);
+     |     ^^^^^^^^ Avoid calling setState() directly within an effect
+  40 |   }, [searchParams]);
+  41 |
+  42 |   // ── Price range state ─────────────────────────────────────────────────────  react-hooks/set-state-in-effect
+
+E:\RedOasisArtisan\src\components\marketplace\StickyProductActions.tsx
+  3:31  warning  'useRef' is defined but never used     @typescript-eslint/no-unused-vars
+  9:10  warning  'useParams' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\RedOasisArtisan\src\components\shared\Chatbot.tsx
+   90:7   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+E:\RedOasisArtisan\src\components\shared\Chatbot.tsx:90:7
+  88 |   useEffect(() => {
+  89 |     if (messages.length === 0) {
+> 90 |       setMessages([
+     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  91 |         {
+  92 |           id: "welcome",
+  93 |           sender: "bot",  react-hooks/set-state-in-effect
+  114:36  error  Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+E:\RedOasisArtisan\src\components\shared\Chatbot.tsx:114:36
+  112 |
+  113 |     // Add user message
+> 114 |     const userMsg: Message = { id: Date.now().toString(), sender: "user", text };
+      |                                    ^^^^^^^^^^ Cannot call impure function
+  115 |     setMessages((prev) => [...prev, userMsg]);
+  116 |     setInput("");
+  117 |     setIsTyping(true);                                                                                                                                                                                                                                                                                                           react-hooks/purity
+  141:15  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+E:\RedOasisArtisan\src\components\shared\Chatbot.tsx:141:15
+  139 |       setIsTyping(false);
+  140 |       setMessages((prev) => [...prev, botMsg]);
+> 141 |     }, 1000 + Math.random() * 1000); // 1-2 seconds delay for realism
+      |               ^^^^^^^^^^^^^ Cannot call impure function
+  142 |   };
+  143 |
+  144 |   const quickReplies = isAr                                                                                                                                                                                                                                                                                                                                           react-hooks/purity
+
+E:\RedOasisArtisan\src\components\shared\QRCodeShare.tsx
+  20:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+E:\RedOasisArtisan\src\components\shared\QRCodeShare.tsx:20:9
+  18 |     if (typeof window !== "undefined") {
+  19 |       if (url.startsWith("/")) {
+> 20 |         setFullUrl(`${window.location.origin}${url}`);
+     |         ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  21 |       } else if (!url.startsWith("http")) {
+  22 |         setFullUrl(`${window.location.origin}/${url}`);
+  23 |       } else {  react-hooks/set-state-in-effect
+
+E:\RedOasisArtisan\src\lib\auth.ts
+  55:20  warning  '_e' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  55:29  warning  '_i' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+✖ 118 problems (76 errors, 42 warnings)
+  1 error and 1 warning potentially fixable with the `--fix` option.
 

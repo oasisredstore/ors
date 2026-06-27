@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { formatDate, formatPrice } from "@/lib/utils";
 import { OrderStatusBadge } from "@/components/ui/Badge";
 import { PackageSearch } from "lucide-react";
@@ -77,9 +78,9 @@ export default async function AccountOrdersPage({ params }: AccountOrdersPagePro
                 <div className="px-5 py-4 flex items-center gap-4">
                   <div className="flex -space-x-2">
                     {order.items.slice(0, 3).map((item) => (
-                      <div key={item.id} className="w-12 h-12 rounded-xl border-2 border-white bg-desert-100 overflow-hidden shrink-0">
+                      <div key={item.id} className="relative w-12 h-12 rounded-xl border-2 border-white bg-desert-100 overflow-hidden shrink-0">
                         {item.product.images[0]?.url ? (
-                          <img src={item.product.images[0].url} alt="" className="w-full h-full object-cover" />
+                          <Image src={item.product.images[0].url} alt={item.product.name} fill className="object-cover" sizes="48px" />
                         ) : (
                           <div className="flex items-center justify-center h-full text-lg">🏺</div>
                         )}

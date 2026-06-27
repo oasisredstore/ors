@@ -5,6 +5,7 @@ import {
   AlertTriangle, Eye,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface AdminPageProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -285,9 +286,9 @@ export default async function AdminPage({ params }: AdminPageProps) {
                   <tr key={product.id} className="hover:bg-desert-50/50 transition-colors">
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-lg bg-desert-100 overflow-hidden shrink-0 flex items-center justify-center ring-1 ring-desert-200">
+                        <div className="relative w-8 h-8 rounded-lg bg-desert-100 overflow-hidden shrink-0 flex items-center justify-center ring-1 ring-desert-200">
                           {product.images[0]?.url ? (
-                            <img src={product.images[0].url} alt="" className="w-8 h-8 object-cover" />
+                            <Image src={product.images[0].url} alt={product.name} fill className="object-cover" sizes="32px" />
                           ) : (
                             <span className="text-base">🏺</span>
                           )}

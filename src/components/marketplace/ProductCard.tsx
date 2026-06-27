@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Star, Eye, Heart } from "lucide-react";
-import { useTranslations } from "next-intl";
+
 import { useWishlistStore } from "@/store/wishlistStore";
 
 interface ProductCardProps {
@@ -36,7 +36,7 @@ export function ProductCard({
   reviewCount,
   locale,
 }: ProductCardProps) {
-  const t = useTranslations("product");
+
   const isAr = locale === "ar";
   const displayName = isAr && nameAr ? nameAr : name;
   const displayCategory = isAr && categoryNameAr ? categoryNameAr : categoryName;

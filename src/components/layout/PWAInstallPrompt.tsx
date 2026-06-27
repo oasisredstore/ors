@@ -73,7 +73,7 @@ export function PWAInstallPrompt() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deferredPrompt]);
 
-  const handleInstallClick = async () => {
+  async function handleInstallClick() {
     if (!deferredPrompt) return;
     setInstalling(true);
     deferredPrompt.prompt();

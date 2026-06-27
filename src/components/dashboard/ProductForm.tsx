@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { createProductAction } from "@/actions/product.actions";
 import { Upload, X } from "lucide-react";
+import Image from "next/image";
 import toast from "react-hot-toast";
 
 interface Category {
@@ -180,8 +181,8 @@ export function ProductForm({
         {imagePreviews.length > 0 && (
           <div className="flex gap-4 flex-wrap mb-6">
             {imagePreviews.map((src, i) => (
-              <div key={i} className="relative w-24 h-24">
-                <img src={src} className="w-24 h-24 rounded-xl object-cover border border-desert-200" alt="" />
+              <div key={i} className="relative w-24 h-24 rounded-xl overflow-hidden border border-desert-200">
+                <Image src={src} className="object-cover" alt="" fill unoptimized />
                 {i === 0 && (
                   <span className="absolute bottom-0 left-0 right-0 bg-sand-500 text-white text-xs text-center rounded-b-xl py-1 font-medium">
                     {isAr ? "رئيسية" : "Main"}

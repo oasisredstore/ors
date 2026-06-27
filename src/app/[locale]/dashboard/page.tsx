@@ -7,6 +7,7 @@ import {
   Sparkles, ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface DashboardPageProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -250,9 +251,9 @@ export default async function DashboardPage({ params }: DashboardPageProps) {
                     : null;
                 return (
                   <div key={p.id} className="flex items-center gap-3.5 px-5 py-3 hover:bg-desert-50 transition-colors">
-                    <div className="w-11 h-11 rounded-xl bg-desert-100 flex items-center justify-center shrink-0 overflow-hidden ring-1 ring-desert-200">
+                    <div className="relative w-11 h-11 rounded-xl bg-desert-100 flex items-center justify-center shrink-0 overflow-hidden ring-1 ring-desert-200">
                       {p.images[0]?.url ? (
-                        <img src={p.images[0].url} alt={p.name} className="w-11 h-11 object-cover" />
+                        <Image src={p.images[0].url} alt={p.name} fill className="object-cover" sizes="44px" />
                       ) : (
                         <span className="text-xl">🏺</span>
                       )}
@@ -521,9 +522,9 @@ export default async function DashboardPage({ params }: DashboardPageProps) {
                   : null;
               return (
                 <div key={s.id} className="flex items-center gap-3.5 px-5 py-3 hover:bg-desert-50 transition-colors">
-                  <div className="w-11 h-11 rounded-xl bg-desert-100 flex items-center justify-center shrink-0 overflow-hidden ring-1 ring-desert-200">
+                  <div className="relative w-11 h-11 rounded-xl bg-desert-100 flex items-center justify-center shrink-0 overflow-hidden ring-1 ring-desert-200">
                     {s.images[0]?.url ? (
-                      <img src={s.images[0].url} alt={s.name} className="w-11 h-11 object-cover" />
+                      <Image src={s.images[0].url} alt={s.name} fill className="object-cover" sizes="44px" />
                     ) : (
                       <span className="text-xl">🏨</span>
                     )}

@@ -1,8 +1,11 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-const puppeteer = require('puppeteer');
-const PDFDocument = require('pdfkit');
-const fs = require('fs');
-const path = require('path');
+import puppeteer from 'puppeteer';
+import PDFDocument from 'pdfkit';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const PAGES = [
   { title: "Home Page", url: "http://127.0.0.1:3000/en" },
