@@ -1,4 +1,21 @@
 @import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+/* Leaflet overrides for dark theme */
+.leaflet-container {
+  font-family: inherit;
+  background: #1a1a2e;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 1rem;
+  padding: 0;
+  overflow: hidden;
+}
+.leaflet-popup-content {
+  margin: 0;
+}
+.leaflet-popup-tip-container { display: none; }
+
 
 /* ═══════════════════════════════════════════════════════════════
    PALETTE GOURARA — Timimoun, Algérie

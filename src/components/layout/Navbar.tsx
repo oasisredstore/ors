@@ -183,6 +183,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
               <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 w-52">
                 <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-desert-100/80 p-2 flex flex-col gap-0.5">
                   {[
+                    { href: `/${locale}/map`, label: isAr ? "خريطة تيميمون 🗺️" : "Timimoun Map 🗺️", emoji: "📍" },
                     { href: `/${locale}/heritage`, label: isAr ? "المتحف والتراث" : "Heritage & Museum", emoji: "🏺" },
                     { href: `/${locale}/about`, label: t("about"), emoji: "🌅" },
                   ].map((item) => (
