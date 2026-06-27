@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Star, Package, Ruler, MapPin, MessageCircle, Mail, ExternalLink, ShoppingCart, Check, Heart } from "lucide-react";
@@ -53,9 +53,15 @@ export function ProductDetailClient({ product, locale }: ProductDetailClientProp
   const [selectedImage, setSelectedImage] = useState(0);
   const [contactOpen, setContactOpen] = useState(false);
   const [added, setAdded] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { addItem } = useCartStore();
   const { toggleItem, isWishlisted } = useWishlistStore();
-  const wishlisted = isWishlisted(product.id);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const wishlisted = mounted && isWishlisted(product.id);
   const isAr = locale === "ar";
   // Ref for the primary add-to-cart button — StickyProductActions watches this
   const cartButtonRef = useRef<HTMLDivElement>(null);

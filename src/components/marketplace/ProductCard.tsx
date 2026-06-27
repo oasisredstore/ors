@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Star, Eye, Heart } from "lucide-react";
@@ -40,7 +41,13 @@ export function ProductCard({
   const displayName = isAr && nameAr ? nameAr : name;
   const displayCategory = isAr && categoryNameAr ? categoryNameAr : categoryName;
   const { toggleItem, isWishlisted } = useWishlistStore();
-  const wishlisted = isWishlisted(id);
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const wishlisted = mounted && isWishlisted(id);
 
   return (
     <Link href={`/${locale}/products/${slug}`} className="block group">

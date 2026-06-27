@@ -3,13 +3,14 @@ import { getTranslations } from "next-intl/server";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CatalogItemCard } from "@/components/marketplace/CatalogItemCard";
+import { ProductsFilters } from "@/components/marketplace/ProductsFilters";
 import { getSession } from "@/lib/session";
-import { Search, SlidersHorizontal, X } from "lucide-react";
+import { SlidersHorizontal, X } from "lucide-react";
 
 interface ProductsPageProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   params: Promise<any>;
-  searchParams: Promise<{ category?: string; search?: string; sort?: string; region?: string }>;
+  searchParams: Promise<{ category?: string; search?: string; sort?: string; region?: string; minPrice?: string; maxPrice?: string }>;
 }
 
 export async function generateMetadata({ params }: ProductsPageProps) {
@@ -29,7 +30,9 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
   // from being reflected in the page and causing memory/rendering issues.
   const rawSearch = (await searchParams).search;
   const search = rawSearch?.slice(0, 200);
-  const { category, sort, region } = await searchParams;
+  const { category, sort, region, minPrice: minPriceStr, maxPrice: maxPriceStr } = await searchParams;
+  const minPrice = minPriceStr ? Math.max(0, parseInt(minPriceStr, 10)) : undefined;
+  const maxPrice = maxPriceStr ? parseInt(maxPriceStr, 10) : undefined;
   const t = await getTranslations("product");
   const session = await getSession();
 
@@ -51,9 +54,16 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
       ? { name: "asc" as const }
       : { createdAt: "desc" as const };
 
+  const priceFilter = {
+    ...(minPrice !== undefined && { gte: minPrice }),
+    ...(maxPrice !== undefined && { lte: maxPrice }),
+  };
+  const hasPriceFilter = Object.keys(priceFilter).length > 0;
+
   const products = await prisma.product.findMany({
     where: {
       isPublished: true,
+      ...(hasPriceFilter && { price: priceFilter }),
       ...(category && category !== "all-services" && category !== "all-products" && { category: { slug: category } }),
       ...(search && {
         OR: [
@@ -81,6 +91,7 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
   const services = await prisma.service.findMany({
     where: {
       isPublished: true,
+      ...(hasPriceFilter && { price: priceFilter }),
       ...(search && {
         OR: [
           { name: { contains: search } },
@@ -99,6 +110,17 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
     },
     orderBy,
   });
+
+  // Compute max price in DB for the slider ceiling (ignore price filter)
+  const [maxProductPrice, maxServicePrice] = await Promise.all([
+    prisma.product.aggregate({ _max: { price: true }, where: { isPublished: true } }),
+    prisma.service.aggregate({ _max: { price: true }, where: { isPublished: true } }),
+  ]);
+  const maxPriceInDB = Math.max(
+    maxProductPrice._max.price ?? 0,
+    maxServicePrice._max.price ?? 0,
+    10_000 // floor so the slider is always usable
+  );
 
   // Combine into a unified items array
   let allItems: any[] = [];
@@ -417,38 +439,16 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
 
             {/* Products Grid */}
             <div className="flex-1">
-              {/* Search Bar */}
-              <form className="mb-6" method="GET">
-                {/* Preserve category/region filter */}
-                {category && <input type="hidden" name="category" value={category} />}
-                {region && <input type="hidden" name="region" value={region} />}
-                {sort && <input type="hidden" name="sort" value={sort} />}
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-clay-400 pointer-events-none" />
-                  <input
-                    name="search"
-                    defaultValue={search}
-                    placeholder={locale === "ar" ? "ابحث عن منتجات..." : "Search products..."}
-                    className="w-full bg-white border border-desert-200 rounded-xl pl-10 pr-10 py-3 text-clay-800 placeholder:text-clay-400 focus:outline-none focus:border-sand-400 focus:ring-2 focus:ring-sand-100 transition-all"
-                  />
-                  {search && (
-                    <a
-                      href={`/${locale}/products?${category ? `category=${encodeURIComponent(category)}&` : ""}${region ? `region=${encodeURIComponent(region)}` : ""}`}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-clay-400 hover:text-clay-600 transition-colors"
-                      aria-label="Clear search"
-                    >
-                      <X className="w-4 h-4" />
-                    </a>
-                  )}
-                </div>
-                {search && (
-                  <p className="mt-2 text-sm text-clay-500">
-                    {locale === "ar"
-                      ? `نتائج البحث عن: "${search}"`
-                      : `Showing results for: "${search}"`}
-                  </p>
-                )}
-              </form>
+              {/* Search + Price Filters — Client Component */}
+              <div className="mb-6">
+                <ProductsFilters
+                  locale={locale}
+                  initialSearch={search ?? ""}
+                  initialMinPrice={minPrice}
+                  initialMaxPrice={maxPrice}
+                  maxPriceInDB={maxPriceInDB}
+                />
+              </div>
 
               {allItems.length > 0 ? (
                 <div className={`grid gap-4 ${
