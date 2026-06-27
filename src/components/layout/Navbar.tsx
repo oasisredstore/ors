@@ -174,7 +174,7 @@ export function Navbar({ locale, user, transparentOnTop = false }: NavbarProps) 
                 className={cn(
                   navLinkBase,
                   "flex items-center gap-1 py-5",
-                  isSolid ? "text-clay-700 hover:text-sand-500" : "text-white/85 hover:text-white"
+                  isSolid ? "text-clay-700 hover:text-sand-500" : "text-white hover:text-sand-300 [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]"
                 )}
               >
                 {t("explore")}
