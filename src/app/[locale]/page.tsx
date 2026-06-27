@@ -417,7 +417,109 @@ export default async function HomePage({ params }: HomePageProps) {
           </section>
         )}
 
-        {/* 7. Reviews from DB */}
+        {/* 7. Map Teaser Section */}
+        <section className="py-24 bg-clay-900 relative overflow-hidden">
+          {/* Decorative glow */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.08)_0%,transparent_70%)] pointer-events-none" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Left: Text */}
+              <div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-400/10 border border-amber-400/20 rounded-full text-amber-300 text-sm font-semibold mb-6">
+                  🗺️ {locale === "ar" ? "جديد — الخريطة التفاعلية" : "New — Interactive Map"}
+                </div>
+                <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-5 leading-tight">
+                  {locale === "ar" ? "اكتشف تيميمون\nعلى الخريطة" : "Discover Timimoun\non the Map"}
+                </h2>
+                <p className="text-clay-300 text-lg leading-relaxed mb-8 max-w-md">
+                  {locale === "ar"
+                    ? "خريطة تفاعلية تجمع معالم الواحة الحمراء، الحرفيين، الإقامات والجولات في مكان واحد. اضغط على أي مؤشر لتعرف التفاصيل."
+                    : "An interactive map bringing together the Red Oasis landmarks, artisans, stays and tours in one place. Click any pin to discover details."}
+                </p>
+                {/* Feature list */}
+                <ul className="space-y-3 mb-8">
+                  {[
+                    { emoji: "🏛️", ar: "7 معالم سياحية تاريخية", en: "7 historic landmarks" },
+                    { emoji: "🎨", ar: "مواقع الحرفيين المعتمدين", en: "Verified artisan locations" },
+                    { emoji: "🏨", ar: "الفنادق وأماكن الإقامة", en: "Hotels & guesthouses" },
+                    { emoji: "🐪", ar: "نقاط انطلاق الجولات", en: "Desert tour starting points" },
+                  ].map((item) => (
+                    <li key={item.en} className="flex items-center gap-3 text-clay-300">
+                      <span className="text-lg">{item.emoji}</span>
+                      <span>{locale === "ar" ? item.ar : item.en}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={`/${locale}/map`}
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-amber-500/30 hover:scale-105 text-base"
+                >
+                  {locale === "ar" ? "افتح الخريطة التفاعلية" : "Open Interactive Map"}
+                  <span className="text-xl">🗺️</span>
+                </Link>
+              </div>
+
+              {/* Right: Static map preview card */}
+              <div className="relative">
+                <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-[#1a1a2e] aspect-[4/3] flex items-center justify-center group hover:border-amber-400/30 transition-all duration-500">
+                  {/* Fake map grid */}
+                  <div className="absolute inset-0 opacity-20"
+                    style={{
+                      backgroundImage: "linear-gradient(rgba(245,158,11,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(245,158,11,0.3) 1px, transparent 1px)",
+                      backgroundSize: "40px 40px"
+                    }}
+                  />
+                  {/* Center glow */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(245,158,11,0.15),transparent_60%)]" />
+                  {/* Fake markers */}
+                  {[
+                    { top: "35%", left: "48%", emoji: "🏛️", color: "#f59e0b", delay: "0s" },
+                    { top: "25%", left: "38%", emoji: "🎨", color: "#f97316", delay: "0.3s" },
+                    { top: "55%", left: "62%", emoji: "🏨", color: "#8b5cf6", delay: "0.6s" },
+                    { top: "45%", left: "30%", emoji: "🐪", color: "#22c55e", delay: "0.9s" },
+                    { top: "65%", left: "50%", emoji: "🌴", color: "#f59e0b", delay: "1.2s" },
+                  ].map((m, i) => (
+                    <div
+                      key={i}
+                      className="absolute flex items-center justify-center"
+                      style={{ top: m.top, left: m.left, animationDelay: m.delay }}
+                    >
+                      <div
+                        className="w-8 h-8 rounded-full flex items-center justify-center text-sm shadow-lg animate-bounce"
+                        style={{ background: m.color, animationDelay: m.delay, animationDuration: "2s" }}
+                      >
+                        {m.emoji}
+                      </div>
+                      <div
+                        className="absolute w-12 h-12 rounded-full opacity-30 animate-ping"
+                        style={{ background: m.color, animationDelay: m.delay, animationDuration: "2s" }}
+                      />
+                    </div>
+                  ))}
+                  {/* Center label */}
+                  <div className="relative z-10 text-center">
+                    <p className="text-6xl mb-2 group-hover:scale-110 transition-transform duration-300">🗺️</p>
+                    <p className="text-white/60 text-sm font-medium">
+                      {locale === "ar" ? "تيميمون، الجزائر" : "Timimoun, Algeria"}
+                    </p>
+                    <p className="text-amber-400/80 text-xs mt-1">29.2628°N, 0.2371°E</p>
+                  </div>
+                  {/* Overlay on hover */}
+                  <Link
+                    href={`/${locale}/map`}
+                    className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  >
+                    <span className="px-6 py-3 bg-amber-500 text-white font-bold rounded-full text-sm">
+                      {locale === "ar" ? "افتح الخريطة ←" : "Open Map →"}
+                    </span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 8. Reviews from DB */}
         <ReviewsSection locale={locale} />
 
         {/* 8. Testimonials (curated) */}
