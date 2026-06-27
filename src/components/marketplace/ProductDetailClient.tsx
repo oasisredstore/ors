@@ -280,11 +280,15 @@ export function ProductDetailClient({ product, locale }: ProductDetailClientProp
           >
             <div className="flex items-center gap-3">
               {product.artisan.avatarUrl ? (
-                <img
-                  src={product.artisan.avatarUrl}
-                  alt={product.artisan.shopName}
-                  className="w-10 h-10 rounded-full object-cover"
-                />
+                <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0">
+                  <Image
+                    src={product.artisan.avatarUrl}
+                    alt={product.artisan.shopName}
+                    fill
+                    className="object-cover"
+                    sizes="40px"
+                  />
+                </div>
               ) : (
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sand-400 to-oasis-500 flex items-center justify-center text-white font-bold text-sm">
                   {product.artisan.shopName.charAt(0)}

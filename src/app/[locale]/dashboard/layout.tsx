@@ -3,13 +3,13 @@ import { getSession } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import {
-  LayoutDashboard, Package, ShoppingBag, LogOut,
-  UserCircle, MessageCircle, CreditCard, Sparkles,
+  LogOut,
+  Sparkles,
   ChevronRight, Store,
 } from "lucide-react";
 import { logoutAction } from "@/actions/auth.actions";
 import { DashboardMobileNav } from "@/components/dashboard/DashboardMobileNav";
-import { DashboardSidebarLink } from "@/components/dashboard/DashboardSidebarLink";
+import { DashboardSidebarNav } from "@/components/dashboard/DashboardSidebarNav";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -53,20 +53,7 @@ export default async function DashboardLayout({ children, params }: DashboardLay
     isApproved = provider?.isApproved ?? false;
   }
 
-  const navItems = isArtisan ? [
-    { href: `/${locale}/dashboard`, labelEn: "Overview", labelAr: "نظرة عامة", icon: LayoutDashboard, exact: true },
-    { href: `/${locale}/dashboard/profile`, labelEn: "My Profile", labelAr: "ملفي الشخصي", icon: UserCircle, exact: false },
-    { href: `/${locale}/dashboard/products`, labelEn: "My Products", labelAr: "منتجاتي", icon: Package, exact: false },
-    { href: `/${locale}/dashboard/orders`, labelEn: "Orders", labelAr: "الطلبات", icon: ShoppingBag, exact: false },
-    { href: `/${locale}/messages`, labelEn: "Messages", labelAr: "الرسائل", icon: MessageCircle, exact: false },
-  ] : [
-    { href: `/${locale}/dashboard`, labelEn: "Overview", labelAr: "نظرة عامة", icon: LayoutDashboard, exact: true },
-    { href: `/${locale}/dashboard/profile`, labelEn: "My Profile", labelAr: "ملفي الشخصي", icon: UserCircle, exact: false },
-    { href: `/${locale}/dashboard/services`, labelEn: "My Services", labelAr: "خدماتي", icon: Package, exact: false },
-    { href: `/${locale}/dashboard/bookings`, labelEn: "Bookings", labelAr: "الحجوزات", icon: ShoppingBag, exact: false },
-    { href: `/${locale}/messages`, labelEn: "Messages", labelAr: "الرسائل", icon: MessageCircle, exact: false },
-    { href: `/${locale}/pricing`, labelEn: "Subscription", labelAr: "الاشتراك", icon: CreditCard, exact: false },
-  ];
+
 
   const roleLabel: Record<string, { en: string; ar: string }> = {
     ARTISAN: { en: "Artisan", ar: "حرفي" },
@@ -127,20 +114,7 @@ export default async function DashboardLayout({ children, params }: DashboardLay
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">
-          <p className="text-[10px] font-bold text-clay-300 uppercase tracking-widest px-3 py-2">
-            {isAr ? "القائمة" : "Navigation"}
-          </p>
-          {navItems.map((item) => (
-            <DashboardSidebarLink
-              key={item.href}
-              href={item.href}
-              label={isAr ? item.labelAr : item.labelEn}
-              icon={item.icon}
-              exact={item.exact}
-            />
-          ))}
-        </nav>
+        <DashboardSidebarNav locale={locale} role={session.role} />
 
         {/* Bottom */}
         <div className="px-3 py-3 border-t border-desert-100 space-y-0.5">

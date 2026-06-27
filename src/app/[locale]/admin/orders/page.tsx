@@ -12,14 +12,6 @@ interface AdminOrdersPageProps {
   searchParams: Promise<{ page?: string }>;
 }
 
-const STATUS_LABELS: Record<string,{en:string;ar:string}> = {
-  PENDING:    {en:"Pending",    ar:"قيد الانتظار"},
-  CONFIRMED:  {en:"Confirmed",  ar:"مؤكد"},
-  PROCESSING: {en:"Processing", ar:"جاري التحضير"},
-  SHIPPED:    {en:"Shipped",    ar:"تم الشحن"},
-  DELIVERED:  {en:"Delivered",  ar:"تم التوصيل"},
-  CANCELLED:  {en:"Cancelled",  ar:"ملغى"},
-};
 
 export default async function AdminOrdersPage({ params, searchParams }: AdminOrdersPageProps) {
   const { locale } = await params;

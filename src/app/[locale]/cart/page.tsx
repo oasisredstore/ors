@@ -176,16 +176,14 @@ function ShippingCalculator({
 /* ──────────────────────────────────────────
    Coupon Widget
    ────────────────────────────────────────── */
-function CouponField({ locale }: { locale: string }) {
+function CouponField({ locale, applied, onApply, onRemove }: { locale: string; applied: string | null; onApply: (code: string) => void; onRemove: () => void }) {
   const isAr = locale === "ar";
   const [code, setCode] = useState("");
-  const [applied, setApplied] = useState<string | null>(null);
   const [error, setError] = useState("");
 
-  // Demo: accept "GOURARA10" for 10% off
   function handleApply() {
     if (code.trim().toUpperCase() === "GOURARA10") {
-      setApplied("GOURARA10");
+      onApply("GOURARA10");
       setError("");
     } else {
       setError(isAr ? "رمز الخصم غير صالح" : "Invalid coupon code");
@@ -207,7 +205,7 @@ function CouponField({ locale }: { locale: string }) {
               🎉 {isAr ? `تم تطبيق كود "${applied}"` : `"${applied}" applied!`}
             </span>
             <button
-              onClick={() => { setApplied(null); setCode(""); }}
+              onClick={() => { onRemove(); setCode(""); }}
               className="text-green-500 hover:text-green-700 transition-colors"
             >
               <X className="w-4 h-4" />
@@ -249,6 +247,11 @@ export default function CartPage() {
   const t = useTranslations("cart");
   const { items, removeItem, updateQuantity, totalPrice } = useCartStore();
   const { locale = "en" } = useParams<{ locale: string }>();
+  const [discountCode, setDiscountCode] = useState<string | null>(null);
+
+  const subtotal = totalPrice();
+  const discountAmount = discountCode === "GOURARA10" ? subtotal * 0.1 : 0;
+  const grandTotal = subtotal - discountAmount;
 
   if (items.length === 0) {
     return (
@@ -343,8 +346,14 @@ export default function CartPage() {
               <div className="space-y-3">
                 <div className="flex justify-between text-sm text-clay-600">
                   <span>{t("subtotal")}</span>
-                  <span>{formatPrice(totalPrice())}</span>
+                  <span>{formatPrice(subtotal)}</span>
                 </div>
+                {discountAmount > 0 && (
+                  <div className="flex justify-between text-sm text-green-600">
+                    <span>{locale === 'ar' ? 'الخصم (10%)' : 'Discount (10%)'}</span>
+                    <span>-{formatPrice(discountAmount)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-sm text-clay-600">
                   <span>{t("shipping")}</span>
                   <span className="text-oasis-600 font-medium">{t("shippingNote")}</span>
@@ -352,15 +361,20 @@ export default function CartPage() {
                 <hr className="border-desert-200" />
                 <div className="flex justify-between font-bold text-clay-800 text-lg">
                   <span>{t("total")}</span>
-                  <span>{formatPrice(totalPrice())}</span>
+                  <span>{formatPrice(grandTotal)}</span>
                 </div>
               </div>
 
               {/* Shipping Calculator */}
-              <ShippingCalculator locale={locale} subtotal={totalPrice()} />
+              <ShippingCalculator locale={locale} subtotal={subtotal} />
 
               {/* Coupon */}
-              <CouponField locale={locale} />
+              <CouponField 
+                locale={locale} 
+                applied={discountCode} 
+                onApply={setDiscountCode} 
+                onRemove={() => setDiscountCode(null)} 
+              />
 
               <Link href={`/${locale}/checkout`}>
                 <Button size="lg" className="w-full">{t("checkout")}</Button>

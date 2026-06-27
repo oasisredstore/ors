@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { toggleUserActiveAction } from "@/actions/admin.actions";
-import { formatDate } from "@/lib/utils";
+
 import { Badge } from "@/components/ui/Badge";
 import { UserX, UserCheck, ChevronLeft, ChevronRight } from "lucide-react";
 

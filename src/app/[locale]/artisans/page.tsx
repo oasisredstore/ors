@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { getTranslations } from "next-intl/server";
+
 import { getSession } from "@/lib/session";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";

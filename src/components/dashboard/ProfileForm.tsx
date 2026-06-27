@@ -5,7 +5,7 @@ import { updateArtisanProfileAction } from "@/actions/artisan.actions";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import toast from "react-hot-toast";
-import { User, MapPin, Phone, Mail, Image, FileText, Globe } from "lucide-react";
+import { User, MapPin, Phone, Mail, Image as ImageIcon, FileText, Globe } from "lucide-react";
 
 interface ProfileFormProps {
   locale: string;
@@ -55,7 +55,7 @@ export function ProfileForm({ locale, artisan }: ProfileFormProps) {
         </div>
         <div className="flex-1">
           <label className={`block text-sm font-medium text-clay-700 mb-1.5 ${isAr ? "text-right" : ""}`}>
-            <Image className="w-4 h-4 inline-block mr-1.5" />
+            <ImageIcon className="w-4 h-4 inline-block mr-1.5" />
             {isAr ? "رابط الصورة الشخصية" : "Avatar URL"}
           </label>
           <input
@@ -184,7 +184,7 @@ export function ProfileForm({ locale, artisan }: ProfileFormProps) {
           </div>
           <div className="sm:col-span-2">
             <label className={`block text-sm font-medium text-clay-700 mb-1.5 ${isAr ? "text-right" : ""}`}>
-              <Image className="w-4 h-4 inline-block mr-1.5" />
+              <ImageIcon className="w-4 h-4 inline-block mr-1.5" />
               {isAr ? "صورة الغلاف (اختيارية)" : "Cover Image URL (optional)"}
             </label>
             <input

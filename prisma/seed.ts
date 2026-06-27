@@ -3,9 +3,8 @@ import { PrismaClient } from "@prisma/client";
 import { PrismaLibSql } from "@prisma/adapter-libsql";
 import bcrypt from "bcryptjs";
 
-// Manual env loading to avoid dotenvx interference
-const path = require("path");
-const fs = require("fs");
+import path from "path";
+import fs from "fs";
 const envFile = path.resolve(process.cwd(), ".env");
 const envLocalFile = path.resolve(process.cwd(), ".env.local");
 

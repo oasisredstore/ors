@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { getTranslations } from "next-intl/server";
+
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CatalogItemCard } from "@/components/marketplace/CatalogItemCard";
@@ -33,7 +33,6 @@ export default async function ProductsPage({ params, searchParams }: ProductsPag
   const { category, sort, region, minPrice: minPriceStr, maxPrice: maxPriceStr } = await searchParams;
   const minPrice = minPriceStr ? Math.max(0, parseInt(minPriceStr, 10)) : undefined;
   const maxPrice = maxPriceStr ? parseInt(maxPriceStr, 10) : undefined;
-  const t = await getTranslations("product");
   const session = await getSession();
 
   // B4 FIX: Use firstName from the JWT (set since the last auth fix) so the

@@ -19,7 +19,6 @@ export default function CheckoutPage() {
   const { items, totalPrice, clearCart } = useCartStore();
   const [paymentMethod, setPaymentMethod] = useState<"CASH_ON_DELIVERY" | "BANK_TRANSFER">("CASH_ON_DELIVERY");
   const [loading, setLoading] = useState(false);
-  const [addressId, setAddressId] = useState<string | null>(null);
 
   useEffect(() => {
     if (items.length === 0 && !loading) {

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { updateProductAction } from "@/actions/product.actions";
 import { Upload, X } from "lucide-react";
+import Image from "next/image";
 import toast from "react-hot-toast";
 
 interface Category {
@@ -225,8 +226,8 @@ export function EditProductForm({
           </h2>
           <div className="flex gap-3 flex-wrap">
             {product.images.map((img, i) => (
-              <div key={i} className="relative w-20 h-20">
-                <img src={img.url} className="w-20 h-20 rounded-xl object-cover border border-desert-200" alt="" />
+              <div key={i} className="relative w-20 h-20 rounded-xl overflow-hidden border border-desert-200">
+                <Image src={img.url} className="object-cover" alt="" fill sizes="80px" />
                 {img.isPrimary && (
                   <span className="absolute bottom-0 left-0 right-0 bg-sand-500 text-white text-xs text-center rounded-b-xl py-0.5">
                     Main
@@ -252,8 +253,8 @@ export function EditProductForm({
         {newImagePreviews.length > 0 && (
           <div className="flex gap-3 flex-wrap mb-4">
             {newImagePreviews.map((src, i) => (
-              <div key={i} className="relative w-20 h-20">
-                <img src={src} className="w-20 h-20 rounded-xl object-cover border border-desert-200" alt="" />
+              <div key={i} className="relative w-20 h-20 rounded-xl overflow-hidden border border-desert-200">
+                <Image src={src} className="object-cover" alt="" fill unoptimized />
                 <button
                   type="button"
                   onClick={() => removeNewImage(i)}

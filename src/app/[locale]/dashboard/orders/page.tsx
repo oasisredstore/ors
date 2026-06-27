@@ -5,6 +5,7 @@ import { formatDate, formatPrice } from "@/lib/utils";
 import { OrderStatusBadge } from "@/components/ui/Badge";
 import { PackageSearch, ShoppingBag } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface DashboardOrdersPageProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -124,12 +125,14 @@ export default async function DashboardOrdersPage({ params }: DashboardOrdersPag
                 <div className="space-y-3 mb-4">
                   {order.items.map((item) => (
                     <div key={item.id} className={`flex items-center gap-3 ${isAr ? "flex-row-reverse" : ""}`}>
-                      <div className="w-10 h-10 rounded-lg bg-desert-100 overflow-hidden shrink-0 flex items-center justify-center">
+                      <div className="relative w-10 h-10 rounded-lg bg-desert-100 overflow-hidden shrink-0 flex items-center justify-center">
                         {item.product.images[0]?.url ? (
-                          <img
+                          <Image
                             src={item.product.images[0].url}
-                            alt=""
-                            className="w-10 h-10 object-cover"
+                            alt={item.product.name}
+                            fill
+                            className="object-cover"
+                            sizes="40px"
                           />
                         ) : (
                           <span>🏺</span>

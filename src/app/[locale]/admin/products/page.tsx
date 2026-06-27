@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { adminToggleFeaturedAction, adminTogglePublishAction } from "@/actions/product.actions";
 import { DeleteProductButton } from "@/components/admin/DeleteProductButton";
 import { Star, StarOff, Eye, EyeOff, ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 const PAGE_SIZE = 50;
 
@@ -73,9 +74,9 @@ export default async function AdminProductsPage({ params, searchParams }: AdminP
                 <tr key={product.id} className="hover:bg-desert-50 transition-colors">
                   <td className="px-4 py-4">
                     <div className={`flex items-center gap-3 ${isRTL ? "flex-row-reverse" : ""}`}>
-                      <div className="w-10 h-10 bg-desert-100 rounded-lg flex items-center justify-center text-lg shrink-0 overflow-hidden">
+                      <div className="relative w-10 h-10 bg-desert-100 rounded-lg flex items-center justify-center text-lg shrink-0 overflow-hidden">
                         {product.images[0]?.url
-                          ? <img src={product.images[0].url} alt="" className="w-full h-full object-cover" />
+                          ? <Image src={product.images[0].url} alt={product.name} fill className="object-cover" sizes="40px" />
                           : "🏺"}
                       </div>
                       <p className={`text-sm font-medium text-clay-800 max-w-[140px] truncate ${isRTL ? "text-right" : ""}`}>

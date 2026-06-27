@@ -3,6 +3,7 @@ import { getSession } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { Plus, Edit } from "lucide-react";
+import Image from "next/image";
 import { TogglePublishButton, DeleteProductDashboardButton } from "@/components/dashboard/ProductActionButtons";
 
 interface DashboardProductsPageProps {
@@ -89,9 +90,9 @@ export default async function DashboardProductsPage({ params }: DashboardProduct
                   <tr key={product.id} className="hover:bg-desert-50 transition-colors">
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-desert-100 flex items-center justify-center text-lg shrink-0 overflow-hidden">
+                        <div className="relative w-10 h-10 rounded-lg bg-desert-100 flex items-center justify-center text-lg shrink-0 overflow-hidden">
                           {product.images[0]?.url ? (
-                            <img src={product.images[0].url} alt={product.name} className="w-10 h-10 rounded-lg object-cover" />
+                            <Image src={product.images[0].url} alt={product.name} fill className="object-cover" sizes="40px" />
                           ) : "🏺"}
                         </div>
                         <div>
