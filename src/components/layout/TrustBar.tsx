@@ -12,46 +12,46 @@ const TRUST_ITEMS = [
   {
     key: "freeShipping",
     icon: Truck,
-    color: "text-oasis-600",
-    bg: "bg-oasis-50",
-    border: "border-oasis-200",
-    iconBg: "bg-oasis-100",
+    color: "text-oasis-400",
+    bg: "bg-oasis-900/40",
+    border: "border-oasis-700/50",
+    iconBg: "bg-oasis-800/60",
     gradient: "from-oasis-500/10 to-transparent",
   },
   {
     key: "returns",
     icon: RotateCcw,
-    color: "text-sand-600",
-    bg: "bg-sand-50",
-    border: "border-sand-200",
-    iconBg: "bg-sand-100",
+    color: "text-sand-400",
+    bg: "bg-sand-900/40",
+    border: "border-sand-700/50",
+    iconBg: "bg-sand-800/60",
     gradient: "from-sand-500/10 to-transparent",
   },
   {
     key: "securePay",
     icon: ShieldCheck,
-    color: "text-emerald-600",
-    bg: "bg-emerald-50",
-    border: "border-emerald-200",
-    iconBg: "bg-emerald-100",
+    color: "text-emerald-400",
+    bg: "bg-emerald-950/50",
+    border: "border-emerald-800/50",
+    iconBg: "bg-emerald-900/60",
     gradient: "from-emerald-500/10 to-transparent",
   },
   {
     key: "support",
     icon: Headphones,
-    color: "text-indigo-500",
-    bg: "bg-indigo-50",
-    border: "border-indigo-200",
-    iconBg: "bg-indigo-100",
+    color: "text-indigo-400",
+    bg: "bg-indigo-950/50",
+    border: "border-indigo-800/50",
+    iconBg: "bg-indigo-900/60",
     gradient: "from-indigo-500/10 to-transparent",
   },
   {
     key: "giftService",
     icon: Gift,
-    color: "text-rose-500",
-    bg: "bg-rose-50",
-    border: "border-rose-200",
-    iconBg: "bg-rose-100",
+    color: "text-rose-400",
+    bg: "bg-rose-950/50",
+    border: "border-rose-800/50",
+    iconBg: "bg-rose-900/60",
     gradient: "from-rose-500/10 to-transparent",
   },
 ] as const;
@@ -102,30 +102,42 @@ export function TrustBar({ locale = "en" }: TrustBarProps) {
     let animId: number;
     let direction = 1;
     let pos = 0;
+    let paused = false;
 
-    const animate = () => {
-      const maxScroll = el.scrollWidth - el.clientWidth;
-      if (maxScroll <= 0) return;
+    // Delay start to ensure layout is fully rendered
+    const startTimeout = setTimeout(() => {
+      const animate = () => {
+        if (paused) {
+          animId = requestAnimationFrame(animate);
+          return;
+        }
+        const maxScroll = el.scrollWidth - el.clientWidth;
+        if (maxScroll <= 10) {
+          // Not enough content to scroll — skip
+          return;
+        }
 
-      pos += direction * 0.4;
-      if (pos >= maxScroll) { direction = -1; pos = maxScroll; }
-      if (pos <= 0)         { direction = 1;  pos = 0; }
+        pos += direction * 0.5;
+        if (pos >= maxScroll) { direction = -1; pos = maxScroll; }
+        if (pos <= 0)         { direction = 1;  pos = 0; }
 
-      el.scrollLeft = isAr ? -pos : pos;
+        el.scrollLeft = isAr ? -pos : pos;
+        animId = requestAnimationFrame(animate);
+      };
+
+      const pause  = () => { paused = true; };
+      const resume = () => { paused = false; };
+
       animId = requestAnimationFrame(animate);
-    };
-
-    const pause  = () => cancelAnimationFrame(animId);
-    const resume = () => { animId = requestAnimationFrame(animate); };
-
-    animId = requestAnimationFrame(animate);
-    el.addEventListener("touchstart", pause,  { passive: true });
-    el.addEventListener("touchend",   resume, { passive: true });
+      el.addEventListener("touchstart", pause,  { passive: true });
+      el.addEventListener("touchend",   resume, { passive: true });
+      el.addEventListener("mouseenter", pause);
+      el.addEventListener("mouseleave", resume);
+    }, 400);
 
     return () => {
+      clearTimeout(startTimeout);
       cancelAnimationFrame(animId);
-      el.removeEventListener("touchstart", pause);
-      el.removeEventListener("touchend",   resume);
     };
   }, [isAr]);
 
@@ -195,29 +207,36 @@ export function TrustBar({ locale = "en" }: TrustBarProps) {
       </div>
 
       {/* Mobile: scrollable pill strip */}
-      <div
-        ref={scrollRef}
-        className="md:hidden flex items-center gap-2.5 px-4 py-3 overflow-x-auto scrollbar-none"
-        dir={isAr ? "rtl" : "ltr"}
-      >
-        {TRUST_ITEMS.map((item) => {
-          const Icon = item.icon;
-          const label = labels[item.key];
-          return (
-            <div
-              key={item.key}
-              className={cn(
-                "flex items-center gap-2 px-3.5 py-2 rounded-full border shrink-0 transition-all",
-                item.bg, item.border
-              )}
-            >
-              <Icon className={cn("w-3 h-3 shrink-0", item.color)} strokeWidth={2.5} />
-              <span className="text-[11px] font-bold text-clay-800 whitespace-nowrap">
-                {label.title}
-              </span>
-            </div>
-          );
-        })}
+      <div className="md:hidden relative">
+        {/* Fade edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-6 z-10 pointer-events-none"
+          style={{ background: "linear-gradient(to right, #1E1410, transparent)" }} />
+        <div className="absolute right-0 top-0 bottom-0 w-6 z-10 pointer-events-none"
+          style={{ background: "linear-gradient(to left, #1E1410, transparent)" }} />
+        <div
+          ref={scrollRef}
+          className="flex items-center gap-2.5 px-6 py-3 overflow-x-auto scrollbar-none"
+          dir={isAr ? "rtl" : "ltr"}
+        >
+          {TRUST_ITEMS.map((item) => {
+            const Icon = item.icon;
+            const label = labels[item.key];
+            return (
+              <div
+                key={item.key}
+                className={cn(
+                  "flex items-center gap-2 px-3.5 py-2 rounded-full border shrink-0 transition-all backdrop-blur-sm",
+                  item.bg, item.border
+                )}
+              >
+                <Icon className={cn("w-3 h-3 shrink-0", item.color)} strokeWidth={2.5} />
+                <span className="text-[11px] font-bold text-white/90 whitespace-nowrap">
+                  {label.title}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
