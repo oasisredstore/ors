@@ -7,6 +7,8 @@ import { TrustBar } from "@/components/layout/TrustBar";
 import { HeroSection } from "@/components/home/HeroSection";
 import { SplashIntro } from "@/components/home/SplashIntro";
 import { VirtualMuseumSection } from "@/components/home/VirtualMuseumSection";
+import { TestimonialsSection } from "@/components/home/TestimonialsSection";
+import { ReviewsSection } from "@/components/home/ReviewsSection";
 import { ProductCard } from "@/components/marketplace/ProductCard";
 import { AdBanner } from "@/components/shared/AdBanner";
 import { Leaf, Globe, Heart, Award, UsersIcon } from "lucide-react";
@@ -415,7 +417,13 @@ export default async function HomePage({ params }: HomePageProps) {
           </section>
         )}
 
-        {/* 7. Why Section */}
+        {/* 7. Reviews from DB */}
+        <ReviewsSection locale={locale} />
+
+        {/* 8. Testimonials (curated) */}
+        <TestimonialsSection locale={locale} />
+
+        {/* 9. Why Section */}
         <section className="py-20 bg-clay-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
