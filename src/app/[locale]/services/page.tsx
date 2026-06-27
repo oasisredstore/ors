@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getSession } from "@/lib/session";
 import { Users } from "lucide-react";
+import { serviceTypeLabel, serviceTypeEmoji } from "@/lib/utils";
 
 export default async function ServicesListingPage({
   params,
@@ -65,14 +66,6 @@ export default async function ServicesListingPage({
     type === "transport"     ? (isAr ? "خدمات النقل"            : "Transport Services") :
                                (isAr ? "جميع الخدمات السياحية"   : "All Tourism Services");
 
-  const typeEmoji = (t: string) => {
-    switch (t) {
-      case "TOUR": return "🐪";
-      case "WORKSHOP": return "🎨";
-      case "TRANSPORT": return "🚌";
-      default: return "🏨";
-    }
-  };
 
   return (
     <>
@@ -152,7 +145,7 @@ export default async function ServicesListingPage({
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center text-4xl">
-                          {typeEmoji(service.type)}
+                          {serviceTypeEmoji(service.type)}
                         </div>
                       )}
                       <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-clay-900 shadow-sm">
@@ -174,7 +167,7 @@ export default async function ServicesListingPage({
                       </p>
                       <div className="flex items-center justify-between">
                         <span className="text-xs bg-sand-100 text-sand-700 px-2 py-1 rounded font-medium">
-                          {service.type}
+                          {serviceTypeLabel(service.type, locale)}
                         </span>
                         <span className="text-xs text-clay-500 flex items-center gap-1">
                           <Users className="w-3 h-3" />
